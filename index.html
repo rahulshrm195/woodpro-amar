@@ -1,0 +1,2043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WoodPro — Amar Furniture</title>
+
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#EF7F1A">
+<link rel="icon" href="./favicon.ico">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="WoodPro">
+<meta name="description" content="Costing and quotation for custom woodwork">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════ TOKENS ═══════════════ */
+:root{
+  --brand:#EF7F1A;      /* bright orange — main ribbon */
+  --brand-mid:#EA771C;
+  --brand-deep:#D56A1F; /* AMAR wordmark */
+  --brand-burnt:#BD4729;/* house mark */
+  --bg:#F5F5F2;
+  --card:#FFFFFF;
+  --ink:#1C1917;
+  --ink-2:#57534E;
+  --muted:#8A8580;
+  --line:#E7E5E0;
+  --red:#DC2626;
+  --amber:#D97706;
+  --green:#16A34A;
+  --grey:#A8A29E;
+  --r:14px;
+  --shadow:0 1px 2px rgba(28,25,23,.05),0 1px 3px rgba(28,25,23,.04);
+  --shadow-lg:0 4px 24px rgba(28,25,23,.10);
+  --safe-b:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-size:15px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:calc(66px + var(--safe-b));
+}
+body.no-nav{padding-bottom:0}
+input,select,textarea,button{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:'tnum'}
+.hidden{display:none !important}
+
+/* ═══════════════ LAYOUT ═══════════════ */
+.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+.topbar{
+  position:sticky;top:0;z-index:40;background:rgba(245,245,242,.94);
+  backdrop-filter:saturate(1.6) blur(12px);border-bottom:1px solid var(--line);
+}
+.topbar-in{max-width:720px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:12px;min-height:56px}
+.topbar h1{font-size:17px;font-weight:650;margin:0;letter-spacing:-.01em;flex:1;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.back{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;margin-left:-6px;color:var(--ink-2)}
+.back:active{background:var(--line)}
+.netdot{width:9px;height:9px;border-radius:50%;background:var(--green);flex:none}
+.netdot.off{background:var(--amber)}
+
+/* ═══════════════ CARDS / FORMS ═══════════════ */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.sec{margin-top:18px}
+.sec-t{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 9px 3px}
+.row{display:flex;gap:10px}
+.row>*{flex:1;min-width:0}
+label.f{display:block;margin-bottom:11px}
+label.f>span{display:block;font-size:12.5px;font-weight:600;color:var(--ink-2);margin-bottom:5px}
+.inp{
+  width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;
+  background:var(--card);outline:none;transition:border-color .12s,box-shadow .12s;
+}
+.inp:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(239,127,26,.14)}
+textarea.inp{resize:vertical;min-height:70px;line-height:1.5}
+select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238A8580' d='M6 8 0 0h12z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+
+.btn{padding:12px 18px;border-radius:11px;font-weight:600;font-size:15px;display:inline-flex;
+  align-items:center;justify-content:center;gap:8px;transition:transform .08s,opacity .12s}
+.btn:active{transform:scale(.985)}
+.btn-p{background:var(--brand);color:#fff}
+.btn-s{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.btn-d{background:#FEF2F2;color:var(--red);border:1px solid #FECACA}
+.btn-full{width:100%}
+.btn-sm{padding:8px 13px;font-size:13.5px;border-radius:9px}
+
+/* ═══════════════ HOME ═══════════════ */
+.hero{padding:26px 0 6px;text-align:center}
+.hero img{width:78px;height:78px;border-radius:20px;box-shadow:var(--shadow-lg)}
+.hero h2{font-size:22px;font-weight:700;letter-spacing:-.02em;margin:14px 0 2px}
+.hero p{color:var(--muted);font-size:13.5px;margin:0}
+.tools{display:grid;gap:12px;margin-top:24px}
+.tool{display:flex;align-items:center;gap:15px;padding:18px;text-align:left;width:100%;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.tool:active{transform:scale(.99)}
+.tool-ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;flex:none;
+  background:linear-gradient(160deg,var(--brand),var(--brand-burnt));color:#fff}
+.tool-tx b{display:block;font-size:16px;font-weight:650;letter-spacing:-.01em}
+.tool-tx span{font-size:13px;color:var(--muted);line-height:1.4}
+
+/* ═══════════════ LIST ═══════════════ */
+.listitem{display:block;width:100%;text-align:left;padding:14px 15px;background:var(--card);
+  border:1px solid var(--line);border-radius:12px;margin-bottom:9px;box-shadow:var(--shadow)}
+.listitem:active{background:#FAFAF8}
+.li-top{display:flex;align-items:baseline;gap:9px}
+.li-top b{font-size:15.5px;font-weight:640;letter-spacing:-.01em;flex:1;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.li-amt{font-size:15px;font-weight:680;white-space:nowrap}
+.li-sub{display:flex;align-items:center;gap:8px;margin-top:4px;font-size:12.5px;color:var(--muted)}
+.li-sub .dot{width:3px;height:3px;border-radius:50%;background:var(--line);flex:none}
+
+.badge{font-size:10.5px;font-weight:700;padding:3px 7px;border-radius:6px;letter-spacing:.03em;
+  text-transform:uppercase;white-space:nowrap}
+.b-red{background:#FEF2F2;color:var(--red)}
+.b-green{background:#F0FDF4;color:var(--green)}
+.b-grey{background:#F5F5F4;color:var(--muted)}
+.b-amber{background:#FFFBEB;color:var(--amber)}
+.b-brand{background:#FEF3E8;color:var(--brand-burnt)}
+
+.search{position:relative;margin-bottom:12px}
+.search .inp{padding-left:36px}
+.search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.chips{display:flex;gap:7px;margin-bottom:13px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+.chip{padding:6px 13px;border-radius:20px;font-size:13px;font-weight:550;white-space:nowrap;
+  background:var(--card);border:1px solid var(--line);color:var(--ink-2)}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+
+.empty{text-align:center;padding:52px 24px;color:var(--muted)}
+.empty svg{opacity:.32;margin-bottom:14px}
+.empty b{display:block;color:var(--ink-2);font-size:15px;font-weight:600;margin-bottom:5px}
+.empty p{font-size:13.5px;margin:0 0 18px;line-height:1.5}
+
+/* ═══════════════ COST HEADS (signature) ═══════════════ */
+.gate{display:flex;align-items:center;gap:13px;padding:14px 16px;border-radius:12px;
+  background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);margin-bottom:14px}
+.gate.warn{border-color:#FCA5A5;background:#FFFCFC}
+.ring{width:42px;height:42px;flex:none;position:relative}
+.ring svg{transform:rotate(-90deg)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:11.5px;font-weight:700}
+.gate-tx b{display:block;font-size:14px;font-weight:650}
+.gate-tx span{font-size:12.5px;color:var(--muted);line-height:1.4}
+
+.head{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:8px;
+  overflow:hidden;box-shadow:var(--shadow)}
+.head.untouched{border-left:3px solid var(--red)}
+.head.na{border-left:3px solid var(--grey);opacity:.72}
+.head.filled{border-left:3px solid var(--green)}
+.head-b{display:flex;align-items:center;gap:11px;padding:13px 14px;width:100%;text-align:left}
+.head-n{flex:1;min-width:0}
+.head-n b{display:block;font-size:14.5px;font-weight:620;letter-spacing:-.005em}
+.head-n span{font-size:12px;color:var(--muted);line-height:1.35}
+.head-amt{font-size:14.5px;font-weight:660;white-space:nowrap}
+.head-body{padding:0 14px 14px;border-top:1px solid var(--line);margin-top:2px;padding-top:13px}
+.stpill{width:9px;height:9px;border-radius:50%;flex:none}
+.stpill.untouched{background:var(--red)}
+.stpill.na{background:var(--grey)}
+.stpill.filled{background:var(--green)}
+
+.mini{width:100%;border-collapse:collapse;font-size:13.5px}
+.mini th{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--muted);text-align:left;padding:0 5px 6px;font-weight:700}
+.mini td{padding:3px 3px}
+.mini input{width:100%;padding:8px 8px;border:1px solid var(--line);border-radius:8px;
+  background:var(--card);outline:none;font-size:13.5px}
+.mini input:focus{border-color:var(--brand);box-shadow:0 0 0 2px rgba(239,127,26,.13)}
+.mini .del{color:var(--muted);padding:6px;display:grid;place-items:center}
+.mini .del:active{color:var(--red)}
+.tr-out{text-align:right;font-weight:600;padding-right:6px !important;white-space:nowrap}
+
+/* ═══════════════ TOTALS ═══════════════ */
+.tot{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;
+  box-shadow:var(--shadow)}
+.tl{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;font-size:14px}
+.tl span{color:var(--ink-2)}
+.tl b{font-weight:620}
+.tl.big{border-top:1px solid var(--line);margin-top:7px;padding-top:13px;font-size:16px}
+.tl.big b{font-size:20px;font-weight:720;letter-spacing:-.02em}
+.tl.muted span,.tl.muted b{color:var(--muted);font-size:13px}
+.margin-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:8px;
+  font-size:12.5px;font-weight:650;background:#F0FDF4;color:var(--green)}
+.margin-pill.low{background:#FFFBEB;color:var(--amber)}
+.margin-pill.neg{background:#FEF2F2;color:var(--red)}
+
+/* ═══════════════ QUOTE ITEMS ═══════════════ */
+.qitem{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;
+  margin-bottom:9px;box-shadow:var(--shadow)}
+.qi-head{display:flex;align-items:center;gap:9px;margin-bottom:11px}
+.qi-no{width:24px;height:24px;border-radius:7px;background:var(--bg);display:grid;place-items:center;
+  font-size:12px;font-weight:700;color:var(--ink-2);flex:none}
+.qi-head b{flex:1;font-size:14.5px;font-weight:640}
+.subline{display:flex;gap:8px;margin-bottom:6px}
+.subline input:first-child{flex:2}
+.subline input:nth-child(2){flex:1}
+
+/* ═══════════════ NAV ═══════════════ */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:45;background:rgba(255,255,255,.96);
+  backdrop-filter:blur(12px);border-top:1px solid var(--line);padding-bottom:var(--safe-b)}
+.nav-in{max-width:720px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.nav button{padding:9px 0 8px;display:flex;flex-direction:column;align-items:center;gap:3px;
+  font-size:10.5px;font-weight:600;color:var(--muted);letter-spacing:.01em}
+.nav button.on{color:var(--brand)}
+
+.fab{position:fixed;right:16px;bottom:calc(80px + var(--safe-b));z-index:44;width:54px;height:54px;
+  border-radius:17px;background:var(--brand);color:#fff;display:grid;place-items:center;
+  box-shadow:0 6px 20px rgba(239,127,26,.38)}
+.fab:active{transform:scale(.94)}
+
+/* ═══════════════ MODAL / TOAST ═══════════════ */
+.ovl{position:fixed;inset:0;z-index:60;background:rgba(28,25,23,.42);display:grid;place-items:center;
+  padding:20px;backdrop-filter:blur(2px)}
+.modal{background:var(--card);border-radius:18px;padding:22px;max-width:400px;width:100%;
+  box-shadow:var(--shadow-lg);max-height:82vh;overflow-y:auto}
+.modal h3{margin:0 0 6px;font-size:18px;font-weight:700;letter-spacing:-.015em}
+.modal p{margin:0 0 18px;font-size:14px;color:var(--ink-2);line-height:1.55}
+.modal .acts{display:flex;gap:9px;margin-top:6px}
+.modal .acts .btn{flex:1}
+.wn-v{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:7px;
+  background:#FEF3E8;color:var(--brand-burnt);margin-bottom:11px;letter-spacing:.02em}
+.wn-list{margin:0;padding-left:18px;font-size:14px;line-height:1.65;color:var(--ink-2)}
+.wn-list li{margin-bottom:5px}
+
+.toast{position:fixed;left:16px;right:16px;bottom:calc(78px + var(--safe-b));z-index:70;
+  background:var(--ink);color:#fff;padding:13px 16px;border-radius:12px;font-size:14px;
+  box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:12px;max-width:520px;margin:0 auto;
+  animation:up .22s ease}
+@keyframes up{from{opacity:0;transform:translateY(10px)}}
+.toast button{color:var(--brand);font-weight:650;white-space:nowrap;font-size:14px}
+
+/* ═══════════════ LOGIN ═══════════════ */
+.login{min-height:100dvh;display:grid;place-items:center;padding:24px}
+.login-in{width:100%;max-width:340px;text-align:center}
+.login-in img{width:88px;height:88px;border-radius:23px;box-shadow:var(--shadow-lg);margin-bottom:22px}
+.login-in h1{font-size:25px;font-weight:720;letter-spacing:-.025em;margin:0 0 5px}
+.login-in>p{color:var(--muted);font-size:14px;margin:0 0 26px}
+.err{color:var(--red);font-size:13.5px;margin:12px 0 0;min-height:19px}
+
+/* ═══════════════ SETTINGS ═══════════════ */
+.srow{display:flex;align-items:center;gap:13px;padding:14px 15px;width:100%;text-align:left;
+  background:var(--card);border-bottom:1px solid var(--line)}
+.srow:last-child{border-bottom:0}
+.srow-tx{flex:1;min-width:0}
+.srow-tx b{display:block;font-size:14.5px;font-weight:600}
+.srow-tx span{font-size:12.5px;color:var(--muted);line-height:1.4}
+.sgroup{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+
+/* ═══════════════ PRINT ═══════════════ */
+#printArea{display:none}
+@media print{
+  body{background:#fff;padding:0}
+  body>*:not(#printArea){display:none !important}
+  #printArea{display:block !important}
+  @page{size:A4;margin:12mm}
+}
+.pv{font-family:Inter,sans-serif;color:#1C1917}
+.pv-band{background:#BD4729;color:#fff;padding:18px 20px;display:flex;align-items:center;
+  justify-content:space-between;gap:20px}
+.pv-band img{height:52px}
+.pv-band .co{text-align:right;font-size:11px;line-height:1.6;opacity:.94}
+.pv-title{display:flex;justify-content:space-between;align-items:flex-end;padding:16px 0 10px;
+  border-bottom:2px solid #1C1917;margin-bottom:14px}
+.pv-title h2{margin:0;font-size:20px;font-weight:700;letter-spacing:-.02em}
+.pv-meta{font-size:11.5px;text-align:right;line-height:1.7}
+.pv-to{margin-bottom:16px;font-size:12.5px;line-height:1.65}
+.pv-to b{font-size:14px}
+.pv table{width:100%;border-collapse:collapse;font-size:11.5px}
+.pv th{background:#F5F5F2;text-align:left;padding:8px 8px;font-size:10px;text-transform:uppercase;
+  letter-spacing:.06em;border-bottom:1px solid #E7E5E0}
+.pv td{padding:9px 8px;border-bottom:1px solid #EFEDE9;vertical-align:top}
+.pv .r{text-align:right}
+.pv .spec{color:#57534E;font-size:10.5px;line-height:1.5;margin-top:3px;white-space:pre-wrap}
+.pv .sub{color:#57534E;font-size:10.5px;padding-left:10px}
+.pv-tot{margin-left:auto;width:270px;margin-top:12px;font-size:12px}
+.pv-tot div{display:flex;justify-content:space-between;padding:5px 0}
+.pv-tot .g{border-top:2px solid #1C1917;margin-top:5px;padding-top:9px;font-size:15px;font-weight:700}
+.pv-words{font-size:11px;color:#57534E;margin-top:10px;font-style:italic}
+.pv-terms{margin-top:22px;font-size:10.5px;color:#57534E;line-height:1.65;white-space:pre-wrap;
+  border-top:1px solid #E7E5E0;padding-top:12px}
+.pv-terms b{display:block;color:#1C1917;font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+  margin-bottom:6px}
+</style>
+</head>
+<body class="no-nav">
+
+<!-- ═══════════ LOGIN ═══════════ -->
+<div id="vLogin" class="login">
+  <div class="login-in">
+    <img src="./icons/icon-192x192.png" alt="">
+    <h1>WoodPro</h1>
+    <p>Costing &amp; quotation · Amar Furniture</p>
+    <label class="f"><input id="lgEmail" class="inp" type="email" placeholder="Email" autocomplete="username"></label>
+    <label class="f"><input id="lgPass" class="inp" type="password" placeholder="Password" autocomplete="current-password"></label>
+    <button id="lgBtn" class="btn btn-p btn-full">Sign in</button>
+    <p id="lgErr" class="err"></p>
+  </div>
+</div>
+
+<!-- ═══════════ APP ═══════════ -->
+<div id="app" class="hidden">
+  <div class="topbar">
+    <div class="topbar-in">
+      <button id="backBtn" class="back hidden" aria-label="Back">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <h1 id="pageTitle">WoodPro</h1>
+      <span id="netDot" class="netdot" title="Online"></span>
+      <button id="headAction" class="btn btn-p btn-sm hidden"></button>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <div id="vHome"></div>
+    <div id="vCostList" class="hidden"></div>
+    <div id="vCostEdit" class="hidden"></div>
+    <div id="vQuoteList" class="hidden"></div>
+    <div id="vQuoteEdit" class="hidden"></div>
+    <div id="vSettings" class="hidden"></div>
+  </main>
+
+  <button id="fab" class="fab hidden" aria-label="New">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+  </button>
+
+  <nav class="nav" id="nav">
+    <div class="nav-in">
+      <button data-nav="home" class="on">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-7 9 7v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+        Home
+      </button>
+      <button data-nav="costing">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h5"/></svg>
+        Costing
+      </button>
+      <button data-nav="quotes">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+        Quotes
+      </button>
+      <button data-nav="settings">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        Settings
+      </button>
+    </div>
+  </nav>
+</div>
+
+<div id="modalHost"></div>
+<div id="toastHost"></div>
+<div id="printArea"></div>
+
+<script type="module">
+// ══════════════════════════════════════════════════════════════
+//  WoodPro — Amar Furniture
+//  Costing + quotation for custom woodwork
+//  Two tools, one shell. They do not share data by design.
+// ══════════════════════════════════════════════════════════════
+
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import {
+  getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged,
+  setPersistence, browserLocalPersistence
+} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import {
+  initializeFirestore, persistentLocalCache, persistentMultipleTabManager,
+  collection, doc, getDoc, setDoc, addDoc, updateDoc, deleteDoc,
+  onSnapshot, query, orderBy, serverTimestamp
+} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+/* ─────────── CONFIG ─────────── */
+const firebaseConfig = {
+  apiKey: "AIzaSyARVv1P0ssuKzfpS1M59AB-rG3riIWh-2c",
+  authDomain: "amar-furniture-e4782.firebaseapp.com",
+  projectId: "amar-furniture-e4782",
+  storageBucket: "amar-furniture-e4782.firebasestorage.app",
+  messagingSenderId: "1084205045390",
+  appId: "1:1084205045390:web:db770649eb7314c49c5bdf"
+};
+
+const APP_VERSION = '1.0.0';
+const CHANGELOG = [{
+  v: '1.0.0',
+  date: '26 Jul 2026',
+  items: [
+    'First release — costing and quotation in one app.',
+    'Costing: 11 fixed cost heads that must each be filled or marked not applicable before a sheet counts as complete.',
+    'Timber head calculates cft from component sizes — L in feet, B and H in inches.',
+    'Labour can be derived from the timber cft, or entered by hand.',
+    'Enter the price you actually quoted and the sheet shows your real margin.',
+    'Quotation: flat item list, per-line rate mode including sofa seating, optional sub-lines, revisions.',
+    'Works offline. Sheets and quotes you have opened stay readable with no signal.'
+  ]
+}];
+
+const fbApp = initializeApp(firebaseConfig);
+const auth = getAuth(fbApp);
+const db = initializeFirestore(fbApp, {
+  localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() })
+});
+
+const C_SHEETS   = 'wood_costings';
+const C_QUOTES   = 'wood_quotes';
+const C_SETTINGS = 'wood_settings';
+
+/* ─────────── COST HEADS ─────────── */
+const HEADS = [
+  { key:'timber',        label:'Timber',                  hint:'Species, sizes, cft',                 type:'timber' },
+  { key:'sheetMaterial', label:'Sheet material',          hint:'Ply, HDHMR, veneer, laminate' },
+  { key:'labour',        label:'Carpentry labour',        hint:'Making charges',                      type:'labour' },
+  { key:'cnc',           label:'CNC',                     hint:'Design panels, cutting' },
+  { key:'polish',        label:'Polish / finish',         hint:'Melamine, PU, duco' },
+  { key:'upholstery',    label:'Upholstery / cushion',    hint:'Fabric, foam, stitching' },
+  { key:'hardware',      label:'Hardware / fittings',     hint:'Hinges, channels, handles' },
+  { key:'otherMaterial', label:'Other material',          hint:'Glass, mirror, stone, MS pipe' },
+  { key:'jobwork',       label:'Outsourced job work',     hint:'Turning, carving, inlay' },
+  { key:'misc',          label:'Misc / contingency',      hint:'Anything not covered above' },
+  { key:'transport',     label:'Transport & installation',hint:'Delivery, fitting on site' }
+];
+
+const RATE_MODES = [
+  { v:'piece',   t:'Per piece' },
+  { v:'rft',     t:'Per running ft' },
+  { v:'sqft',    t:'Per sq ft' },
+  { v:'cft',     t:'Per cu ft' },
+  { v:'seating', t:'Sofa seating' },
+  { v:'lumpsum', t:'Lump sum' }
+];
+
+const DEFAULT_SETTINGS = {
+  company: {
+    name: 'Amar Furniture',
+    address: 'Nashik, Maharashtra',
+    phone: '+91 82754 07603',
+    gstin: '',
+    footer: 'Solid wood furniture & modular interiors since 1991'
+  },
+  terms: 'Payment: 50% advance with order, balance before dispatch.\nDelivery: 3–4 weeks from confirmation and final measurements.\nShades and grain may vary slightly, wood being a natural material.\nQuotation valid for 15 days from the date above.',
+  validityDays: 15,
+  gstPct: 18,
+  gstDefault: false,
+  quotePrefix: 'AF',
+  nextQuoteNo: 1,
+  timberRate: 5500,
+  labourRate: 2500,
+  seatingRate: 3500
+};
+
+/* ─────────── STATE ─────────── */
+const S = {
+  user: null,
+  settings: { ...DEFAULT_SETTINGS },
+  sheets: [],
+  quotes: [],
+  view: 'home',
+  sheet: null,      // sheet being edited
+  quote: null,      // quote being edited
+  openHead: null,
+  sheetFilter: 'all',
+  sheetSearch: '',
+  quoteFilter: 'all',
+  quoteSearch: '',
+  dirty: false,
+  unsub: []
+};
+
+/* ─────────── HELPERS ─────────── */
+const $  = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c =>
+  ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+const n = v => { const x = parseFloat(v); return isFinite(x) ? x : 0; };
+const uid = () => Math.random().toString(36).slice(2, 10);
+
+function money(v, dec = 0) {
+  const x = n(v);
+  return '₹' + x.toLocaleString('en-IN', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+}
+function fmt(v, dec = 2) {
+  const x = n(v);
+  return x.toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: dec });
+}
+function dmy(ts) {
+  if (!ts) return '';
+  const d = ts.toDate ? ts.toDate() : new Date(ts);
+  if (isNaN(d)) return '';
+  return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+function todayISO() { return new Date().toISOString().slice(0, 10); }
+
+function words(num) {
+  const a = ['','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve',
+    'Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen','Nineteen'];
+  const b = ['','','Twenty','Thirty','Forty','Fifty','Sixty','Seventy','Eighty','Ninety'];
+  const two = x => x < 20 ? a[x] : b[Math.floor(x/10)] + (x%10 ? ' ' + a[x%10] : '');
+  const three = x => (x >= 100 ? a[Math.floor(x/100)] + ' Hundred' + (x%100 ? ' ' + two(x%100) : '') : two(x));
+  let x = Math.round(n(num));
+  if (!x) return 'Zero Rupees Only';
+  let out = '';
+  const cr = Math.floor(x/10000000); x %= 10000000;
+  const lk = Math.floor(x/100000);   x %= 100000;
+  const th = Math.floor(x/1000);     x %= 1000;
+  if (cr) out += three(cr) + ' Crore ';
+  if (lk) out += three(lk) + ' Lakh ';
+  if (th) out += three(th) + ' Thousand ';
+  if (x)  out += three(x);
+  return out.trim().replace(/\s+/g, ' ') + ' Rupees Only';
+}
+
+function toast(msg, actionLabel, actionFn, ms = 3200) {
+  const host = $('toastHost');
+  host.innerHTML = `<div class="toast"><span style="flex:1">${esc(msg)}</span>${
+    actionLabel ? `<button id="toastAct">${esc(actionLabel)}</button>` : ''}</div>`;
+  if (actionLabel) $('toastAct').onclick = () => { host.innerHTML = ''; actionFn && actionFn(); };
+  clearTimeout(toast._t);
+  if (!actionLabel) toast._t = setTimeout(() => host.innerHTML = '', ms);
+}
+
+function modal(html, onMount) {
+  const host = $('modalHost');
+  host.innerHTML = `<div class="ovl" id="ovl"><div class="modal">${html}</div></div>`;
+  $('ovl').addEventListener('click', e => { if (e.target.id === 'ovl') closeModal(); });
+  onMount && onMount();
+}
+function closeModal() { $('modalHost').innerHTML = ''; }
+
+function confirmBox(title, body, confirmLabel, onYes, danger = true) {
+  modal(`<h3>${esc(title)}</h3><p>${esc(body)}</p>
+    <div class="acts">
+      <button class="btn btn-s" id="cNo">Cancel</button>
+      <button class="btn ${danger ? 'btn-d' : 'btn-p'}" id="cYes">${esc(confirmLabel)}</button>
+    </div>`, () => {
+    $('cNo').onclick = closeModal;
+    $('cYes').onclick = () => { closeModal(); onYes(); };
+  });
+}
+
+/* ══════════════════════════════════════════════════════════
+   COSTING MATH
+   ══════════════════════════════════════════════════════════ */
+
+// cft = (L ft × B in × H in × qty) ÷ 144
+function rowCft(r) { return (n(r.l) * n(r.b) * n(r.h) * n(r.qty)) / 144; }
+function timberCft(sheet) { return (sheet.timber?.rows || []).reduce((s, r) => s + rowCft(r), 0); }
+
+function headAmount(sheet, key) {
+  const h = sheet.heads[key];
+  if (!h || h.state === 'na' || h.state === 'untouched') return 0;
+  if (key === 'timber') return timberCft(sheet) * n(h.rate);
+  if (key === 'labour' && h.mode === 'derive') return timberCft(sheet) * n(h.rate);
+  return (h.rows || []).reduce((s, r) => s + n(r.amount), 0);
+}
+
+function costSubtotal(sheet) {
+  return HEADS.reduce((s, h) => s + headAmount(sheet, h.key), 0);
+}
+function profitAmount(sheet) {
+  const sub = costSubtotal(sheet);
+  return sheet.profitMode === 'flat' ? n(sheet.profitValue) : sub * n(sheet.profitValue) / 100;
+}
+function computedAmount(sheet) { return costSubtotal(sheet) + profitAmount(sheet); }
+function finalAmount(sheet) {
+  return sheet.quotedPrice !== '' && sheet.quotedPrice != null
+    ? n(sheet.quotedPrice) : computedAmount(sheet);
+}
+function realMargin(sheet) {
+  const sub = costSubtotal(sheet);
+  if (!sub) return null;
+  return (finalAmount(sheet) - sub) / sub * 100;
+}
+function perUnit(sheet) {
+  const f = finalAmount(sheet);
+  const basis = sheet.outputBasis;
+  if (basis === 'piece' || basis === 'lumpsum') {
+    const q = n(sheet.itemQty) || 1;
+    return { value: f / q, label: q > 1 ? 'per piece' : 'per piece' };
+  }
+  const m = n(sheet.outputMeasure);
+  if (!m) return null;
+  return { value: f / m, label: 'per ' + (basis === 'rft' ? 'running ft' : basis === 'sqft' ? 'sq ft' : 'cu ft') };
+}
+function untouchedCount(sheet) {
+  return HEADS.filter(h => (sheet.heads[h.key]?.state || 'untouched') === 'untouched').length;
+}
+function isComplete(sheet) { return untouchedCount(sheet) === 0; }
+
+function newSheet() {
+  const heads = {};
+  HEADS.forEach(h => {
+    heads[h.key] = { state: 'untouched', rows: [] };
+    if (h.key === 'timber') heads[h.key].rate = S.settings.timberRate;
+    if (h.key === 'labour') { heads[h.key].mode = 'derive'; heads[h.key].rate = S.settings.labourRate; }
+  });
+  return {
+    name: '', customer: '', date: todayISO(),
+    itemQty: 1, outputBasis: 'piece', outputMeasure: '',
+    outerL: '', outerB: '', outerH: '',
+    heads,
+    get timber() { return this.heads.timber; },
+    profitMode: 'pct', profitValue: 30, quotedPrice: ''
+  };
+}
+// plain object version (getters don't survive Firestore)
+function blankSheet() {
+  const s = newSheet();
+  return {
+    name: s.name, customer: s.customer, date: s.date,
+    itemQty: s.itemQty, outputBasis: s.outputBasis, outputMeasure: s.outputMeasure,
+    outerL: '', outerB: '', outerH: '',
+    heads: s.heads, profitMode: s.profitMode, profitValue: s.profitValue, quotedPrice: s.quotedPrice
+  };
+}
+function hydrateSheet(d) {
+  const s = blankSheet();
+  const merged = { ...s, ...d };
+  merged.heads = merged.heads || {};
+  HEADS.forEach(h => {
+    const cur = merged.heads[h.key] || {};
+    merged.heads[h.key] = {
+      state: cur.state || 'untouched',
+      rows: cur.rows || [],
+      rate: cur.rate ?? (h.key === 'timber' ? S.settings.timberRate
+            : h.key === 'labour' ? S.settings.labourRate : undefined),
+      mode: cur.mode ?? (h.key === 'labour' ? 'derive' : undefined)
+    };
+  });
+  Object.defineProperty(merged, 'timber', { get() { return this.heads.timber; }, enumerable: false });
+  return merged;
+}
+
+/* ══════════════════════════════════════════════════════════
+   QUOTE MATH
+   ══════════════════════════════════════════════════════════ */
+
+function itemMeasure(it) {
+  if (it.rateMode === 'seating') return n(it.seats) * 2 + n(it.handles);
+  if (['rft','sqft','cft'].includes(it.rateMode)) return n(it.measure);
+  return 1;
+}
+function itemAmount(it) {
+  if (it.useSubLines) return (it.subLines || []).reduce((s, l) => s + n(l.amount), 0);
+  if (it.manualAmount) return n(it.amount);
+  return itemMeasure(it) * n(it.rate) * (n(it.qty) || 1);
+}
+function quoteSubtotal(q) { return (q.items || []).reduce((s, it) => s + itemAmount(it), 0); }
+function discountAmount(q) {
+  const sub = quoteSubtotal(q);
+  return q.discountMode === 'flat' ? n(q.discountValue) : sub * n(q.discountValue) / 100;
+}
+function afterDiscount(q) { return quoteSubtotal(q) - discountAmount(q); }
+function gstAmount(q) { return q.gstEnabled ? afterDiscount(q) * n(q.gstPct) / 100 : 0; }
+function grandTotal(q) { return afterDiscount(q) + gstAmount(q); }
+function quoteFinal(q) {
+  return q.finalOverride !== '' && q.finalOverride != null ? n(q.finalOverride) : grandTotal(q);
+}
+function roundOff(q) { return quoteFinal(q) - grandTotal(q); }
+
+function blankItem() {
+  return { id: uid(), name: '', size: '', spec: '', qty: 1, rateMode: 'piece',
+           measure: '', seats: 3, handles: 2, rate: '', amount: 0,
+           manualAmount: false, useSubLines: false, subLines: [] };
+}
+function blankQuote() {
+  const st = S.settings;
+  return {
+    quoteNo: `${st.quotePrefix}-${String(st.nextQuoteNo).padStart(3, '0')}`,
+    revision: 1, date: todayISO(),
+    customer: { name: '', phone: '', address: '' },
+    validityDays: st.validityDays,
+    items: [blankItem()],
+    discountMode: 'flat', discountValue: 0,
+    gstEnabled: !!st.gstDefault, gstPct: st.gstPct,
+    finalOverride: '',
+    terms: st.terms,
+    status: 'Draft'
+  };
+}
+function hydrateQuote(d) {
+  const q = { ...blankQuote(), ...d };
+  q.customer = { name: '', phone: '', address: '', ...(d.customer || {}) };
+  q.items = (d.items || []).map(it => ({ ...blankItem(), ...it, subLines: it.subLines || [] }));
+  if (!q.items.length) q.items = [blankItem()];
+  return q;
+}
+
+/* ══════════════════════════════════════════════════════════
+   FIRESTORE
+   ══════════════════════════════════════════════════════════ */
+
+async function loadSettings() {
+  try {
+    const snap = await getDoc(doc(db, C_SETTINGS, 'app'));
+    if (snap.exists()) {
+      const d = snap.data();
+      S.settings = { ...DEFAULT_SETTINGS, ...d, company: { ...DEFAULT_SETTINGS.company, ...(d.company || {}) } };
+    } else {
+      await setDoc(doc(db, C_SETTINGS, 'app'), DEFAULT_SETTINGS);
+    }
+  } catch (e) { console.warn('settings load failed, using defaults', e); }
+}
+async function saveSettings() {
+  await setDoc(doc(db, C_SETTINGS, 'app'), S.settings, { merge: true });
+}
+
+function watchAll() {
+  S.unsub.forEach(u => u());
+  S.unsub = [];
+  S.unsub.push(onSnapshot(query(collection(db, C_SHEETS), orderBy('updatedAt', 'desc')),
+    snap => { S.sheets = snap.docs.map(d => ({ id: d.id, ...d.data() })); if (S.view === 'costing') renderCostList(); },
+    err => console.warn('sheets', err)));
+  S.unsub.push(onSnapshot(query(collection(db, C_QUOTES), orderBy('updatedAt', 'desc')),
+    snap => { S.quotes = snap.docs.map(d => ({ id: d.id, ...d.data() })); if (S.view === 'quotes') renderQuoteList(); },
+    err => console.warn('quotes', err)));
+}
+
+function stripSheet(s) {
+  return {
+    name: s.name, customer: s.customer, date: s.date,
+    itemQty: n(s.itemQty), outputBasis: s.outputBasis, outputMeasure: s.outputMeasure,
+    outerL: s.outerL, outerB: s.outerB, outerH: s.outerH,
+    heads: JSON.parse(JSON.stringify(s.heads)),
+    profitMode: s.profitMode, profitValue: s.profitValue, quotedPrice: s.quotedPrice,
+    complete: isComplete(s),
+    costSubtotal: costSubtotal(s), finalAmount: finalAmount(s)
+  };
+}
+
+async function saveSheet(silent) {
+  const s = S.sheet;
+  if (!s.name.trim()) { toast('Give the sheet a name first'); return false; }
+  const payload = { ...stripSheet(s), updatedAt: serverTimestamp() };
+  try {
+    if (s.id) await updateDoc(doc(db, C_SHEETS, s.id), payload);
+    else { payload.createdAt = serverTimestamp(); const r = await addDoc(collection(db, C_SHEETS), payload); s.id = r.id; }
+    S.dirty = false;
+    if (!silent) toast('Sheet saved');
+    return true;
+  } catch (e) { console.error(e); toast('Could not save — check your connection'); return false; }
+}
+
+async function saveQuote(silent) {
+  const q = S.quote;
+  if (!q.customer.name.trim()) { toast('Add the customer name first'); return false; }
+  const payload = {
+    quoteNo: q.quoteNo, revision: q.revision, date: q.date,
+    customer: q.customer, validityDays: n(q.validityDays),
+    items: JSON.parse(JSON.stringify(q.items)),
+    discountMode: q.discountMode, discountValue: q.discountValue,
+    gstEnabled: q.gstEnabled, gstPct: q.gstPct,
+    finalOverride: q.finalOverride, terms: q.terms, status: q.status,
+    total: quoteFinal(q),
+    updatedAt: serverTimestamp()
+  };
+  try {
+    if (q.id) await updateDoc(doc(db, C_QUOTES, q.id), payload);
+    else {
+      payload.createdAt = serverTimestamp();
+      const r = await addDoc(collection(db, C_QUOTES), payload);
+      q.id = r.id;
+      if (q.revision === 1) {
+        S.settings.nextQuoteNo = n(S.settings.nextQuoteNo) + 1;
+        await saveSettings();
+      }
+    }
+    S.dirty = false;
+    if (!silent) toast('Quote saved');
+    return true;
+  } catch (e) { console.error(e); toast('Could not save — check your connection'); return false; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   NAVIGATION
+   ══════════════════════════════════════════════════════════ */
+
+const VIEWS = ['vHome','vCostList','vCostEdit','vQuoteList','vQuoteEdit','vSettings'];
+
+function show(view, title, opts = {}) {
+  S.view = view;
+  VIEWS.forEach(v => $(v).classList.add('hidden'));
+  const map = { home:'vHome', costing:'vCostList', costEdit:'vCostEdit',
+                quotes:'vQuoteList', quoteEdit:'vQuoteEdit', settings:'vSettings' };
+  $(map[view]).classList.remove('hidden');
+  $('pageTitle').textContent = title;
+  $('backBtn').classList.toggle('hidden', !opts.back);
+  $('fab').classList.toggle('hidden', !opts.fab);
+  $('nav').classList.toggle('hidden', !!opts.back);
+  document.body.classList.toggle('no-nav', !!opts.back);
+  const ha = $('headAction');
+  if (opts.action) { ha.classList.remove('hidden'); ha.textContent = opts.action; ha.onclick = opts.onAction; }
+  else ha.classList.add('hidden');
+  document.querySelectorAll('[data-nav]').forEach(b =>
+    b.classList.toggle('on', b.dataset.nav === view));
+  window.scrollTo(0, 0);
+}
+
+function goBack() {
+  const leave = () => {
+    S.dirty = false;
+    if (S.view === 'costEdit') { S.sheet = null; renderCostList(); show('costing','Costing',{ fab:true }); }
+    else if (S.view === 'quoteEdit') { S.quote = null; renderQuoteList(); show('quotes','Quotations',{ fab:true }); }
+    else goHome();
+  };
+  if (S.dirty) {
+    confirmBox('Leave without saving?', 'Changes on this screen have not been saved yet.', 'Discard', leave);
+  } else leave();
+}
+
+function goHome() { renderHome(); show('home','WoodPro'); }
+
+/* ══════════════════════════════════════════════════════════
+   HOME
+   ══════════════════════════════════════════════════════════ */
+
+function renderHome() {
+  const incomplete = S.sheets.filter(s => !s.complete).length;
+  const drafts = S.quotes.filter(q => q.status === 'Draft').length;
+  $('vHome').innerHTML = `
+    <div class="hero">
+      <img src="./icons/icon-192x192.png" alt="">
+      <h2>WoodPro</h2>
+      <p>Costing &amp; quotation · Amar Furniture</p>
+    </div>
+    <div class="tools">
+      <button class="tool" data-open="costing">
+        <span class="tool-ic">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h5"/></svg>
+        </span>
+        <span class="tool-tx">
+          <b>Costing</b>
+          <span>Work out what an item costs you, head by head, before you price it</span>
+        </span>
+      </button>
+      <button class="tool" data-open="quotes">
+        <span class="tool-ic">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg>
+        </span>
+        <span class="tool-tx">
+          <b>Quotation</b>
+          <span>Build the customer quote and share it as a PDF</span>
+        </span>
+      </button>
+    </div>
+    <div class="sec">
+      <div class="row">
+        <div class="card" style="padding:15px">
+          <div class="num" style="font-size:26px;font-weight:720;letter-spacing:-.03em">${S.sheets.length}</div>
+          <div style="font-size:12.5px;color:var(--muted);margin-top:2px">Costing sheets</div>
+          ${incomplete ? `<div class="badge b-red" style="margin-top:8px;display:inline-block">${incomplete} incomplete</div>` : ''}
+        </div>
+        <div class="card" style="padding:15px">
+          <div class="num" style="font-size:26px;font-weight:720;letter-spacing:-.03em">${S.quotes.length}</div>
+          <div style="font-size:12.5px;color:var(--muted);margin-top:2px">Quotations</div>
+          ${drafts ? `<div class="badge b-grey" style="margin-top:8px;display:inline-block">${drafts} draft</div>` : ''}
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center;color:var(--muted);font-size:12px;margin:26px 0 8px">v${APP_VERSION}</p>`;
+
+  $('vHome').querySelectorAll('[data-open]').forEach(b => b.onclick = () => {
+    if (b.dataset.open === 'costing') { renderCostList(); show('costing','Costing',{ fab:true }); }
+    else { renderQuoteList(); show('quotes','Quotations',{ fab:true }); }
+  });
+}
+
+/* ══════════════════════════════════════════════════════════
+   COSTING — LIST
+   ══════════════════════════════════════════════════════════ */
+
+function renderCostList() {
+  const term = S.sheetSearch.toLowerCase();
+  let rows = S.sheets.filter(s =>
+    (!term || (s.name || '').toLowerCase().includes(term) || (s.customer || '').toLowerCase().includes(term)));
+  if (S.sheetFilter === 'complete')   rows = rows.filter(s => s.complete);
+  if (S.sheetFilter === 'incomplete') rows = rows.filter(s => !s.complete);
+
+  $('vCostList').innerHTML = `
+    <div class="sec" style="margin-top:14px">
+      <div class="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input class="inp" id="cSearch" placeholder="Search sheet or customer" value="${esc(S.sheetSearch)}">
+      </div>
+      <div class="chips">
+        ${['all','incomplete','complete'].map(f =>
+          `<button class="chip ${S.sheetFilter===f?'on':''}" data-f="${f}">${
+            f==='all'?'All':f==='incomplete'?'Incomplete':'Complete'}</button>`).join('')}
+      </div>
+      ${rows.length ? rows.map(s => {
+        const miss = HEADS.length - Object.values(s.heads || {}).filter(h => h.state !== 'untouched').length;
+        return `<button class="listitem" data-id="${s.id}">
+          <span class="li-top">
+            <b>${esc(s.name || 'Untitled sheet')}</b>
+            <span class="li-amt num">${money(s.finalAmount)}</span>
+          </span>
+          <span class="li-sub">
+            <span>${esc(s.customer || '—')}</span>
+            <span class="dot"></span>
+            <span>${dmy(s.date)}</span>
+            ${s.complete ? '' : `<span class="badge b-red" style="margin-left:auto">${miss} left</span>`}
+          </span>
+        </button>`;
+      }).join('') : emptyState('costing')}
+    </div>`;
+
+  const si = $('cSearch');
+  if (si) si.oninput = e => { S.sheetSearch = e.target.value; const p = e.target.selectionStart; renderCostList();
+    const ni = $('cSearch'); ni.focus(); ni.setSelectionRange(p, p); };
+  $('vCostList').querySelectorAll('[data-f]').forEach(b =>
+    b.onclick = () => { S.sheetFilter = b.dataset.f; renderCostList(); });
+  $('vCostList').querySelectorAll('[data-id]').forEach(b =>
+    b.onclick = () => openSheet(b.dataset.id));
+  const nb = $('vCostList').querySelector('#emptyNew');
+  if (nb) nb.onclick = () => openSheet(null);
+}
+
+function emptyState(kind) {
+  if (kind === 'costing') return `
+    <div class="empty">
+      <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h5"/></svg>
+      <b>No costing sheets yet</b>
+      <p>A sheet works out one item — the timber, the labour, the polish, everything — so nothing gets left out of the price.</p>
+      <button class="btn btn-p" id="emptyNew">New costing sheet</button>
+    </div>`;
+  return `
+    <div class="empty">
+      <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg>
+      <b>No quotations yet</b>
+      <p>Build a quote item by item, then save it as a PDF or send it on WhatsApp.</p>
+      <button class="btn btn-p" id="emptyNew">New quotation</button>
+    </div>`;
+}
+
+function openSheet(id) {
+  if (id) {
+    const raw = S.sheets.find(s => s.id === id);
+    if (!raw) return;
+    S.sheet = hydrateSheet(raw);
+    S.sheet.id = id;
+  } else {
+    S.sheet = hydrateSheet(blankSheet());
+  }
+  S.openHead = null;
+  S.dirty = false;
+  renderSheet();
+  show('costEdit', id ? 'Costing sheet' : 'New costing sheet',
+    { back: true, action: 'Save', onAction: () => saveSheet() });
+}
+
+/* ══════════════════════════════════════════════════════════
+   COSTING — EDITOR
+   ══════════════════════════════════════════════════════════ */
+
+function renderSheet() {
+  const s = S.sheet;
+  const missing = untouchedCount(s);
+  const done = HEADS.length - missing;
+  const pct = done / HEADS.length;
+  const circ = 2 * Math.PI * 17;
+
+  $('vCostEdit').innerHTML = `
+    <div class="sec" style="margin-top:14px">
+      <div class="card" style="padding:15px">
+        <label class="f"><span>Sheet name</span>
+          <input class="inp" id="sName" placeholder="e.g. Dining table 6 seater" value="${esc(s.name)}"></label>
+        <div class="row">
+          <label class="f"><span>Customer / enquiry</span>
+            <input class="inp" id="sCust" placeholder="e.g. Sawant" value="${esc(s.customer)}"></label>
+          <label class="f"><span>Date</span>
+            <input class="inp" id="sDate" type="date" value="${esc(s.date)}"></label>
+        </div>
+        <div class="row">
+          <label class="f"><span>Item qty</span>
+            <input class="inp num" id="sQty" type="number" inputmode="decimal" value="${esc(s.itemQty)}"></label>
+          <label class="f"><span>Priced per</span>
+            <select class="inp" id="sBasis">
+              ${[['piece','Piece'],['rft','Running ft'],['sqft','Sq ft'],['cft','Cu ft'],['lumpsum','Lump sum']]
+                .map(([v,t]) => `<option value="${v}" ${s.outputBasis===v?'selected':''}>${t}</option>`).join('')}
+            </select></label>
+        </div>
+        ${['rft','sqft','cft'].includes(s.outputBasis) ? `
+        <label class="f"><span>Total measure (${s.outputBasis === 'rft' ? 'running ft' : s.outputBasis === 'sqft' ? 'sq ft' : 'cu ft'})</span>
+          <input class="inp num" id="sMeasure" type="number" inputmode="decimal" value="${esc(s.outputMeasure)}"></label>` : ''}
+        <div class="row">
+          <label class="f"><span>Outer L (ft)</span><input class="inp num" id="sOL" inputmode="decimal" value="${esc(s.outerL)}" placeholder="—"></label>
+          <label class="f"><span>Outer B (in)</span><input class="inp num" id="sOB" inputmode="decimal" value="${esc(s.outerB)}" placeholder="—"></label>
+          <label class="f" style="margin-bottom:0"><span>Outer H (in)</span><input class="inp num" id="sOH" inputmode="decimal" value="${esc(s.outerH)}" placeholder="—"></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="gate ${missing ? 'warn' : ''}">
+        <div class="ring">
+          <svg width="42" height="42">
+            <circle cx="21" cy="21" r="17" fill="none" stroke="#E7E5E0" stroke-width="4"/>
+            <circle cx="21" cy="21" r="17" fill="none" stroke="${missing ? '#DC2626' : '#16A34A'}" stroke-width="4"
+              stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${circ * (1 - pct)}"/>
+          </svg>
+          <b>${done}</b>
+        </div>
+        <div class="gate-tx">
+          <b>${missing ? `${missing} head${missing > 1 ? 's' : ''} still untouched` : 'Every head accounted for'}</b>
+          <span>${missing
+            ? 'Fill it in or mark it not applicable — that is how nothing gets missed.'
+            : 'This sheet is complete.'}</span>
+        </div>
+      </div>
+      ${HEADS.map(h => renderHead(s, h)).join('')}
+    </div>
+
+    ${renderSheetTotals(s)}
+
+    <div class="sec" style="display:flex;gap:9px;margin-bottom:30px">
+      <button class="btn btn-s" id="sDup" style="flex:1">Duplicate</button>
+      <button class="btn btn-d" id="sDel" style="flex:1">Delete</button>
+    </div>`;
+
+  wireSheet();
+}
+
+function renderHead(s, h) {
+  const head = s.heads[h.key];
+  const st = head.state || 'untouched';
+  const amt = headAmount(s, h.key);
+  const open = S.openHead === h.key;
+  return `
+  <div class="head ${st}">
+    <button class="head-b" data-head="${h.key}">
+      <span class="stpill ${st}"></span>
+      <span class="head-n">
+        <b>${h.label}</b>
+        <span>${st === 'na' ? 'Not applicable' : h.hint}</span>
+      </span>
+      <span class="head-amt num">${st === 'na' ? '—' : st === 'untouched' ? '' : money(amt)}</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2.2" stroke-linecap="round" style="transform:rotate(${open?180:0}deg);transition:transform .16s"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+    ${open ? `<div class="head-body">${headBody(s, h)}</div>` : ''}
+  </div>`;
+}
+
+function headBody(s, h) {
+  const head = s.heads[h.key];
+  const naBtn = `<button class="btn btn-s btn-sm" data-na="${h.key}" style="flex:1">${
+    head.state === 'na' ? 'Mark applicable' : 'Not applicable'}</button>`;
+
+  if (h.key === 'timber') {
+    const rows = head.rows || [];
+    const total = timberCft(s);
+    return `
+      <table class="mini">
+        <thead><tr>
+          <th style="width:32%">Component</th><th>L ft</th><th>B in</th><th>H in</th><th>Qty</th><th style="width:16%">cft</th><th style="width:26px"></th>
+        </tr></thead>
+        <tbody>
+        ${rows.map((r, i) => `<tr>
+          <td><input data-tr="${i}" data-k="desc" value="${esc(r.desc)}" placeholder="Legs"></td>
+          <td><input data-tr="${i}" data-k="l" class="num" inputmode="decimal" value="${esc(r.l)}"></td>
+          <td><input data-tr="${i}" data-k="b" class="num" inputmode="decimal" value="${esc(r.b)}"></td>
+          <td><input data-tr="${i}" data-k="h" class="num" inputmode="decimal" value="${esc(r.h)}"></td>
+          <td><input data-tr="${i}" data-k="qty" class="num" inputmode="decimal" value="${esc(r.qty)}"></td>
+          <td class="tr-out num">${fmt(rowCft(r), 3)}</td>
+          <td><button class="del" data-trdel="${i}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button></td>
+        </tr>`).join('')}
+        </tbody>
+      </table>
+      <button class="btn btn-s btn-sm" data-tradd="1" style="margin-top:8px">+ Component</button>
+      <div class="tl" style="margin-top:10px;border-top:1px solid var(--line);padding-top:11px">
+        <span>Total timber</span><b class="num">${fmt(total, 3)} cft</b>
+      </div>
+      <label class="f" style="margin-top:9px"><span>Rate per cft</span>
+        <input class="inp num" data-rate="${h.key}" inputmode="decimal" value="${esc(head.rate)}"></label>
+      <div class="tl" style="border-top:1px solid var(--line);padding-top:11px">
+        <span>Timber cost</span><b class="num">${money(total * n(head.rate))}</b>
+      </div>
+      <div style="display:flex;gap:9px;margin-top:12px">${naBtn}</div>`;
+  }
+
+  if (h.key === 'labour') {
+    const derive = head.mode === 'derive';
+    const cft = timberCft(s);
+    return `
+      <div class="chips" style="margin-bottom:12px">
+        <button class="chip ${derive?'on':''}" data-lmode="derive">From timber cft</button>
+        <button class="chip ${!derive?'on':''}" data-lmode="manual">Enter by hand</button>
+      </div>
+      ${derive ? `
+        <label class="f"><span>Labour rate per cft</span>
+          <input class="inp num" data-rate="${h.key}" inputmode="decimal" value="${esc(head.rate)}"></label>
+        <div class="tl" style="border-top:1px solid var(--line);padding-top:11px">
+          <span>${fmt(cft,3)} cft × ${money(head.rate)}</span><b class="num">${money(cft * n(head.rate))}</b>
+        </div>`
+      : genericRows(head, h.key)}
+      <div style="display:flex;gap:9px;margin-top:12px">${naBtn}</div>`;
+  }
+
+  return `${genericRows(head, h.key)}
+    <div style="display:flex;gap:9px;margin-top:12px">${naBtn}</div>`;
+}
+
+function genericRows(head, key) {
+  const rows = head.rows || [];
+  return `
+    <table class="mini">
+      <thead><tr>
+        <th style="width:34%">Description</th><th>Qty</th><th>Unit</th><th>Rate</th><th style="width:20%">Amount</th><th style="width:26px"></th>
+      </tr></thead>
+      <tbody>
+      ${rows.map((r, i) => `<tr>
+        <td><input data-gr="${i}" data-k="desc" value="${esc(r.desc)}" placeholder="Item"></td>
+        <td><input data-gr="${i}" data-k="qty" class="num" inputmode="decimal" value="${esc(r.qty)}"></td>
+        <td><input data-gr="${i}" data-k="unit" value="${esc(r.unit)}" placeholder="nos"></td>
+        <td><input data-gr="${i}" data-k="rate" class="num" inputmode="decimal" value="${esc(r.rate)}"></td>
+        <td><input data-gr="${i}" data-k="amount" class="num" inputmode="decimal" value="${esc(r.amount)}"></td>
+        <td><button class="del" data-grdel="${i}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button></td>
+      </tr>`).join('')}
+      </tbody>
+    </table>
+    <button class="btn btn-s btn-sm" data-gradd="${key}" style="margin-top:8px">+ Line</button>`;
+}
+
+function renderSheetTotals(s) {
+  const sub = costSubtotal(s);
+  const prof = profitAmount(s);
+  const comp = computedAmount(s);
+  const fin = finalAmount(s);
+  const m = realMargin(s);
+  const pu = perUnit(s);
+  const mCls = m == null ? '' : m < 0 ? 'neg' : m < 15 ? 'low' : '';
+  return `
+    <div class="sec">
+      <p class="sec-t">Price</p>
+      <div class="tot">
+        <div class="tl"><span>Cost subtotal</span><b class="num">${money(sub)}</b></div>
+        <div class="row" style="margin:11px 0 3px">
+          <label class="f" style="margin-bottom:0"><span>Profit</span>
+            <select class="inp" id="pMode">
+              <option value="pct" ${s.profitMode==='pct'?'selected':''}>Percent</option>
+              <option value="flat" ${s.profitMode==='flat'?'selected':''}>Flat ₹</option>
+            </select></label>
+          <label class="f" style="margin-bottom:0"><span>${s.profitMode==='pct'?'%':'Amount'}</span>
+            <input class="inp num" id="pVal" inputmode="decimal" value="${esc(s.profitValue)}"></label>
+        </div>
+        <div class="tl muted"><span>Profit added</span><b class="num">${money(prof)}</b></div>
+        <div class="tl"><span>Computed price</span><b class="num">${money(comp)}</b></div>
+
+        <label class="f" style="margin:13px 0 3px"><span>Price you actually quoted</span>
+          <input class="inp num" id="qPrice" inputmode="decimal" placeholder="${Math.round(comp)}" value="${esc(s.quotedPrice)}"></label>
+
+        <div class="tl big"><span>Final</span><b class="num">${money(fin)}</b></div>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:9px">
+          ${m == null ? '' : `<span class="margin-pill ${mCls}">${m >= 0 ? '' : '−'}${fmt(Math.abs(m),1)}% real margin</span>`}
+          ${pu ? `<span style="font-size:12.5px;color:var(--muted)" class="num">${money(pu.value)} ${pu.label}</span>` : ''}
+        </div>
+      </div>
+    </div>`;
+}
+
+function wireSheet() {
+  const s = S.sheet;
+  const mark = () => { S.dirty = true; };
+  const bind = (id, key, num) => {
+    const el = $(id); if (!el) return;
+    el.oninput = e => { s[key] = num ? e.target.value : e.target.value; mark(); };
+  };
+  bind('sName','name'); bind('sCust','customer'); bind('sDate','date');
+  bind('sOL','outerL'); bind('sOB','outerB'); bind('sOH','outerH');
+  const q = $('sQty'); if (q) q.oninput = e => { s.itemQty = e.target.value; mark(); refreshTotals(); };
+  const me = $('sMeasure'); if (me) me.oninput = e => { s.outputMeasure = e.target.value; mark(); refreshTotals(); };
+  const bs = $('sBasis'); if (bs) bs.onchange = e => { s.outputBasis = e.target.value; mark(); renderSheet(); };
+
+  // head open/close
+  $('vCostEdit').querySelectorAll('[data-head]').forEach(b => b.onclick = () => {
+    const k = b.dataset.head;
+    S.openHead = S.openHead === k ? null : k;
+    if (S.openHead && s.heads[k].state === 'untouched') { /* opening alone does not fill it */ }
+    renderSheet();
+  });
+
+  // not applicable toggle
+  $('vCostEdit').querySelectorAll('[data-na]').forEach(b => b.onclick = () => {
+    const k = b.dataset.na;
+    const h = s.heads[k];
+    h.state = h.state === 'na' ? (hasContent(s, k) ? 'filled' : 'untouched') : 'na';
+    mark(); renderSheet();
+  });
+
+  // timber rows
+  $('vCostEdit').querySelectorAll('[data-tr]').forEach(inp => {
+    inp.oninput = e => {
+      const i = +e.target.dataset.tr, k = e.target.dataset.k;
+      s.heads.timber.rows[i][k] = e.target.value;
+      s.heads.timber.state = 'filled';
+      mark(); softRefreshTimber();
+    };
+  });
+  $('vCostEdit').querySelectorAll('[data-trdel]').forEach(b => b.onclick = () => {
+    s.heads.timber.rows.splice(+b.dataset.trdel, 1);
+    if (!s.heads.timber.rows.length) s.heads.timber.state = 'untouched';
+    mark(); renderSheet();
+  });
+  const ta = $('vCostEdit').querySelector('[data-tradd]');
+  if (ta) ta.onclick = () => {
+    s.heads.timber.rows.push({ desc:'', l:'', b:'', h:'', qty:1 });
+    s.heads.timber.state = 'filled'; mark(); renderSheet();
+  };
+
+  // generic rows
+  $('vCostEdit').querySelectorAll('[data-gr]').forEach(inp => {
+    inp.oninput = e => {
+      const i = +e.target.dataset.gr, k = e.target.dataset.k;
+      const head = s.heads[S.openHead];
+      head.rows[i][k] = e.target.value;
+      if (k === 'qty' || k === 'rate') {
+        const r = head.rows[i];
+        r.amount = (n(r.qty) * n(r.rate)) || r.amount;
+        const amtEl = $('vCostEdit').querySelector(`[data-gr="${i}"][data-k="amount"]`);
+        if (amtEl) amtEl.value = r.amount;
+      }
+      head.state = 'filled';
+      mark(); refreshTotals(); refreshHeadAmt(S.openHead);
+    };
+  });
+  $('vCostEdit').querySelectorAll('[data-grdel]').forEach(b => b.onclick = () => {
+    const head = s.heads[S.openHead];
+    head.rows.splice(+b.dataset.grdel, 1);
+    if (!head.rows.length) head.state = 'untouched';
+    mark(); renderSheet();
+  });
+  const ga = $('vCostEdit').querySelector('[data-gradd]');
+  if (ga) ga.onclick = () => {
+    const head = s.heads[ga.dataset.gradd];
+    head.rows.push({ desc:'', qty:1, unit:'nos', rate:'', amount:0 });
+    head.state = 'filled'; mark(); renderSheet();
+  };
+
+  // rates
+  $('vCostEdit').querySelectorAll('[data-rate]').forEach(inp => inp.oninput = e => {
+    s.heads[e.target.dataset.rate].rate = e.target.value;
+    s.heads[e.target.dataset.rate].state = 'filled';
+    mark(); softRefreshTimber(); refreshTotals();
+  });
+  $('vCostEdit').querySelectorAll('[data-lmode]').forEach(b => b.onclick = () => {
+    s.heads.labour.mode = b.dataset.lmode;
+    s.heads.labour.state = 'filled'; mark(); renderSheet();
+  });
+
+  // price
+  const pm = $('pMode'); if (pm) pm.onchange = e => { s.profitMode = e.target.value; mark(); renderSheet(); };
+  const pv = $('pVal');  if (pv) pv.oninput = e => { s.profitValue = e.target.value; mark(); refreshTotals(); };
+  const qp = $('qPrice');if (qp) qp.oninput = e => { s.quotedPrice = e.target.value; mark(); refreshTotals(); };
+
+  $('sDup').onclick = () => {
+    const copy = hydrateSheet(JSON.parse(JSON.stringify(stripSheet(s))));
+    copy.name = (s.name || 'Sheet') + ' (copy)';
+    copy.id = null; S.sheet = copy; S.dirty = true;
+    renderSheet(); show('costEdit','New costing sheet',{ back:true, action:'Save', onAction:() => saveSheet() });
+    toast('Duplicated — save to keep it');
+  };
+  $('sDel').onclick = () => {
+    if (!s.id) { goBack(); return; }
+    confirmBox('Delete this sheet?', 'The costing sheet and all its heads will be removed. This cannot be undone.',
+      'Delete', async () => {
+        await deleteDoc(doc(db, C_SHEETS, s.id));
+        S.dirty = false; S.sheet = null;
+        renderCostList(); show('costing','Costing',{ fab:true });
+        toast('Sheet deleted');
+      });
+  };
+}
+
+function hasContent(s, key) {
+  const h = s.heads[key];
+  if (key === 'timber') return (h.rows || []).length > 0;
+  if (key === 'labour' && h.mode === 'derive') return true;
+  return (h.rows || []).length > 0;
+}
+
+function softRefreshTimber() {
+  const s = S.sheet;
+  $('vCostEdit').querySelectorAll('[data-tr]').forEach(() => {});
+  const rows = s.heads.timber.rows || [];
+  const cells = $('vCostEdit').querySelectorAll('.tr-out');
+  cells.forEach((c, i) => { if (rows[i]) c.textContent = fmt(rowCft(rows[i]), 3); });
+  refreshHeadAmt('timber'); refreshHeadAmt('labour'); refreshTotals();
+}
+function refreshHeadAmt(key) {
+  const s = S.sheet;
+  const btn = $('vCostEdit').querySelector(`[data-head="${key}"] .head-amt`);
+  if (btn) {
+    const st = s.heads[key].state;
+    btn.textContent = st === 'na' ? '—' : st === 'untouched' ? '' : money(headAmount(s, key));
+  }
+}
+function refreshTotals() {
+  const host = $('vCostEdit');
+  const secs = host.querySelectorAll('.sec');
+  const totalsSec = secs[secs.length - 2];
+  if (!totalsSec) return;
+  const focused = document.activeElement ? document.activeElement.id : null;
+  const selStart = document.activeElement && document.activeElement.selectionStart;
+  totalsSec.outerHTML = renderSheetTotals(S.sheet);
+  const pm = $('pMode'); if (pm) pm.onchange = e => { S.sheet.profitMode = e.target.value; S.dirty = true; renderSheet(); };
+  const pv = $('pVal');  if (pv) pv.oninput = e => { S.sheet.profitValue = e.target.value; S.dirty = true; refreshTotals(); };
+  const qp = $('qPrice');if (qp) qp.oninput = e => { S.sheet.quotedPrice = e.target.value; S.dirty = true; refreshTotals(); };
+  if (focused && $(focused)) {
+    const el = $(focused); el.focus();
+    try { el.setSelectionRange(selStart, selStart); } catch (e) {}
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   QUOTES — LIST
+   ══════════════════════════════════════════════════════════ */
+
+function latestOnly(list) {
+  const byNo = {};
+  list.forEach(q => {
+    const k = q.quoteNo || q.id;
+    if (!byNo[k] || n(q.revision) > n(byNo[k].revision)) byNo[k] = q;
+  });
+  return Object.values(byNo);
+}
+
+function renderQuoteList() {
+  const term = S.quoteSearch.toLowerCase();
+  let rows = latestOnly(S.quotes).filter(q =>
+    !term || (q.customer?.name || '').toLowerCase().includes(term) ||
+             (q.quoteNo || '').toLowerCase().includes(term));
+  if (S.quoteFilter !== 'all') rows = rows.filter(q => q.status === S.quoteFilter);
+  rows.sort((a, b) => (b.updatedAt?.seconds || 0) - (a.updatedAt?.seconds || 0));
+
+  const badge = st => st === 'Accepted' ? 'b-green' : st === 'Rejected' ? 'b-red'
+                    : st === 'Sent' ? 'b-brand' : 'b-grey';
+
+  $('vQuoteList').innerHTML = `
+    <div class="sec" style="margin-top:14px">
+      <div class="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input class="inp" id="qSearch" placeholder="Search customer or quote no." value="${esc(S.quoteSearch)}">
+      </div>
+      <div class="chips">
+        ${['all','Draft','Sent','Accepted','Rejected'].map(f =>
+          `<button class="chip ${S.quoteFilter===f?'on':''}" data-qf="${f}">${f==='all'?'All':f}</button>`).join('')}
+      </div>
+      ${rows.length ? rows.map(q => `
+        <button class="listitem" data-qid="${q.id}">
+          <span class="li-top">
+            <b>${esc(q.customer?.name || 'Untitled')}</b>
+            <span class="li-amt num">${money(q.total)}</span>
+          </span>
+          <span class="li-sub">
+            <span>${esc(q.quoteNo || '')}${n(q.revision) > 1 ? ` · R${q.revision}` : ''}</span>
+            <span class="dot"></span>
+            <span>${dmy(q.date)}</span>
+            <span class="badge ${badge(q.status)}" style="margin-left:auto">${esc(q.status || 'Draft')}</span>
+          </span>
+        </button>`).join('') : emptyState('quotes')}
+    </div>`;
+
+  const si = $('qSearch');
+  if (si) si.oninput = e => { S.quoteSearch = e.target.value; const p = e.target.selectionStart; renderQuoteList();
+    const ni = $('qSearch'); ni.focus(); ni.setSelectionRange(p, p); };
+  $('vQuoteList').querySelectorAll('[data-qf]').forEach(b =>
+    b.onclick = () => { S.quoteFilter = b.dataset.qf; renderQuoteList(); });
+  $('vQuoteList').querySelectorAll('[data-qid]').forEach(b =>
+    b.onclick = () => openQuote(b.dataset.qid));
+  const nb = $('vQuoteList').querySelector('#emptyNew');
+  if (nb) nb.onclick = () => openQuote(null);
+}
+
+function openQuote(id) {
+  if (id) {
+    const raw = S.quotes.find(q => q.id === id);
+    if (!raw) return;
+    S.quote = hydrateQuote(raw); S.quote.id = id;
+  } else {
+    S.quote = hydrateQuote(blankQuote());
+  }
+  S.dirty = false;
+  renderQuote();
+  show('quoteEdit', id ? 'Quotation' : 'New quotation',
+    { back: true, action: 'Save', onAction: () => saveQuote() });
+}
+
+/* ══════════════════════════════════════════════════════════
+   QUOTES — EDITOR
+   ══════════════════════════════════════════════════════════ */
+
+function renderQuote() {
+  const q = S.quote;
+  const revs = S.quotes.filter(x => x.quoteNo === q.quoteNo).sort((a,b) => n(a.revision) - n(b.revision));
+
+  $('vQuoteEdit').innerHTML = `
+    <div class="sec" style="margin-top:14px">
+      <div class="card" style="padding:15px">
+        <div class="row">
+          <label class="f"><span>Quote no.</span>
+            <input class="inp" id="qNo" value="${esc(q.quoteNo)}"></label>
+          <label class="f"><span>Date</span>
+            <input class="inp" id="qDate" type="date" value="${esc(q.date)}"></label>
+        </div>
+        ${n(q.revision) > 1 ? `<div class="badge b-amber" style="margin-bottom:11px;display:inline-block">Revision ${q.revision}</div>` : ''}
+        <label class="f"><span>Customer name</span>
+          <input class="inp" id="qName" placeholder="e.g. Sandip Borkar" value="${esc(q.customer.name)}"></label>
+        <div class="row">
+          <label class="f"><span>Phone</span>
+            <input class="inp num" id="qPhone" inputmode="tel" value="${esc(q.customer.phone)}"></label>
+          <label class="f"><span>Valid for (days)</span>
+            <input class="inp num" id="qValid" inputmode="numeric" value="${esc(q.validityDays)}"></label>
+        </div>
+        <label class="f" style="margin-bottom:0"><span>Address</span>
+          <textarea class="inp" id="qAddr" rows="2" placeholder="Site / delivery address">${esc(q.customer.address)}</textarea></label>
+      </div>
+    </div>
+
+    <div class="sec">
+      <p class="sec-t">Items</p>
+      ${q.items.map((it, i) => renderQItem(it, i)).join('')}
+      <button class="btn btn-s btn-full" id="qAddItem" style="margin-top:4px">+ Add item</button>
+    </div>
+
+    ${renderQuoteTotals(q)}
+
+    <div class="sec">
+      <p class="sec-t">Terms &amp; conditions</p>
+      <textarea class="inp" id="qTerms" rows="5">${esc(q.terms)}</textarea>
+    </div>
+
+    <div class="sec">
+      <p class="sec-t">Status</p>
+      <div class="chips">
+        ${['Draft','Sent','Accepted','Rejected'].map(st =>
+          `<button class="chip ${q.status===st?'on':''}" data-st="${st}">${st}</button>`).join('')}
+      </div>
+    </div>
+
+    <div class="sec" style="display:flex;gap:9px;flex-wrap:wrap">
+      <button class="btn btn-p" id="qPdf" style="flex:1;min-width:140px">Save as PDF</button>
+      <button class="btn btn-s" id="qWa" style="flex:1;min-width:140px">Send on WhatsApp</button>
+    </div>
+    <div class="sec" style="display:flex;gap:9px;margin-bottom:30px">
+      <button class="btn btn-s" id="qRev" style="flex:1">New revision</button>
+      <button class="btn btn-s" id="qDup" style="flex:1">Duplicate</button>
+      <button class="btn btn-d" id="qDel" style="flex:1">Delete</button>
+    </div>
+    ${revs.length > 1 ? `<p style="text-align:center;color:var(--muted);font-size:12.5px;margin-bottom:26px">
+      ${revs.length} revisions of ${esc(q.quoteNo)}</p>` : ''}`;
+
+  wireQuote();
+}
+
+function renderQItem(it, i) {
+  const seating = it.rateMode === 'seating';
+  const measured = ['rft','sqft','cft'].includes(it.rateMode);
+  const mLabel = it.rateMode === 'rft' ? 'Running ft' : it.rateMode === 'sqft' ? 'Sq ft' : 'Cu ft';
+  return `
+  <div class="qitem" data-item="${i}">
+    <div class="qi-head">
+      <span class="qi-no num">${i + 1}</span>
+      <b>${esc(it.name || 'New item')}</b>
+      <button class="del" data-idel="${i}" style="color:var(--muted);padding:4px">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="row">
+      <label class="f"><span>Item</span>
+        <input class="inp" data-i="${i}" data-k="name" value="${esc(it.name)}" placeholder="Dining Table"></label>
+      <label class="f"><span>Size</span>
+        <input class="inp" data-i="${i}" data-k="size" value="${esc(it.size)}" placeholder="5ft x 3ft"></label>
+    </div>
+    <label class="f"><span>Specification</span>
+      <textarea class="inp" data-i="${i}" data-k="spec" rows="2" placeholder="Teak wood, w/o cushion, melamine polish">${esc(it.spec)}</textarea></label>
+
+    <label class="f"><span>Rate mode</span>
+      <select class="inp" data-i="${i}" data-k="rateMode">
+        ${RATE_MODES.map(m => `<option value="${m.v}" ${it.rateMode===m.v?'selected':''}>${m.t}</option>`).join('')}
+      </select></label>
+
+    ${seating ? `
+      <div class="row">
+        <label class="f"><span>Seats</span>
+          <input class="inp num" data-i="${i}" data-k="seats" inputmode="numeric" value="${esc(it.seats)}"></label>
+        <label class="f"><span>Handles</span>
+          <select class="inp" data-i="${i}" data-k="handles">
+            ${[0,1,2].map(h => `<option value="${h}" ${n(it.handles)===h?'selected':''}>${h}</option>`).join('')}
+          </select></label>
+      </div>
+      <div class="tl muted" style="padding-top:0">
+        <span>${n(it.seats)} × 2 ft + ${n(it.handles)} handle${n(it.handles)===1?'':'s'}</span>
+        <b class="num" data-ft="${i}">${fmt(itemMeasure(it),1)} ft billed</b>
+      </div>` : ''}
+
+    ${measured ? `
+      <label class="f"><span>${mLabel}</span>
+        <input class="inp num" data-i="${i}" data-k="measure" inputmode="decimal" value="${esc(it.measure)}"></label>` : ''}
+
+    <div class="row">
+      <label class="f"><span>Qty (nos)</span>
+        <input class="inp num" data-i="${i}" data-k="qty" inputmode="decimal" value="${esc(it.qty)}"></label>
+      <label class="f"><span>Rate</span>
+        <input class="inp num" data-i="${i}" data-k="rate" inputmode="decimal" value="${esc(it.rate)}"></label>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:10px;padding:9px 0 4px;border-top:1px solid var(--line)">
+      <label style="flex:1;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-2)">
+        <input type="checkbox" data-i="${i}" data-k="useSubLines" ${it.useSubLines?'checked':''}>
+        Show buildup to customer
+      </label>
+      <b class="num" data-amt="${i}" style="font-size:16px">${money(itemAmount(it))}</b>
+    </div>
+
+    ${it.useSubLines ? `
+      <div style="margin-top:8px">
+        ${(it.subLines || []).map((l, j) => `
+          <div class="subline">
+            <input class="inp" data-sl="${i}" data-j="${j}" data-k="label" value="${esc(l.label)}" placeholder="Wood">
+            <input class="inp num" data-sl="${i}" data-j="${j}" data-k="amount" inputmode="decimal" value="${esc(l.amount)}">
+            <button class="del" data-sldel="${i}" data-j="${j}" style="color:var(--muted)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+          </div>`).join('')}
+        <button class="btn btn-s btn-sm" data-sladd="${i}">+ Sub-line</button>
+      </div>` : ''}
+  </div>`;
+}
+
+function renderQuoteTotals(q) {
+  const sub = quoteSubtotal(q);
+  const disc = discountAmount(q);
+  const gst = gstAmount(q);
+  const gt = grandTotal(q);
+  const fin = quoteFinal(q);
+  const ro = roundOff(q);
+  return `
+    <div class="sec" id="qTotals">
+      <p class="sec-t">Totals</p>
+      <div class="tot">
+        <div class="tl"><span>Subtotal</span><b class="num">${money(sub)}</b></div>
+        <div class="row" style="margin:11px 0 3px">
+          <label class="f" style="margin-bottom:0"><span>Discount</span>
+            <select class="inp" id="dMode">
+              <option value="flat" ${q.discountMode==='flat'?'selected':''}>Flat ₹</option>
+              <option value="pct" ${q.discountMode==='pct'?'selected':''}>Percent</option>
+            </select></label>
+          <label class="f" style="margin-bottom:0"><span>${q.discountMode==='pct'?'%':'Amount'}</span>
+            <input class="inp num" id="dVal" inputmode="decimal" value="${esc(q.discountValue)}"></label>
+        </div>
+        ${disc ? `<div class="tl muted"><span>Discount</span><b class="num">− ${money(disc)}</b></div>` : ''}
+        <div class="tl" style="align-items:center;padding-top:11px">
+          <span style="display:flex;align-items:center;gap:8px">
+            <input type="checkbox" id="gstOn" ${q.gstEnabled?'checked':''}> GST
+            ${q.gstEnabled ? `<input class="inp num" id="gstPct" style="width:62px;padding:6px 8px" inputmode="decimal" value="${esc(q.gstPct)}">%` : ''}
+          </span>
+          <b class="num">${money(gst)}</b>
+        </div>
+        <div class="tl"><span>Grand total</span><b class="num">${money(gt)}</b></div>
+        <label class="f" style="margin:13px 0 3px"><span>Final amount (round off)</span>
+          <input class="inp num" id="qFinal" inputmode="decimal" placeholder="${Math.round(gt)}" value="${esc(q.finalOverride)}"></label>
+        ${Math.abs(ro) > 0.5 ? `<div class="tl muted"><span>Round off</span><b class="num">${ro > 0 ? '+' : '−'} ${money(Math.abs(ro))}</b></div>` : ''}
+        <div class="tl big"><span>Payable</span><b class="num">${money(fin)}</b></div>
+        <p style="font-size:12px;color:var(--muted);margin:8px 0 0;font-style:italic">${esc(words(fin))}</p>
+      </div>
+    </div>`;
+}
+
+function wireQuote() {
+  const q = S.quote;
+  const mark = () => { S.dirty = true; };
+
+  $('qNo').oninput    = e => { q.quoteNo = e.target.value; mark(); };
+  $('qDate').oninput  = e => { q.date = e.target.value; mark(); };
+  $('qName').oninput  = e => { q.customer.name = e.target.value; mark(); };
+  $('qPhone').oninput = e => { q.customer.phone = e.target.value; mark(); };
+  $('qAddr').oninput  = e => { q.customer.address = e.target.value; mark(); };
+  $('qValid').oninput = e => { q.validityDays = e.target.value; mark(); };
+  $('qTerms').oninput = e => { q.terms = e.target.value; mark(); };
+
+  $('vQuoteEdit').querySelectorAll('[data-i]').forEach(el => {
+    const handler = e => {
+      const i = +e.target.dataset.i, k = e.target.dataset.k;
+      const it = q.items[i];
+      it[k] = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+      if (k === 'useSubLines' && it.useSubLines && !it.subLines.length) {
+        it.subLines = [{ label:'', amount:'' }];
+      }
+      mark();
+      if (['rateMode','useSubLines','seats','handles'].includes(k)) renderQuote();
+      else { refreshItemAmt(i); refreshQuoteTotals(); if (k === 'name') refreshItemTitle(i); }
+    };
+    if (el.tagName === 'SELECT' || el.type === 'checkbox') el.onchange = handler;
+    else el.oninput = handler;
+  });
+
+  $('vQuoteEdit').querySelectorAll('[data-sl]').forEach(el => el.oninput = e => {
+    const i = +e.target.dataset.sl, j = +e.target.dataset.j, k = e.target.dataset.k;
+    q.items[i].subLines[j][k] = e.target.value;
+    mark(); refreshItemAmt(i); refreshQuoteTotals();
+  });
+  $('vQuoteEdit').querySelectorAll('[data-sladd]').forEach(b => b.onclick = () => {
+    q.items[+b.dataset.sladd].subLines.push({ label:'', amount:'' }); mark(); renderQuote();
+  });
+  $('vQuoteEdit').querySelectorAll('[data-sldel]').forEach(b => b.onclick = () => {
+    q.items[+b.dataset.sldel].subLines.splice(+b.dataset.j, 1); mark(); renderQuote();
+  });
+  $('vQuoteEdit').querySelectorAll('[data-idel]').forEach(b => b.onclick = () => {
+    if (q.items.length === 1) { toast('A quote needs at least one item'); return; }
+    q.items.splice(+b.dataset.idel, 1); mark(); renderQuote();
+  });
+  $('qAddItem').onclick = () => { q.items.push(blankItem()); mark(); renderQuote(); };
+
+  $('vQuoteEdit').querySelectorAll('[data-st]').forEach(b => b.onclick = () => {
+    q.status = b.dataset.st; mark(); renderQuote();
+  });
+
+  wireQuoteTotals();
+
+  $('qPdf').onclick = () => printQuote(q);
+  $('qWa').onclick  = () => shareWhatsApp(q);
+
+  $('qRev').onclick = async () => {
+    if (!q.id) { toast('Save this quote first'); return; }
+    const copy = hydrateQuote(JSON.parse(JSON.stringify(q)));
+    copy.id = null;
+    copy.revision = n(q.revision) + 1;
+    copy.date = todayISO();
+    copy.status = 'Draft';
+    S.quote = copy; S.dirty = true;
+    renderQuote();
+    show('quoteEdit','Quotation',{ back:true, action:'Save', onAction:() => saveQuote() });
+    toast(`Revision ${copy.revision} started — save to keep it`);
+  };
+  $('qDup').onclick = () => {
+    const copy = hydrateQuote(JSON.parse(JSON.stringify(q)));
+    copy.id = null; copy.revision = 1;
+    copy.quoteNo = `${S.settings.quotePrefix}-${String(n(S.settings.nextQuoteNo)).padStart(3,'0')}`;
+    copy.date = todayISO(); copy.status = 'Draft';
+    S.quote = copy; S.dirty = true;
+    renderQuote();
+    show('quoteEdit','New quotation',{ back:true, action:'Save', onAction:() => saveQuote() });
+    toast('Duplicated — save to keep it');
+  };
+  $('qDel').onclick = () => {
+    if (!q.id) { goBack(); return; }
+    confirmBox('Delete this quotation?', 'This revision will be removed. Other revisions stay.', 'Delete',
+      async () => {
+        await deleteDoc(doc(db, C_QUOTES, q.id));
+        S.dirty = false; S.quote = null;
+        renderQuoteList(); show('quotes','Quotations',{ fab:true });
+        toast('Quotation deleted');
+      });
+  };
+}
+
+function wireQuoteTotals() {
+  const q = S.quote;
+  const dm = $('dMode');   if (dm) dm.onchange = e => { q.discountMode = e.target.value; S.dirty = true; refreshQuoteTotals(); };
+  const dv = $('dVal');    if (dv) dv.oninput  = e => { q.discountValue = e.target.value; S.dirty = true; refreshQuoteTotals(); };
+  const go = $('gstOn');   if (go) go.onchange = e => { q.gstEnabled = e.target.checked; S.dirty = true; refreshQuoteTotals(); };
+  const gp = $('gstPct');  if (gp) gp.oninput  = e => { q.gstPct = e.target.value; S.dirty = true; refreshQuoteTotals(); };
+  const qf = $('qFinal');  if (qf) qf.oninput  = e => { q.finalOverride = e.target.value; S.dirty = true; refreshQuoteTotals(); };
+}
+function refreshQuoteTotals() {
+  const cur = $('qTotals');
+  if (!cur) return;
+  const focused = document.activeElement ? document.activeElement.id : null;
+  const pos = document.activeElement && document.activeElement.selectionStart;
+  cur.outerHTML = renderQuoteTotals(S.quote);
+  wireQuoteTotals();
+  if (focused && $(focused)) {
+    const el = $(focused); el.focus();
+    try { el.setSelectionRange(pos, pos); } catch (e) {}
+  }
+}
+function refreshItemAmt(i) {
+  const box = $('vQuoteEdit').querySelector(`[data-item="${i}"]`);
+  if (!box) return;
+  const b = box.querySelector(`[data-amt="${i}"]`);
+  if (b) b.textContent = money(itemAmount(S.quote.items[i]));
+  const ft = box.querySelector('[data-ft]');
+  if (ft) ft.textContent = fmt(itemMeasure(S.quote.items[i]), 1) + ' ft billed';
+}
+function refreshItemTitle(i) {
+  const box = $('vQuoteEdit').querySelector(`[data-item="${i}"] .qi-head b`);
+  if (box) box.textContent = S.quote.items[i].name || 'New item';
+}
+
+/* ══════════════════════════════════════════════════════════
+   PDF / SHARE
+   ══════════════════════════════════════════════════════════ */
+
+function buildPrintHTML(q) {
+  const co = S.settings.company;
+  const rows = q.items.map((it, i) => {
+    const measure = itemMeasure(it);
+    const rateTxt = it.useSubLines ? '' :
+      it.rateMode === 'lumpsum' ? 'Lump sum'
+      : it.rateMode === 'piece' ? money(it.rate)
+      : `${money(it.rate)} / ${it.rateMode === 'seating' ? 'ft' : it.rateMode}`;
+    const qtyTxt = it.useSubLines ? ''
+      : it.rateMode === 'piece' || it.rateMode === 'lumpsum' ? `${fmt(it.qty,2)} nos`
+      : `${fmt(measure,2)} ${it.rateMode === 'seating' ? 'ft' : it.rateMode}${n(it.qty) > 1 ? ` × ${fmt(it.qty,0)}` : ''}`;
+    const subs = it.useSubLines
+      ? (it.subLines || []).map(l =>
+          `<tr><td></td><td class="sub">${esc(l.label)}</td><td></td><td></td><td class="r sub">${money(l.amount)}</td></tr>`
+        ).join('')
+      : '';
+    return `<tr>
+      <td>${i + 1}</td>
+      <td><b>${esc(it.name)}</b>${it.size ? ` <span style="color:#57534E">${esc(it.size)}</span>` : ''}
+        ${it.spec ? `<div class="spec">${esc(it.spec)}</div>` : ''}</td>
+      <td class="r">${qtyTxt}</td>
+      <td class="r">${rateTxt}</td>
+      <td class="r"><b>${money(itemAmount(it))}</b></td>
+    </tr>${subs}`;
+  }).join('');
+
+  const disc = discountAmount(q), gst = gstAmount(q), ro = roundOff(q);
+  return `
+  <div class="pv">
+    <div class="pv-band">
+      <img src="./icons/logo-white.png" alt="Amar Furniture">
+      <div class="co">
+        <div style="font-size:14px;font-weight:700;letter-spacing:.01em">${esc(co.name)}</div>
+        <div>${esc(co.address)}</div>
+        <div>${esc(co.phone)}</div>
+        ${co.gstin ? `<div>GSTIN ${esc(co.gstin)}</div>` : ''}
+      </div>
+    </div>
+    <div class="pv-title">
+      <h2>Quotation</h2>
+      <div class="pv-meta">
+        <div><b>${esc(q.quoteNo)}</b>${n(q.revision) > 1 ? ` · Revision ${q.revision}` : ''}</div>
+        <div>${dmy(q.date)}</div>
+        <div>Valid ${esc(q.validityDays)} days</div>
+      </div>
+    </div>
+    <div class="pv-to">
+      <b>${esc(q.customer.name)}</b>
+      ${q.customer.phone ? `<div>${esc(q.customer.phone)}</div>` : ''}
+      ${q.customer.address ? `<div>${esc(q.customer.address)}</div>` : ''}
+    </div>
+    <table>
+      <thead><tr><th style="width:26px">#</th><th>Item</th><th class="r" style="width:96px">Qty</th>
+        <th class="r" style="width:86px">Rate</th><th class="r" style="width:92px">Amount</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div class="pv-tot">
+      <div><span>Subtotal</span><span>${money(quoteSubtotal(q))}</span></div>
+      ${disc ? `<div><span>Discount</span><span>− ${money(disc)}</span></div>` : ''}
+      ${q.gstEnabled ? `<div><span>GST ${esc(q.gstPct)}%</span><span>${money(gst)}</span></div>` : ''}
+      ${Math.abs(ro) > 0.5 ? `<div><span>Round off</span><span>${ro > 0 ? '+' : '−'} ${money(Math.abs(ro))}</span></div>` : ''}
+      <div class="g"><span>Total</span><span>${money(quoteFinal(q))}</span></div>
+    </div>
+    <div class="pv-words">${esc(words(quoteFinal(q)))}</div>
+    ${q.terms ? `<div class="pv-terms"><b>Terms &amp; conditions</b>${esc(q.terms)}</div>` : ''}
+    <div style="margin-top:26px;font-size:10px;color:#8A8580;text-align:center">${esc(co.footer)}</div>
+  </div>`;
+}
+
+function printQuote(q) {
+  $('printArea').innerHTML = buildPrintHTML(q);
+  setTimeout(() => window.print(), 120);
+}
+
+function shareWhatsApp(q) {
+  const lines = [
+    `*${S.settings.company.name}* — Quotation ${q.quoteNo}${n(q.revision) > 1 ? ` (R${q.revision})` : ''}`,
+    `${q.customer.name}`,
+    ''
+  ];
+  q.items.forEach((it, i) => {
+    lines.push(`${i + 1}. ${it.name}${it.size ? ` ${it.size}` : ''} — ${money(itemAmount(it))}`);
+    if (it.spec) lines.push(`   _${it.spec.replace(/\n/g, ', ')}_`);
+  });
+  lines.push('', `*Total ${money(quoteFinal(q))}*`, words(quoteFinal(q)));
+  const phone = (q.customer.phone || '').replace(/\D/g, '');
+  const url = `https://wa.me/${phone.length >= 10 ? (phone.length === 10 ? '91' + phone : phone) : ''}?text=${encodeURIComponent(lines.join('\n'))}`;
+  window.open(url, '_blank');
+}
+
+/* ══════════════════════════════════════════════════════════
+   SETTINGS
+   ══════════════════════════════════════════════════════════ */
+
+let deferredInstall = null;
+
+function renderSettings() {
+  const st = S.settings;
+  const installed = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+  $('vSettings').innerHTML = `
+    <div class="sec" style="margin-top:14px">
+      <p class="sec-t">Default rates</p>
+      <div class="card" style="padding:15px">
+        <div class="row">
+          <label class="f"><span>Timber ₹/cft</span>
+            <input class="inp num" id="stTimber" inputmode="decimal" value="${esc(st.timberRate)}"></label>
+          <label class="f"><span>Labour ₹/cft</span>
+            <input class="inp num" id="stLabour" inputmode="decimal" value="${esc(st.labourRate)}"></label>
+        </div>
+        <label class="f" style="margin-bottom:0"><span>Sofa seating ₹/running ft</span>
+          <input class="inp num" id="stSeating" inputmode="decimal" value="${esc(st.seatingRate)}"></label>
+        <p style="font-size:12.5px;color:var(--muted);margin:11px 0 0;line-height:1.5">
+          These fill in new sheets and quote lines. You can change them on any individual sheet.</p>
+      </div>
+    </div>
+
+    <div class="sec">
+      <p class="sec-t">Quotation defaults</p>
+      <div class="card" style="padding:15px">
+        <div class="row">
+          <label class="f"><span>Quote prefix</span>
+            <input class="inp" id="stPrefix" value="${esc(st.quotePrefix)}"></label>
+          <label class="f"><span>Next number</span>
+            <input class="inp num" id="stNext" inputmode="numeric" value="${esc(st.nextQuoteNo)}"></label>
+        </div>
+        <div class="row">
+          <label class="f"><span>Valid for (days)</span>
+            <input class="inp num" id="stValid" inputmode="numeric" value="${esc(st.validityDays)}"></label>
+          <label class="f"><span>GST %</span>
+            <input class="inp num" id="stGst" inputmode="decimal" value="${esc(st.gstPct)}"></label>
+        </div>
+        <label style="display:flex;align-items:center;gap:9px;font-size:14px;color:var(--ink-2)">
+          <input type="checkbox" id="stGstOn" ${st.gstDefault?'checked':''}> Add GST to new quotes by default
+        </label>
+      </div>
+    </div>
+
+    <div class="sec">
+      <p class="sec-t">Terms &amp; conditions</p>
+      <textarea class="inp" id="stTerms" rows="6">${esc(st.terms)}</textarea>
+      <p style="font-size:12.5px;color:var(--muted);margin:8px 0 0;line-height:1.5">
+        Loaded into every new quote. Editing a quote's terms does not change this.</p>
+    </div>
+
+    <div class="sec">
+      <p class="sec-t">Company details on the PDF</p>
+      <div class="card" style="padding:15px">
+        <label class="f"><span>Name</span><input class="inp" id="stCoName" value="${esc(st.company.name)}"></label>
+        <label class="f"><span>Address</span><input class="inp" id="stCoAddr" value="${esc(st.company.address)}"></label>
+        <div class="row">
+          <label class="f"><span>Phone</span><input class="inp" id="stCoPhone" value="${esc(st.company.phone)}"></label>
+          <label class="f"><span>GSTIN</span><input class="inp" id="stCoGstin" value="${esc(st.company.gstin)}" placeholder="Optional"></label>
+        </div>
+        <label class="f" style="margin-bottom:0"><span>Footer line</span>
+          <input class="inp" id="stCoFooter" value="${esc(st.company.footer)}"></label>
+      </div>
+    </div>
+
+    <div class="sec">
+      <button class="btn btn-p btn-full" id="stSave">Save settings</button>
+    </div>
+
+    <div class="sec">
+      <p class="sec-t">App</p>
+      <div class="sgroup">
+        ${!installed && !isIOS ? `
+        <button class="srow" id="stInstall">
+          <div class="srow-tx"><b>Install app</b><span>Add WoodPro to your home screen</span></div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"><path d="M12 3v12M7 11l5 5 5-5M4 21h16"/></svg>
+        </button>` : ''}
+        ${!installed && isIOS ? `
+        <div class="srow">
+          <div class="srow-tx"><b>Install app</b><span>Tap Share, then Add to Home Screen</span></div>
+        </div>` : ''}
+        <button class="srow" id="stWhatsNew">
+          <div class="srow-tx"><b>What's new</b><span>Version ${APP_VERSION}</span></div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <button class="srow" id="stOut">
+          <div class="srow-tx"><b>Sign out</b><span>${esc(S.user?.email || '')}</span></div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        </button>
+      </div>
+      <p style="text-align:center;color:var(--muted);font-size:12px;margin:22px 0 30px">
+        WoodPro v${APP_VERSION} · Amar Furniture</p>
+    </div>`;
+
+  $('stSave').onclick = async () => {
+    const st2 = S.settings;
+    st2.timberRate = n($('stTimber').value);
+    st2.labourRate = n($('stLabour').value);
+    st2.seatingRate = n($('stSeating').value);
+    st2.quotePrefix = $('stPrefix').value.trim() || 'AF';
+    st2.nextQuoteNo = n($('stNext').value) || 1;
+    st2.validityDays = n($('stValid').value) || 15;
+    st2.gstPct = n($('stGst').value);
+    st2.gstDefault = $('stGstOn').checked;
+    st2.terms = $('stTerms').value;
+    st2.company = {
+      name: $('stCoName').value, address: $('stCoAddr').value, phone: $('stCoPhone').value,
+      gstin: $('stCoGstin').value, footer: $('stCoFooter').value
+    };
+    try { await saveSettings(); toast('Settings saved'); }
+    catch (e) { toast('Could not save settings'); }
+  };
+
+  const ib = $('stInstall');
+  if (ib) ib.onclick = async () => {
+    if (!deferredInstall) { toast('Use your browser menu → Install app'); return; }
+    deferredInstall.prompt();
+    await deferredInstall.userChoice;
+    deferredInstall = null;
+    renderSettings();
+  };
+  $('stWhatsNew').onclick = () => showWhatsNew(true);
+  $('stOut').onclick = () => confirmBox('Sign out?', 'You will need your password to get back in.', 'Sign out',
+    async () => { S.unsub.forEach(u => u()); await signOut(auth); }, false);
+}
+
+/* ══════════════════════════════════════════════════════════
+   WHAT'S NEW
+   ══════════════════════════════════════════════════════════ */
+
+function showWhatsNew(force) {
+  const seen = localStorage.getItem('wp_version_seen');
+  if (!force && seen === APP_VERSION) return;
+  const c = CHANGELOG[0];
+  modal(`
+    <span class="wn-v">v${c.v} · ${c.date}</span>
+    <h3>What's new</h3>
+    <ul class="wn-list">${c.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
+    <div class="acts"><button class="btn btn-p btn-full" id="wnOk">Got it</button></div>`,
+    () => { $('wnOk').onclick = () => { localStorage.setItem('wp_version_seen', APP_VERSION); closeModal(); }; });
+}
+
+/* ══════════════════════════════════════════════════════════
+   AUTH + BOOT
+   ══════════════════════════════════════════════════════════ */
+
+$('lgBtn').onclick = async () => {
+  const email = $('lgEmail').value.trim();
+  const pass = $('lgPass').value;
+  $('lgErr').textContent = '';
+  if (!email || !pass) { $('lgErr').textContent = 'Enter your email and password.'; return; }
+  $('lgBtn').textContent = 'Signing in…';
+  try {
+    await setPersistence(auth, browserLocalPersistence);
+    await signInWithEmailAndPassword(auth, email, pass);
+  } catch (e) {
+    const map = {
+      'auth/invalid-credential': 'That email and password do not match.',
+      'auth/invalid-email': 'That email address is not valid.',
+      'auth/user-not-found': 'No account found for that email.',
+      'auth/wrong-password': 'That password is not right.',
+      'auth/network-request-failed': 'No connection. Check your network and try again.',
+      'auth/too-many-requests': 'Too many attempts. Wait a minute and try again.'
+    };
+    $('lgErr').textContent = map[e.code] || 'Could not sign in. Try again.';
+  }
+  $('lgBtn').textContent = 'Sign in';
+};
+$('lgPass').addEventListener('keydown', e => { if (e.key === 'Enter') $('lgBtn').click(); });
+
+onAuthStateChanged(auth, async user => {
+  S.user = user;
+  if (user) {
+    $('vLogin').classList.add('hidden');
+    $('app').classList.remove('hidden');
+    document.body.classList.remove('no-nav');
+    await loadSettings();
+    watchAll();
+    goHome();
+    showWhatsNew(false);
+    handleShortcut();
+  } else {
+    $('app').classList.add('hidden');
+    $('vLogin').classList.remove('hidden');
+    document.body.classList.add('no-nav');
+    $('lgPass').value = '';
+  }
+});
+
+function handleShortcut() {
+  const go = new URLSearchParams(location.search).get('go');
+  if (go === 'costing-new') openSheet(null);
+  if (go === 'quote-new') openQuote(null);
+  if (go) history.replaceState({}, '', location.pathname);
+}
+
+/* ─────────── CHROME ─────────── */
+$('backBtn').onclick = goBack;
+$('fab').onclick = () => { if (S.view === 'costing') openSheet(null); else openQuote(null); };
+document.querySelectorAll('[data-nav]').forEach(b => b.onclick = () => {
+  const v = b.dataset.nav;
+  if (v === 'home') goHome();
+  if (v === 'costing') { renderCostList(); show('costing','Costing',{ fab:true }); }
+  if (v === 'quotes')  { renderQuoteList(); show('quotes','Quotations',{ fab:true }); }
+  if (v === 'settings'){ renderSettings(); show('settings','Settings'); }
+});
+
+/* ─────────── NETWORK ─────────── */
+function netUpdate() {
+  const dot = $('netDot');
+  const off = !navigator.onLine;
+  dot.classList.toggle('off', off);
+  dot.title = off ? 'Offline — changes sync when you reconnect' : 'Online';
+}
+window.addEventListener('online', () => { netUpdate(); toast('Back online — changes are syncing'); });
+window.addEventListener('offline', () => { netUpdate(); toast('Offline — you can keep working, changes will sync'); });
+netUpdate();
+
+$('netDot').onclick = () => toast(navigator.onLine
+  ? 'Online. Everything is syncing.'
+  : 'Offline. Keep working — changes upload when you reconnect.');
+
+/* ─────────── INSTALL PROMPT ─────────── */
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredInstall = e; });
+
+/* ─────────── SERVICE WORKER ─────────── */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').then(reg => {
+      reg.addEventListener('updatefound', () => {
+        const nw = reg.installing;
+        if (!nw) return;
+        nw.addEventListener('statechange', () => {
+          if (nw.state === 'installed' && navigator.serviceWorker.controller) {
+            toast('New version available', 'Update', () => {
+              nw.postMessage('SKIP_WAITING');
+              setTimeout(() => location.reload(), 200);
+            }, 0);
+          }
+        });
+      });
+    }).catch(e => console.warn('SW registration failed', e));
+  });
+}
+
+/* ─────────── LEAVE GUARD ─────────── */
+window.addEventListener('beforeunload', e => {
+  if (S.dirty) { e.preventDefault(); e.returnValue = ''; }
+});
+
+</script>
+</body>
+</html>
