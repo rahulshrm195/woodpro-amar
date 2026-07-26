@@ -12,10 +12,9 @@ const PRECACHE = [
   './index.html',
   './manifest.json',
   './offline.html',
-  './icons/icon-192x192.png',
-  './icons/icon-512x512.png',
-  './icons/logo-full.png',
-  './icons/logo-white.png'
+  './icon-192x192.png',
+  './icon-512x512.png',
+  './logo-white.png'
 ];
 
 // ── INSTALL ──

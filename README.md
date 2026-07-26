@@ -9,14 +9,22 @@ Costing and quotation for custom woodwork. Single-file PWA, Firebase backed.
 
 ## Files
 
+Everything sits flat in the repo root — no subfolders.
+
 ```
-index.html    entire app — styles, logic, Firebase, both tools
-manifest.json install metadata
-sw.js         service worker (cache name tracks the app version)
-offline.html  fallback when cache misses and there's no network
-favicon.ico
-CNAME         woodpro.amarfurniture.in
-icons/        app icons + logo assets for the PDF letterhead
+index.html                    entire app — styles, logic, Firebase, both tools
+manifest.json                 install metadata
+sw.js                         service worker (cache name tracks the app version)
+offline.html                  fallback when cache misses and there's no network
+CNAME                         woodpro.amarfurniture.in
+
+icon-192x192.png              home screen icon
+icon-512x512.png              splash screen + store listing
+icon-maskable-192x192.png     padded, for Android circle/squircle masks
+icon-maskable-512x512.png     padded, large
+apple-touch-icon.png          iOS, 180px, no transparency
+favicon.ico                   browser tab
+logo-white.png                full logo for the PDF letterhead band
 ```
 
 ## Deploy
@@ -59,6 +67,6 @@ service cloud.firestore {
 
 ## Releasing a new version
 
-Change `APP_VERSION` in `index.html` **and** `CACHE_NAME` in `sw.js` to match, and add a
-`CHANGELOG` entry. The What's New modal, the Settings footer and the cache bust all follow
-from those two constants.
+See [VERSIONING.md](VERSIONING.md). Short version: bump `APP_VERSION` in `index.html`,
+add a `CHANGELOG` entry at the top of the array, and set `CACHE_NAME` in `sw.js` to the
+same number. The app warns in the console if the version and the changelog drift apart.
