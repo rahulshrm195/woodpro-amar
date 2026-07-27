@@ -1,11 +1,11 @@
 // ══════════════════════════════════════════════
 //  WoodPro Service Worker — sw.js
-//  Version: 1.0.0
+//  Version: 1.1.0
 //  Cache name is bumped with every release so a
 //  new version never serves a stale shell.
 // ══════════════════════════════════════════════
 
-const CACHE_NAME = 'woodpro-v1.0.0';
+const CACHE_NAME = 'woodpro-v1.1.0';
 
 const PRECACHE = [
   './',

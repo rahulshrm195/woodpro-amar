@@ -21,24 +21,55 @@
 <style>
 /* ═══════════════ TOKENS ═══════════════ */
 :root{
-  --brand:#EF7F1A;      /* bright orange — main ribbon */
+  --brand:#EF7F1A;
   --brand-mid:#EA771C;
-  --brand-deep:#D56A1F; /* AMAR wordmark */
-  --brand-burnt:#BD4729;/* house mark */
+  --brand-deep:#D56A1F;
+  --brand-burnt:#BD4729;
   --bg:#F5F5F2;
+  --surface:#FFFFFF;
   --card:#FFFFFF;
+  --card-2:#FAFAF8;
   --ink:#1C1917;
   --ink-2:#57534E;
   --muted:#8A8580;
   --line:#E7E5E0;
-  --red:#DC2626;
-  --amber:#D97706;
-  --green:#16A34A;
-  --grey:#A8A29E;
+  --line-2:#EFEDE9;
+  --field:#FFFFFF;
+  --red:#DC2626;    --red-bg:#FEF2F2;   --red-br:#FECACA;
+  --amber:#D97706;  --amber-bg:#FFFBEB;
+  --green:#16A34A;  --green-bg:#F0FDF4;
+  --grey:#A8A29E;   --grey-bg:#F5F5F4;
+  --brand-bg:#FEF3E8;
   --r:14px;
   --shadow:0 1px 2px rgba(28,25,23,.05),0 1px 3px rgba(28,25,23,.04);
   --shadow-lg:0 4px 24px rgba(28,25,23,.10);
   --safe-b:env(safe-area-inset-bottom,0px);
+  --nav-w:248px;
+  color-scheme:light;
+}
+[data-theme="dark"]{
+  --brand:#F58A2A;
+  --brand-mid:#EF7F1A;
+  --brand-deep:#E08234;
+  --brand-burnt:#D4653C;
+  --bg:#16130F;
+  --surface:#1D1915;
+  --card:#211D18;
+  --card-2:#26211B;
+  --ink:#F3F0EB;
+  --ink-2:#C6BFB5;
+  --muted:#8E867B;
+  --line:#332D26;
+  --line-2:#2A251F;
+  --field:#1A1611;
+  --red:#F87171;   --red-bg:#2A1616;   --red-br:#5B2323;
+  --amber:#FBBF24; --amber-bg:#2A2110;
+  --green:#4ADE80; --green-bg:#12240F;
+  --grey:#8E867B;  --grey-bg:#26221C;
+  --brand-bg:#2E2013;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 1px 3px rgba(0,0,0,.3);
+  --shadow-lg:0 8px 32px rgba(0,0,0,.5);
+  color-scheme:dark;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0}
@@ -47,72 +78,126 @@ body{
   font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   font-size:15px;line-height:1.5;
   -webkit-font-smoothing:antialiased;
-  padding-bottom:calc(66px + var(--safe-b));
+  transition:background-color .18s,color .18s;
 }
-body.no-nav{padding-bottom:0}
 input,select,textarea,button{font-family:inherit;font-size:inherit;color:inherit}
 button{cursor:pointer;border:0;background:none}
 .num{font-variant-numeric:tabular-nums;font-feature-settings:'tnum'}
 .hidden{display:none !important}
 
-/* ═══════════════ LAYOUT ═══════════════ */
-.wrap{max-width:720px;margin:0 auto;padding:0 16px}
-.topbar{
-  position:sticky;top:0;z-index:40;background:rgba(245,245,242,.94);
-  backdrop-filter:saturate(1.6) blur(12px);border-bottom:1px solid var(--line);
+/* ═══════════════ SHELL — desktop first ═══════════════ */
+.shell{display:grid;grid-template-columns:var(--nav-w) 1fr;min-height:100dvh}
+.sidebar{
+  position:sticky;top:0;height:100dvh;background:var(--surface);
+  border-right:1px solid var(--line);padding:22px 14px 16px;
+  display:flex;flex-direction:column;gap:4px;
 }
-.topbar-in{max-width:720px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:12px;min-height:56px}
-.topbar h1{font-size:17px;font-weight:650;margin:0;letter-spacing:-.01em;flex:1;min-width:0;
+.sb-brand{display:flex;align-items:center;gap:11px;padding:0 8px 20px}
+.sb-brand img{width:36px;height:36px;border-radius:10px}
+.sb-brand b{font-size:16px;font-weight:680;letter-spacing:-.02em;display:block;
+  line-height:1.2;color:var(--ink)}
+.sb-brand>span>span{font-size:11.5px;color:var(--muted)}
+.sb-link{
+  display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;
+  font-size:14.5px;font-weight:560;color:var(--ink-2);width:100%;text-align:left;
+  transition:background-color .12s,color .12s;
+}
+.sb-link:hover{background:var(--card-2);color:var(--ink)}
+.sb-link.on{background:var(--brand-bg);color:var(--brand-burnt);font-weight:640}
+.sb-link svg{flex:none}
+.sb-foot{margin-top:auto;padding:12px 10px 0;border-top:1px solid var(--line);
+  font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:8px}
+
+.content{min-width:0;display:flex;flex-direction:column}
+.wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 28px 60px}
+
+.topbar{
+  position:sticky;top:0;z-index:40;background:var(--bg);
+  border-bottom:1px solid var(--line);
+}
+.topbar-in{max-width:1180px;margin:0 auto;padding:14px 28px;
+  display:flex;align-items:center;gap:14px;min-height:64px}
+.topbar h1{font-size:20px;font-weight:680;margin:0;letter-spacing:-.02em;flex:1;min-width:0;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.back{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;margin-left:-6px;color:var(--ink-2)}
-.back:active{background:var(--line)}
+.back{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;
+  margin-left:-6px;color:var(--ink-2)}
+.back:hover{background:var(--card-2)}
 .netdot{width:9px;height:9px;border-radius:50%;background:var(--green);flex:none}
 .netdot.off{background:var(--amber)}
 
+/* ═══════════════ MOBILE ADAPTATION ═══════════════ */
+@media (max-width:999px){
+  .shell{grid-template-columns:1fr}
+  .sidebar{display:none}
+  body{padding-bottom:calc(66px + var(--safe-b))}
+  body.no-nav{padding-bottom:0}
+  .wrap{padding:0 16px 40px}
+  .topbar-in{padding:12px 16px;min-height:56px;gap:12px}
+  .topbar h1{font-size:17px;font-weight:650}
+}
+
 /* ═══════════════ CARDS / FORMS ═══════════════ */
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
-.sec{margin-top:18px}
-.sec-t{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 9px 3px}
-.row{display:flex;gap:10px}
-.row>*{flex:1;min-width:0}
-label.f{display:block;margin-bottom:11px}
+.sec{margin-top:20px}
+.sec-t{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 9px 3px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:0 12px}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:0 14px}
+label.f{display:block;margin-bottom:12px;min-width:0}
 label.f>span{display:block;font-size:12.5px;font-weight:600;color:var(--ink-2);margin-bottom:5px}
 .inp{
   width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;
-  background:var(--card);outline:none;transition:border-color .12s,box-shadow .12s;
+  background:var(--field);outline:none;transition:border-color .12s,box-shadow .12s;
 }
-.inp:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(239,127,26,.14)}
+.inp:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(239,127,26,.16)}
 textarea.inp{resize:vertical;min-height:70px;line-height:1.5}
 select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238A8580' d='M6 8 0 0h12z'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+input[type=checkbox]{accent-color:var(--brand);width:16px;height:16px}
 
 .btn{padding:12px 18px;border-radius:11px;font-weight:600;font-size:15px;display:inline-flex;
-  align-items:center;justify-content:center;gap:8px;transition:transform .08s,opacity .12s}
+  align-items:center;justify-content:center;gap:8px;transition:transform .08s,opacity .12s,background-color .12s}
 .btn:active{transform:scale(.985)}
 .btn-p{background:var(--brand);color:#fff}
+.btn-p:hover{background:var(--brand-mid)}
 .btn-s{background:var(--card);color:var(--ink);border:1px solid var(--line)}
-.btn-d{background:#FEF2F2;color:var(--red);border:1px solid #FECACA}
+.btn-s:hover{background:var(--card-2)}
+.btn-d{background:var(--red-bg);color:var(--red);border:1px solid var(--red-br)}
 .btn-full{width:100%}
 .btn-sm{padding:8px 13px;font-size:13.5px;border-radius:9px}
 
-/* ═══════════════ HOME ═══════════════ */
-.hero{padding:26px 0 6px;text-align:center}
-.hero img{width:78px;height:78px;border-radius:20px;box-shadow:var(--shadow-lg)}
-.hero h2{font-size:22px;font-weight:700;letter-spacing:-.02em;margin:14px 0 2px}
-.hero p{color:var(--muted);font-size:13.5px;margin:0}
-.tools{display:grid;gap:12px;margin-top:24px}
-.tool{display:flex;align-items:center;gap:15px;padding:18px;text-align:left;width:100%;
-  background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
-.tool:active{transform:scale(.99)}
-.tool-ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;flex:none;
-  background:linear-gradient(160deg,var(--brand),var(--brand-burnt));color:#fff}
-.tool-tx b{display:block;font-size:16px;font-weight:650;letter-spacing:-.01em}
-.tool-tx span{font-size:13px;color:var(--muted);line-height:1.4}
+/* ═══════════════ QUOTE CARDS (home) ═══════════════ */
+.home-head{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.home-head .h{flex:1;min-width:200px}
+.home-head h2{margin:0;font-size:24px;font-weight:720;letter-spacing:-.03em}
+.home-head p{margin:3px 0 0;font-size:13.5px;color:var(--muted)}
+.stat-strip{display:flex;gap:22px;flex-wrap:wrap}
+.stat b{display:block;font-size:21px;font-weight:700;letter-spacing:-.02em;line-height:1.2}
+.stat span{font-size:11.5px;color:var(--muted)}
+
+.qcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:12px}
+.qcard{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:16px;text-align:left;box-shadow:var(--shadow);display:flex;flex-direction:column;
+  gap:0;transition:border-color .12s,transform .08s;
+}
+.qcard:hover{border-color:var(--brand)}
+.qcard:active{transform:scale(.995)}
+.qc-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
+.qc-top b{flex:1;min-width:0;font-size:16px;font-weight:660;letter-spacing:-.015em;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.35}
+.qc-meta{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.qc-meta .dot{width:3px;height:3px;border-radius:50%;background:var(--line);flex:none}
+.qc-amt{margin-top:12px;padding-top:12px;border-top:1px solid var(--line-2);
+  display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.qc-amt b{font-size:20px;font-weight:720;letter-spacing:-.025em}
+.qc-amt span{font-size:12px;color:var(--muted)}
 
 /* ═══════════════ LIST ═══════════════ */
 .listitem{display:block;width:100%;text-align:left;padding:14px 15px;background:var(--card);
-  border:1px solid var(--line);border-radius:12px;margin-bottom:9px;box-shadow:var(--shadow)}
-.listitem:active{background:#FAFAF8}
+  border:1px solid var(--line);border-radius:12px;margin-bottom:9px;box-shadow:var(--shadow);
+  transition:border-color .12s}
+.listitem:hover{border-color:var(--brand)}
 .li-top{display:flex;align-items:baseline;gap:9px}
 .li-top b{font-size:15.5px;font-weight:640;letter-spacing:-.01em;flex:1;min-width:0;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -122,33 +207,37 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
 
 .badge{font-size:10.5px;font-weight:700;padding:3px 7px;border-radius:6px;letter-spacing:.03em;
   text-transform:uppercase;white-space:nowrap}
-.b-red{background:#FEF2F2;color:var(--red)}
-.b-green{background:#F0FDF4;color:var(--green)}
-.b-grey{background:#F5F5F4;color:var(--muted)}
-.b-amber{background:#FFFBEB;color:var(--amber)}
-.b-brand{background:#FEF3E8;color:var(--brand-burnt)}
+.b-red{background:var(--red-bg);color:var(--red)}
+.b-green{background:var(--green-bg);color:var(--green)}
+.b-grey{background:var(--grey-bg);color:var(--muted)}
+.b-amber{background:var(--amber-bg);color:var(--amber)}
+.b-brand{background:var(--brand-bg);color:var(--brand-burnt)}
 
-.search{position:relative;margin-bottom:12px}
+.toolbar{display:flex;gap:12px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+.search{position:relative;flex:1;min-width:200px}
 .search .inp{padding-left:36px}
 .search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted)}
-.chips{display:flex;gap:7px;margin-bottom:13px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px}
-.chip{padding:6px 13px;border-radius:20px;font-size:13px;font-weight:550;white-space:nowrap;
-  background:var(--card);border:1px solid var(--line);color:var(--ink-2)}
-.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.chips{display:flex;gap:7px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+.chip{padding:7px 14px;border-radius:20px;font-size:13px;font-weight:550;white-space:nowrap;
+  background:var(--card);border:1px solid var(--line);color:var(--ink-2);transition:all .12s}
+.chip:hover{border-color:var(--muted)}
+.chip.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 
-.empty{text-align:center;padding:52px 24px;color:var(--muted)}
+.desk-only{display:none}
+@media (min-width:1000px){.desk-only{display:inline-flex}}
+.empty{text-align:center;padding:60px 24px;color:var(--muted)}
 .empty svg{opacity:.32;margin-bottom:14px}
-.empty b{display:block;color:var(--ink-2);font-size:15px;font-weight:600;margin-bottom:5px}
-.empty p{font-size:13.5px;margin:0 0 18px;line-height:1.5}
+.empty b{display:block;color:var(--ink-2);font-size:16px;font-weight:600;margin-bottom:6px}
+.empty p{font-size:13.5px;margin:0 auto 20px;line-height:1.55;max-width:400px}
 
-/* ═══════════════ COST HEADS (signature) ═══════════════ */
-.gate{display:flex;align-items:center;gap:13px;padding:14px 16px;border-radius:12px;
+/* ═══════════════ COST HEADS ═══════════════ */
+.gate{display:flex;align-items:center;gap:13px;padding:15px 17px;border-radius:12px;
   background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);margin-bottom:14px}
-.gate.warn{border-color:#FCA5A5;background:#FFFCFC}
+.gate.warn{border-color:var(--red-br)}
 .ring{width:42px;height:42px;flex:none;position:relative}
 .ring svg{transform:rotate(-90deg)}
 .ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:11.5px;font-weight:700}
-.gate-tx b{display:block;font-size:14px;font-weight:650}
+.gate-tx b{display:block;font-size:14.5px;font-weight:650}
 .gate-tx span{font-size:12.5px;color:var(--muted);line-height:1.4}
 
 .head{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:8px;
@@ -156,77 +245,85 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
 .head.untouched{border-left:3px solid var(--red)}
 .head.na{border-left:3px solid var(--grey);opacity:.72}
 .head.filled{border-left:3px solid var(--green)}
-.head-b{display:flex;align-items:center;gap:11px;padding:13px 14px;width:100%;text-align:left}
+.head-b{display:flex;align-items:center;gap:11px;padding:14px 15px;width:100%;text-align:left}
+.head-b:hover{background:var(--card-2)}
 .head-n{flex:1;min-width:0}
 .head-n b{display:block;font-size:14.5px;font-weight:620;letter-spacing:-.005em}
 .head-n span{font-size:12px;color:var(--muted);line-height:1.35}
 .head-amt{font-size:14.5px;font-weight:660;white-space:nowrap}
-.head-body{padding:0 14px 14px;border-top:1px solid var(--line);margin-top:2px;padding-top:13px}
+.head-body{padding:0 15px 15px;border-top:1px solid var(--line);margin-top:2px;padding-top:14px}
 .stpill{width:9px;height:9px;border-radius:50%;flex:none}
 .stpill.untouched{background:var(--red)}
 .stpill.na{background:var(--grey)}
 .stpill.filled{background:var(--green)}
 
-.mini{width:100%;border-collapse:collapse;font-size:13.5px}
+.mini-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.mini{width:100%;border-collapse:collapse;font-size:13.5px;min-width:520px}
 .mini th{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;
-  color:var(--muted);text-align:left;padding:0 5px 6px;font-weight:700}
-.mini td{padding:3px 3px}
-.mini input{width:100%;padding:8px 8px;border:1px solid var(--line);border-radius:8px;
-  background:var(--card);outline:none;font-size:13.5px}
-.mini input:focus{border-color:var(--brand);box-shadow:0 0 0 2px rgba(239,127,26,.13)}
+  color:var(--muted);text-align:left;padding:0 5px 6px}
+.mini td{padding:3px}
+.mini input{width:100%;padding:8px;border:1px solid var(--line);border-radius:8px;
+  background:var(--field);outline:none;font-size:13.5px}
+.mini input:focus{border-color:var(--brand);box-shadow:0 0 0 2px rgba(239,127,26,.15)}
 .mini .del{color:var(--muted);padding:6px;display:grid;place-items:center}
-.mini .del:active{color:var(--red)}
+.mini .del:hover{color:var(--red)}
 .tr-out{text-align:right;font-weight:600;padding-right:6px !important;white-space:nowrap}
 
 /* ═══════════════ TOTALS ═══════════════ */
-.tot{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;
+.tot{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:17px;
   box-shadow:var(--shadow)}
 .tl{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;font-size:14px}
 .tl span{color:var(--ink-2)}
 .tl b{font-weight:620}
 .tl.big{border-top:1px solid var(--line);margin-top:7px;padding-top:13px;font-size:16px}
-.tl.big b{font-size:20px;font-weight:720;letter-spacing:-.02em}
+.tl.big b{font-size:21px;font-weight:720;letter-spacing:-.02em}
 .tl.muted span,.tl.muted b{color:var(--muted);font-size:13px}
 .margin-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:8px;
-  font-size:12.5px;font-weight:650;background:#F0FDF4;color:var(--green)}
-.margin-pill.low{background:#FFFBEB;color:var(--amber)}
-.margin-pill.neg{background:#FEF2F2;color:var(--red)}
+  font-size:12.5px;font-weight:650;background:var(--green-bg);color:var(--green)}
+.margin-pill.low{background:var(--amber-bg);color:var(--amber)}
+.margin-pill.neg{background:var(--red-bg);color:var(--red)}
 
 /* ═══════════════ QUOTE ITEMS ═══════════════ */
-.qitem{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;
-  margin-bottom:9px;box-shadow:var(--shadow)}
-.qi-head{display:flex;align-items:center;gap:9px;margin-bottom:11px}
+.qitem{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;
+  margin-bottom:10px;box-shadow:var(--shadow)}
+.qi-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .qi-no{width:24px;height:24px;border-radius:7px;background:var(--bg);display:grid;place-items:center;
   font-size:12px;font-weight:700;color:var(--ink-2);flex:none}
-.qi-head b{flex:1;font-size:14.5px;font-weight:640}
+.qi-head b{flex:1;font-size:15px;font-weight:640}
+.qi-foot{display:flex;align-items:center;gap:12px;padding:10px 0 2px;
+  border-top:1px solid var(--line-2);flex-wrap:wrap}
 .subline{display:flex;gap:8px;margin-bottom:6px}
 .subline input:first-child{flex:2}
 .subline input:nth-child(2){flex:1}
 
-/* ═══════════════ NAV ═══════════════ */
-.nav{position:fixed;left:0;right:0;bottom:0;z-index:45;background:rgba(255,255,255,.96);
-  backdrop-filter:blur(12px);border-top:1px solid var(--line);padding-bottom:var(--safe-b)}
-.nav-in{max-width:720px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
-.nav button{padding:9px 0 8px;display:flex;flex-direction:column;align-items:center;gap:3px;
-  font-size:10.5px;font-weight:600;color:var(--muted);letter-spacing:.01em}
-.nav button.on{color:var(--brand)}
+/* ═══════════════ BOTTOM NAV (mobile only) ═══════════════ */
+.nav{display:none}
+@media (max-width:999px){
+  .nav{position:fixed;left:0;right:0;bottom:0;z-index:45;background:var(--surface);
+    border-top:1px solid var(--line);padding-bottom:var(--safe-b);display:block}
+  .nav-in{display:grid;grid-template-columns:repeat(3,1fr)}
+  .nav button{padding:9px 0 8px;display:flex;flex-direction:column;align-items:center;gap:3px;
+    font-size:10.5px;font-weight:600;color:var(--muted);letter-spacing:.01em;width:100%}
+  .nav button.on{color:var(--brand)}
+}
 
-.fab{position:fixed;right:16px;bottom:calc(80px + var(--safe-b));z-index:44;width:54px;height:54px;
+.fab{position:fixed;right:20px;bottom:calc(80px + var(--safe-b));z-index:44;width:54px;height:54px;
   border-radius:17px;background:var(--brand);color:#fff;display:grid;place-items:center;
   box-shadow:0 6px 20px rgba(239,127,26,.38)}
 .fab:active{transform:scale(.94)}
+@media (min-width:1000px){.fab{display:none !important}}
 
 /* ═══════════════ MODAL / TOAST ═══════════════ */
-.ovl{position:fixed;inset:0;z-index:60;background:rgba(28,25,23,.42);display:grid;place-items:center;
-  padding:20px;backdrop-filter:blur(2px)}
-.modal{background:var(--card);border-radius:18px;padding:22px;max-width:400px;width:100%;
-  box-shadow:var(--shadow-lg);max-height:82vh;overflow-y:auto}
-.modal h3{margin:0 0 6px;font-size:18px;font-weight:700;letter-spacing:-.015em}
+.ovl{position:fixed;inset:0;z-index:60;background:rgba(10,8,6,.5);display:grid;place-items:center;
+  padding:20px;backdrop-filter:blur(3px)}
+.modal{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;
+  max-width:440px;width:100%;box-shadow:var(--shadow-lg);max-height:82vh;overflow-y:auto}
+.modal h3{margin:0 0 6px;font-size:19px;font-weight:700;letter-spacing:-.015em}
 .modal p{margin:0 0 18px;font-size:14px;color:var(--ink-2);line-height:1.55}
 .modal .acts{display:flex;gap:9px;margin-top:6px}
 .modal .acts .btn{flex:1}
 .wn-v{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:7px;
-  background:#FEF3E8;color:var(--brand-burnt);margin-bottom:11px;letter-spacing:.02em}
+  background:var(--brand-bg);color:var(--brand-burnt);margin-bottom:11px;letter-spacing:.02em}
 .wn-list{margin:0;padding-left:18px;font-size:14px;line-height:1.65;color:var(--ink-2)}
 .wn-list li{margin-bottom:5px}
 .wn-entry{padding-bottom:14px}
@@ -236,28 +333,33 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
   font-weight:600;color:var(--brand-burnt);border-top:1px solid var(--line)}
 
 .toast{position:fixed;left:16px;right:16px;bottom:calc(78px + var(--safe-b));z-index:70;
-  background:var(--ink);color:#fff;padding:13px 16px;border-radius:12px;font-size:14px;
+  background:var(--ink);color:var(--bg);padding:13px 16px;border-radius:12px;font-size:14px;
   box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:12px;max-width:520px;margin:0 auto;
   animation:up .22s ease}
+@media (min-width:1000px){.toast{bottom:24px;left:auto;right:24px;margin:0}}
 @keyframes up{from{opacity:0;transform:translateY(10px)}}
 .toast button{color:var(--brand);font-weight:650;white-space:nowrap;font-size:14px}
 
 /* ═══════════════ LOGIN ═══════════════ */
 .login{min-height:100dvh;display:grid;place-items:center;padding:24px}
-.login-in{width:100%;max-width:340px;text-align:center}
+.login-in{width:100%;max-width:350px;text-align:center}
 .login-in img{width:88px;height:88px;border-radius:23px;box-shadow:var(--shadow-lg);margin-bottom:22px}
-.login-in h1{font-size:25px;font-weight:720;letter-spacing:-.025em;margin:0 0 5px}
+.login-in h1{font-size:26px;font-weight:720;letter-spacing:-.025em;margin:0 0 5px}
 .login-in>p{color:var(--muted);font-size:14px;margin:0 0 26px}
 .err{color:var(--red);font-size:13.5px;margin:12px 0 0;min-height:19px}
 
 /* ═══════════════ SETTINGS ═══════════════ */
-.srow{display:flex;align-items:center;gap:13px;padding:14px 15px;width:100%;text-align:left;
+.srow{display:flex;align-items:center;gap:13px;padding:15px 16px;width:100%;text-align:left;
   background:var(--card);border-bottom:1px solid var(--line)}
+.srow:hover{background:var(--card-2)}
 .srow:last-child{border-bottom:0}
 .srow-tx{flex:1;min-width:0}
 .srow-tx b{display:block;font-size:14.5px;font-weight:600}
 .srow-tx span{font-size:12.5px;color:var(--muted);line-height:1.4}
 .sgroup{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+.seg{display:inline-flex;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px}
+.seg button{padding:7px 15px;border-radius:8px;font-size:13.5px;font-weight:580;color:var(--ink-2)}
+.seg button.on{background:var(--card);color:var(--ink);box-shadow:var(--shadow)}
 
 /* ═══════════════ PRINT ═══════════════ */
 #printArea{display:none}
@@ -267,7 +369,7 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
   #printArea{display:block !important}
   @page{size:A4;margin:12mm}
 }
-.pv{font-family:Inter,sans-serif;color:#1C1917}
+.pv{font-family:Inter,sans-serif;color:#1C1917;background:#fff}
 .pv-band{background:#BD4729;color:#fff;padding:18px 20px;display:flex;align-items:center;
   justify-content:space-between;gap:20px}
 .pv-band img{height:52px}
@@ -279,7 +381,7 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
 .pv-to{margin-bottom:16px;font-size:12.5px;line-height:1.65}
 .pv-to b{font-size:14px}
 .pv table{width:100%;border-collapse:collapse;font-size:11.5px}
-.pv th{background:#F5F5F2;text-align:left;padding:8px 8px;font-size:10px;text-transform:uppercase;
+.pv th{background:#F5F5F2;text-align:left;padding:8px;font-size:10px;text-transform:uppercase;
   letter-spacing:.06em;border-bottom:1px solid #E7E5E0}
 .pv td{padding:9px 8px;border-bottom:1px solid #EFEDE9;vertical-align:top}
 .pv .r{text-align:right}
@@ -295,14 +397,14 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
   margin-bottom:6px}
 </style>
 </head>
-<body class="no-nav">
+<body>
 
 <!-- ═══════════ LOGIN ═══════════ -->
 <div id="vLogin" class="login">
   <div class="login-in">
     <img src="./icon-192x192.png" alt="">
     <h1>WoodPro</h1>
-    <p>Costing &amp; quotation · Amar Furniture</p>
+    <p>Quotation &amp; costing · Amar Furniture</p>
     <label class="f"><input id="lgEmail" class="inp" type="email" placeholder="Email" autocomplete="username"></label>
     <label class="f"><input id="lgPass" class="inp" type="password" placeholder="Password" autocomplete="current-password"></label>
     <button id="lgBtn" class="btn btn-p btn-full">Sign in</button>
@@ -312,25 +414,55 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
 
 <!-- ═══════════ APP ═══════════ -->
 <div id="app" class="hidden">
-  <div class="topbar">
-    <div class="topbar-in">
-      <button id="backBtn" class="back hidden" aria-label="Back">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  <div class="shell">
+
+    <!-- Sidebar (desktop) -->
+    <aside class="sidebar">
+      <div class="sb-brand">
+        <img src="./icon-192x192.png" alt="">
+        <span><b>WoodPro</b><span>Amar Furniture</span></span>
+      </div>
+      <button class="sb-link on" data-nav="home">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg>
+        Quotations
       </button>
-      <h1 id="pageTitle">WoodPro</h1>
-      <span id="netDot" class="netdot" title="Online"></span>
-      <button id="headAction" class="btn btn-p btn-sm hidden"></button>
+      <button class="sb-link" data-nav="costing">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h5"/></svg>
+        Costing
+      </button>
+      <button class="sb-link" data-nav="settings">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        Settings
+      </button>
+      <div class="sb-foot">
+        <span id="netDotSb" class="netdot"></span>
+        <span id="sbVersion"></span>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <div class="content">
+      <div class="topbar">
+        <div class="topbar-in">
+          <button id="backBtn" class="back hidden" aria-label="Back">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <h1 id="pageTitle">Quotations</h1>
+          <span id="netDot" class="netdot" title="Online"></span>
+          <button id="headAction2" class="btn btn-s btn-sm hidden"></button>
+          <button id="headAction" class="btn btn-p btn-sm hidden"></button>
+        </div>
+      </div>
+
+      <main class="wrap">
+        <div id="vHome"></div>
+        <div id="vCostList" class="hidden"></div>
+        <div id="vCostEdit" class="hidden"></div>
+        <div id="vQuoteEdit" class="hidden"></div>
+        <div id="vSettings" class="hidden"></div>
+      </main>
     </div>
   </div>
-
-  <main class="wrap">
-    <div id="vHome"></div>
-    <div id="vCostList" class="hidden"></div>
-    <div id="vCostEdit" class="hidden"></div>
-    <div id="vQuoteList" class="hidden"></div>
-    <div id="vQuoteEdit" class="hidden"></div>
-    <div id="vSettings" class="hidden"></div>
-  </main>
 
   <button id="fab" class="fab hidden" aria-label="New">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
@@ -339,16 +471,12 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
   <nav class="nav" id="nav">
     <div class="nav-in">
       <button data-nav="home" class="on">
-        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-7 9 7v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
-        Home
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg>
+        Quotes
       </button>
       <button data-nav="costing">
         <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h5"/></svg>
         Costing
-      </button>
-      <button data-nav="quotes">
-        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
-        Quotes
       </button>
       <button data-nav="settings">
         <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
@@ -390,13 +518,22 @@ const firebaseConfig = {
   appId: "1:1084205045390:web:db770649eb7314c49c5bdf"
 };
 
-const APP_VERSION = '1.0.0';
+const APP_VERSION = '1.1.0';
 // ── CHANGELOG ────────────────────────────────────────────────
 // Newest first. CHANGELOG[0].v must always equal APP_VERSION.
 // Adding an entry here is the whole release process — the What's New
 // modal, the Settings screen and the version footer all read from it.
 // Write items as plain sentences about what changed for the user.
 const CHANGELOG = [{
+  v: '1.1.0',
+  date: '27 Jul 2026',
+  items: [
+    'Dark mode. Follows your system setting by default — switch it to always light or always dark in Settings.',
+    'Built for the computer first. On a laptop the navigation moves to a sidebar and forms spread across the width instead of running in a narrow phone column.',
+    'Quotations are now the home screen, shown as cards.',
+    'Costing has moved to its own tab and is no longer on the home screen.'
+  ]
+}, {
   v: '1.0.0',
   date: '26 Jul 2026',
   items: [
@@ -468,6 +605,25 @@ const DEFAULT_SETTINGS = {
 };
 
 /* ─────────── STATE ─────────── */
+/* ─────────── THEME ─────────── */
+const THEME_KEY = 'wp_theme';           // 'auto' | 'light' | 'dark'
+
+function themePref() { return localStorage.getItem(THEME_KEY) || 'auto'; }
+
+function applyTheme() {
+  const pref = themePref();
+  const dark = pref === 'dark' ||
+    (pref === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', dark ? '#16130F' : '#EF7F1A');
+}
+function setTheme(pref) { localStorage.setItem(THEME_KEY, pref); applyTheme(); }
+
+applyTheme();
+window.matchMedia('(prefers-color-scheme: dark)')
+  .addEventListener('change', () => { if (themePref() === 'auto') applyTheme(); });
+
 const S = {
   user: null,
   settings: { ...DEFAULT_SETTINGS },
@@ -726,10 +882,10 @@ function watchAll() {
   S.unsub.forEach(u => u());
   S.unsub = [];
   S.unsub.push(onSnapshot(query(collection(db, C_SHEETS), orderBy('updatedAt', 'desc')),
-    snap => { S.sheets = snap.docs.map(d => ({ id: d.id, ...d.data() })); if (S.view === 'costing') renderCostList(); },
+    snap => { S.sheets = snap.docs.map(d => ({ id: d.id, ...d.data() })); if (S.view === 'costing') renderCostList(); if (S.view === 'home') renderHome(); },
     err => console.warn('sheets', err)));
   S.unsub.push(onSnapshot(query(collection(db, C_QUOTES), orderBy('updatedAt', 'desc')),
-    snap => { S.quotes = snap.docs.map(d => ({ id: d.id, ...d.data() })); if (S.view === 'quotes') renderQuoteList(); },
+    snap => { S.quotes = snap.docs.map(d => ({ id: d.id, ...d.data() })); if (S.view === 'home') renderHome(); },
     err => console.warn('quotes', err)));
 }
 
@@ -792,24 +948,31 @@ async function saveQuote(silent) {
    NAVIGATION
    ══════════════════════════════════════════════════════════ */
 
-const VIEWS = ['vHome','vCostList','vCostEdit','vQuoteList','vQuoteEdit','vSettings'];
+const VIEWS = ['vHome','vCostList','vCostEdit','vQuoteEdit','vSettings'];
 
 function show(view, title, opts = {}) {
   S.view = view;
   VIEWS.forEach(v => $(v).classList.add('hidden'));
   const map = { home:'vHome', costing:'vCostList', costEdit:'vCostEdit',
-                quotes:'vQuoteList', quoteEdit:'vQuoteEdit', settings:'vSettings' };
+                quoteEdit:'vQuoteEdit', settings:'vSettings' };
   $(map[view]).classList.remove('hidden');
   $('pageTitle').textContent = title;
   $('backBtn').classList.toggle('hidden', !opts.back);
   $('fab').classList.toggle('hidden', !opts.fab);
   $('nav').classList.toggle('hidden', !!opts.back);
   document.body.classList.toggle('no-nav', !!opts.back);
+
   const ha = $('headAction');
   if (opts.action) { ha.classList.remove('hidden'); ha.textContent = opts.action; ha.onclick = opts.onAction; }
   else ha.classList.add('hidden');
+
+  const hb = $('headAction2');
+  if (opts.action2) { hb.classList.remove('hidden'); hb.textContent = opts.action2; hb.onclick = opts.onAction2; }
+  else hb.classList.add('hidden');
+
+  const navKey = opts.navKey || view;
   document.querySelectorAll('[data-nav]').forEach(b =>
-    b.classList.toggle('on', b.dataset.nav === view));
+    b.classList.toggle('on', b.dataset.nav === navKey));
   window.scrollTo(0, 0);
 }
 
@@ -817,7 +980,7 @@ function goBack() {
   const leave = () => {
     S.dirty = false;
     if (S.view === 'costEdit') { S.sheet = null; renderCostList(); show('costing','Costing',{ fab:true }); }
-    else if (S.view === 'quoteEdit') { S.quote = null; renderQuoteList(); show('quotes','Quotations',{ fab:true }); }
+    else if (S.view === 'quoteEdit') { S.quote = null; goHome(); }
     else goHome();
   };
   if (S.dirty) {
@@ -825,61 +988,87 @@ function goBack() {
   } else leave();
 }
 
-function goHome() { renderHome(); show('home','WoodPro'); }
+function goHome() { renderHome(); show('home','Quotations',{ fab:true }); }
 
 /* ══════════════════════════════════════════════════════════
    HOME
    ══════════════════════════════════════════════════════════ */
 
 function renderHome() {
-  const incomplete = S.sheets.filter(s => !s.complete).length;
-  const drafts = S.quotes.filter(q => q.status === 'Draft').length;
+  const term = S.quoteSearch.toLowerCase();
+  let rows = latestOnly(S.quotes).filter(q =>
+    !term || (q.customer?.name || '').toLowerCase().includes(term) ||
+             (q.quoteNo || '').toLowerCase().includes(term));
+  if (S.quoteFilter !== 'all') rows = rows.filter(q => q.status === S.quoteFilter);
+  rows.sort((a, b) => (b.updatedAt?.seconds || 0) - (a.updatedAt?.seconds || 0));
+
+  const all = latestOnly(S.quotes);
+  const accepted = all.filter(q => q.status === 'Accepted');
+  const acceptedValue = accepted.reduce((s, q) => s + n(q.total), 0);
+  const drafts = all.filter(q => q.status === 'Draft').length;
+
+  const badge = st => st === 'Accepted' ? 'b-green' : st === 'Rejected' ? 'b-red'
+                    : st === 'Sent' ? 'b-brand' : 'b-grey';
+
   $('vHome').innerHTML = `
-    <div class="hero">
-      <img src="./icon-192x192.png" alt="">
-      <h2>WoodPro</h2>
-      <p>Costing &amp; quotation · Amar Furniture</p>
-    </div>
-    <div class="tools">
-      <button class="tool" data-open="costing">
-        <span class="tool-ic">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h5"/></svg>
-        </span>
-        <span class="tool-tx">
-          <b>Costing</b>
-          <span>Work out what an item costs you, head by head, before you price it</span>
-        </span>
-      </button>
-      <button class="tool" data-open="quotes">
-        <span class="tool-ic">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg>
-        </span>
-        <span class="tool-tx">
-          <b>Quotation</b>
-          <span>Build the customer quote and share it as a PDF</span>
-        </span>
-      </button>
-    </div>
-    <div class="sec">
-      <div class="row">
-        <div class="card" style="padding:15px">
-          <div class="num" style="font-size:26px;font-weight:720;letter-spacing:-.03em">${S.sheets.length}</div>
-          <div style="font-size:12.5px;color:var(--muted);margin-top:2px">Costing sheets</div>
-          ${incomplete ? `<div class="badge b-red" style="margin-top:8px;display:inline-block">${incomplete} incomplete</div>` : ''}
+    <div class="sec" style="margin-top:18px">
+      <div class="home-head">
+        <div class="h">
+          <div class="stat-strip">
+            <div class="stat"><b class="num">${all.length}</b><span>Quotations</span></div>
+            <div class="stat"><b class="num">${accepted.length}</b><span>Accepted</span></div>
+            <div class="stat"><b class="num">${money(acceptedValue)}</b><span>Accepted value</span></div>
+            ${drafts ? `<div class="stat"><b class="num">${drafts}</b><span>Draft</span></div>` : ''}
+          </div>
         </div>
-        <div class="card" style="padding:15px">
-          <div class="num" style="font-size:26px;font-weight:720;letter-spacing:-.03em">${S.quotes.length}</div>
-          <div style="font-size:12.5px;color:var(--muted);margin-top:2px">Quotations</div>
-          ${drafts ? `<div class="badge b-grey" style="margin-top:8px;display:inline-block">${drafts} draft</div>` : ''}
+        <button class="btn btn-p desk-only" id="newQuote">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          New quotation
+        </button>
+      </div>
+
+      <div class="toolbar">
+        <div class="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input class="inp" id="qSearch" placeholder="Search customer or quote no." value="${esc(S.quoteSearch)}">
+        </div>
+        <div class="chips">
+          ${['all','Draft','Sent','Accepted','Rejected'].map(f =>
+            `<button class="chip ${S.quoteFilter===f?'on':''}" data-qf="${f}">${f==='all'?'All':f}</button>`).join('')}
         </div>
       </div>
-    </div>
-    <p style="text-align:center;color:var(--muted);font-size:12px;margin:26px 0 8px">v${APP_VERSION}</p>`;
 
-  $('vHome').querySelectorAll('[data-open]').forEach(b => b.onclick = () => {
-    if (b.dataset.open === 'costing') { renderCostList(); show('costing','Costing',{ fab:true }); }
-    else { renderQuoteList(); show('quotes','Quotations',{ fab:true }); }
-  });
+      ${rows.length ? `<div class="qcards">${rows.map(q => {
+        const items = (q.items || []).length;
+        return `<button class="qcard" data-qid="${q.id}">
+          <span class="qc-top">
+            <b>${esc(q.customer?.name || 'Untitled')}</b>
+            <span class="badge ${badge(q.status)}">${esc(q.status || 'Draft')}</span>
+          </span>
+          <span class="qc-meta">
+            <span>${esc(q.quoteNo || '')}</span>
+            ${n(q.revision) > 1 ? `<span class="dot"></span><span>Revision ${q.revision}</span>` : ''}
+            <span class="dot"></span>
+            <span>${dmy(q.date)}</span>
+          </span>
+          <span class="qc-amt">
+            <b class="num">${money(q.total)}</b>
+            <span>${items} item${items === 1 ? '' : 's'}</span>
+          </span>
+        </button>`;
+      }).join('')}</div>` : emptyState('quotes')}
+    </div>`;
+
+  const si = $('qSearch');
+  if (si) si.oninput = e => { S.quoteSearch = e.target.value; const p = e.target.selectionStart; renderHome();
+    const ni = $('qSearch'); ni.focus(); ni.setSelectionRange(p, p); };
+  $('vHome').querySelectorAll('[data-qf]').forEach(b =>
+    b.onclick = () => { S.quoteFilter = b.dataset.qf; renderHome(); });
+  $('vHome').querySelectorAll('[data-qid]').forEach(b =>
+    b.onclick = () => openQuote(b.dataset.qid));
+  const nq = $('newQuote'); if (nq) nq.onclick = () => openQuote(null);
+  const nb = $('vHome').querySelector('#emptyNew');
+  if (nb) nb.onclick = () => openQuote(null);
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -894,15 +1083,29 @@ function renderCostList() {
   if (S.sheetFilter === 'incomplete') rows = rows.filter(s => !s.complete);
 
   $('vCostList').innerHTML = `
-    <div class="sec" style="margin-top:14px">
-      <div class="search">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-        <input class="inp" id="cSearch" placeholder="Search sheet or customer" value="${esc(S.sheetSearch)}">
+    <div class="sec" style="margin-top:18px">
+      <div class="home-head">
+        <div class="h">
+          <div class="stat-strip">
+            <div class="stat"><b class="num">${S.sheets.length}</b><span>Costing sheets</span></div>
+            <div class="stat"><b class="num">${S.sheets.filter(s => !s.complete).length}</b><span>Incomplete</span></div>
+          </div>
+        </div>
+        <button class="btn btn-p desk-only" id="newSheet">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          New costing sheet
+        </button>
       </div>
-      <div class="chips">
-        ${['all','incomplete','complete'].map(f =>
-          `<button class="chip ${S.sheetFilter===f?'on':''}" data-f="${f}">${
-            f==='all'?'All':f==='incomplete'?'Incomplete':'Complete'}</button>`).join('')}
+      <div class="toolbar">
+        <div class="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input class="inp" id="cSearch" placeholder="Search sheet or customer" value="${esc(S.sheetSearch)}">
+        </div>
+        <div class="chips">
+          ${['all','incomplete','complete'].map(f =>
+            `<button class="chip ${S.sheetFilter===f?'on':''}" data-f="${f}">${
+              f==='all'?'All':f==='incomplete'?'Incomplete':'Complete'}</button>`).join('')}
+        </div>
       </div>
       ${rows.length ? rows.map(s => {
         const miss = HEADS.length - Object.values(s.heads || {}).filter(h => h.state !== 'untouched').length;
@@ -928,6 +1131,7 @@ function renderCostList() {
     b.onclick = () => { S.sheetFilter = b.dataset.f; renderCostList(); });
   $('vCostList').querySelectorAll('[data-id]').forEach(b =>
     b.onclick = () => openSheet(b.dataset.id));
+  const ns = $('newSheet'); if (ns) ns.onclick = () => openSheet(null);
   const nb = $('vCostList').querySelector('#emptyNew');
   if (nb) nb.onclick = () => openSheet(null);
 }
@@ -962,7 +1166,7 @@ function openSheet(id) {
   S.dirty = false;
   renderSheet();
   show('costEdit', id ? 'Costing sheet' : 'New costing sheet',
-    { back: true, action: 'Save', onAction: () => saveSheet() });
+    { back: true, navKey: 'costing', action: 'Save', onAction: () => saveSheet() });
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -981,7 +1185,7 @@ function renderSheet() {
       <div class="card" style="padding:15px">
         <label class="f"><span>Sheet name</span>
           <input class="inp" id="sName" placeholder="e.g. Dining table 6 seater" value="${esc(s.name)}"></label>
-        <div class="row">
+        <div class="fgrid">
           <label class="f"><span>Customer / enquiry</span>
             <input class="inp" id="sCust" placeholder="e.g. Sawant" value="${esc(s.customer)}"></label>
           <label class="f"><span>Date</span>
@@ -1066,7 +1270,7 @@ function headBody(s, h) {
     const rows = head.rows || [];
     const total = timberCft(s);
     return `
-      <table class="mini">
+      <div class="mini-scroll"><table class="mini">
         <thead><tr>
           <th style="width:32%">Component</th><th>L ft</th><th>B in</th><th>H in</th><th>Qty</th><th style="width:16%">cft</th><th style="width:26px"></th>
         </tr></thead>
@@ -1081,7 +1285,7 @@ function headBody(s, h) {
           <td><button class="del" data-trdel="${i}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button></td>
         </tr>`).join('')}
         </tbody>
-      </table>
+      </table></div>
       <button class="btn btn-s btn-sm" data-tradd="1" style="margin-top:8px">+ Component</button>
       <div class="tl" style="margin-top:10px;border-top:1px solid var(--line);padding-top:11px">
         <span>Total timber</span><b class="num">${fmt(total, 3)} cft</b>
@@ -1119,7 +1323,7 @@ function headBody(s, h) {
 function genericRows(head, key) {
   const rows = head.rows || [];
   return `
-    <table class="mini">
+    <div class="mini-scroll"><table class="mini">
       <thead><tr>
         <th style="width:34%">Description</th><th>Qty</th><th>Unit</th><th>Rate</th><th style="width:20%">Amount</th><th style="width:26px"></th>
       </tr></thead>
@@ -1133,7 +1337,7 @@ function genericRows(head, key) {
         <td><button class="del" data-grdel="${i}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button></td>
       </tr>`).join('')}
       </tbody>
-    </table>
+    </table></div>
     <button class="btn btn-s btn-sm" data-gradd="${key}" style="margin-top:8px">+ Line</button>`;
 }
 
@@ -1272,7 +1476,7 @@ function wireSheet() {
     const copy = hydrateSheet(JSON.parse(JSON.stringify(stripSheet(s))));
     copy.name = (s.name || 'Sheet') + ' (copy)';
     copy.id = null; S.sheet = copy; S.dirty = true;
-    renderSheet(); show('costEdit','New costing sheet',{ back:true, action:'Save', onAction:() => saveSheet() });
+    renderSheet(); show('costEdit','New costing sheet',{ back:true, navKey:'costing', action:'Save', onAction:() => saveSheet() });
     toast('Duplicated — save to keep it');
   };
   $('sDel').onclick = () => {
@@ -1340,52 +1544,6 @@ function latestOnly(list) {
   return Object.values(byNo);
 }
 
-function renderQuoteList() {
-  const term = S.quoteSearch.toLowerCase();
-  let rows = latestOnly(S.quotes).filter(q =>
-    !term || (q.customer?.name || '').toLowerCase().includes(term) ||
-             (q.quoteNo || '').toLowerCase().includes(term));
-  if (S.quoteFilter !== 'all') rows = rows.filter(q => q.status === S.quoteFilter);
-  rows.sort((a, b) => (b.updatedAt?.seconds || 0) - (a.updatedAt?.seconds || 0));
-
-  const badge = st => st === 'Accepted' ? 'b-green' : st === 'Rejected' ? 'b-red'
-                    : st === 'Sent' ? 'b-brand' : 'b-grey';
-
-  $('vQuoteList').innerHTML = `
-    <div class="sec" style="margin-top:14px">
-      <div class="search">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-        <input class="inp" id="qSearch" placeholder="Search customer or quote no." value="${esc(S.quoteSearch)}">
-      </div>
-      <div class="chips">
-        ${['all','Draft','Sent','Accepted','Rejected'].map(f =>
-          `<button class="chip ${S.quoteFilter===f?'on':''}" data-qf="${f}">${f==='all'?'All':f}</button>`).join('')}
-      </div>
-      ${rows.length ? rows.map(q => `
-        <button class="listitem" data-qid="${q.id}">
-          <span class="li-top">
-            <b>${esc(q.customer?.name || 'Untitled')}</b>
-            <span class="li-amt num">${money(q.total)}</span>
-          </span>
-          <span class="li-sub">
-            <span>${esc(q.quoteNo || '')}${n(q.revision) > 1 ? ` · R${q.revision}` : ''}</span>
-            <span class="dot"></span>
-            <span>${dmy(q.date)}</span>
-            <span class="badge ${badge(q.status)}" style="margin-left:auto">${esc(q.status || 'Draft')}</span>
-          </span>
-        </button>`).join('') : emptyState('quotes')}
-    </div>`;
-
-  const si = $('qSearch');
-  if (si) si.oninput = e => { S.quoteSearch = e.target.value; const p = e.target.selectionStart; renderQuoteList();
-    const ni = $('qSearch'); ni.focus(); ni.setSelectionRange(p, p); };
-  $('vQuoteList').querySelectorAll('[data-qf]').forEach(b =>
-    b.onclick = () => { S.quoteFilter = b.dataset.qf; renderQuoteList(); });
-  $('vQuoteList').querySelectorAll('[data-qid]').forEach(b =>
-    b.onclick = () => openQuote(b.dataset.qid));
-  const nb = $('vQuoteList').querySelector('#emptyNew');
-  if (nb) nb.onclick = () => openQuote(null);
-}
 
 function openQuote(id) {
   if (id) {
@@ -1398,7 +1556,7 @@ function openQuote(id) {
   S.dirty = false;
   renderQuote();
   show('quoteEdit', id ? 'Quotation' : 'New quotation',
-    { back: true, action: 'Save', onAction: () => saveQuote() });
+    { back: true, navKey: 'home', action: 'Save', onAction: () => saveQuote() });
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -1421,7 +1579,7 @@ function renderQuote() {
         ${n(q.revision) > 1 ? `<div class="badge b-amber" style="margin-bottom:11px;display:inline-block">Revision ${q.revision}</div>` : ''}
         <label class="f"><span>Customer name</span>
           <input class="inp" id="qName" placeholder="e.g. Sandip Borkar" value="${esc(q.customer.name)}"></label>
-        <div class="row">
+        <div class="fgrid">
           <label class="f"><span>Phone</span>
             <input class="inp num" id="qPhone" inputmode="tel" value="${esc(q.customer.phone)}"></label>
           <label class="f"><span>Valid for (days)</span>
@@ -1481,19 +1639,18 @@ function renderQItem(it, i) {
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
     </div>
-    <div class="row">
+    <div class="fgrid">
       <label class="f"><span>Item</span>
         <input class="inp" data-i="${i}" data-k="name" value="${esc(it.name)}" placeholder="Dining Table"></label>
       <label class="f"><span>Size</span>
         <input class="inp" data-i="${i}" data-k="size" value="${esc(it.size)}" placeholder="5ft x 3ft"></label>
+      <label class="f"><span>Rate mode</span>
+        <select class="inp" data-i="${i}" data-k="rateMode">
+          ${RATE_MODES.map(m => `<option value="${m.v}" ${it.rateMode===m.v?'selected':''}>${m.t}</option>`).join('')}
+        </select></label>
     </div>
     <label class="f"><span>Specification</span>
       <textarea class="inp" data-i="${i}" data-k="spec" rows="2" placeholder="Teak wood, w/o cushion, melamine polish">${esc(it.spec)}</textarea></label>
-
-    <label class="f"><span>Rate mode</span>
-      <select class="inp" data-i="${i}" data-k="rateMode">
-        ${RATE_MODES.map(m => `<option value="${m.v}" ${it.rateMode===m.v?'selected':''}>${m.t}</option>`).join('')}
-      </select></label>
 
     ${seating ? `
       <div class="row">
@@ -1513,14 +1670,14 @@ function renderQItem(it, i) {
       <label class="f"><span>${mLabel}</span>
         <input class="inp num" data-i="${i}" data-k="measure" inputmode="decimal" value="${esc(it.measure)}"></label>` : ''}
 
-    <div class="row">
+    <div class="fgrid">
       <label class="f"><span>Qty (nos)</span>
         <input class="inp num" data-i="${i}" data-k="qty" inputmode="decimal" value="${esc(it.qty)}"></label>
       <label class="f"><span>Rate</span>
         <input class="inp num" data-i="${i}" data-k="rate" inputmode="decimal" value="${esc(it.rate)}"></label>
     </div>
 
-    <div style="display:flex;align-items:center;gap:10px;padding:9px 0 4px;border-top:1px solid var(--line)">
+    <div class="qi-foot">
       <label style="flex:1;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-2)">
         <input type="checkbox" data-i="${i}" data-k="useSubLines" ${it.useSubLines?'checked':''}>
         Show buildup to customer
@@ -1645,7 +1802,7 @@ function wireQuote() {
     copy.status = 'Draft';
     S.quote = copy; S.dirty = true;
     renderQuote();
-    show('quoteEdit','Quotation',{ back:true, action:'Save', onAction:() => saveQuote() });
+    show('quoteEdit','Quotation',{ back:true, navKey:'home', action:'Save', onAction:() => saveQuote() });
     toast(`Revision ${copy.revision} started — save to keep it`);
   };
   $('qDup').onclick = () => {
@@ -1655,7 +1812,7 @@ function wireQuote() {
     copy.date = todayISO(); copy.status = 'Draft';
     S.quote = copy; S.dirty = true;
     renderQuote();
-    show('quoteEdit','New quotation',{ back:true, action:'Save', onAction:() => saveQuote() });
+    show('quoteEdit','New quotation',{ back:true, navKey:'home', action:'Save', onAction:() => saveQuote() });
     toast('Duplicated — save to keep it');
   };
   $('qDel').onclick = () => {
@@ -1664,7 +1821,7 @@ function wireQuote() {
       async () => {
         await deleteDoc(doc(db, C_QUOTES, q.id));
         S.dirty = false; S.quote = null;
-        renderQuoteList(); show('quotes','Quotations',{ fab:true });
+        goHome();
         toast('Quotation deleted');
       });
   };
@@ -1872,6 +2029,22 @@ function renderSettings() {
     </div>
 
     <div class="sec">
+      <p class="sec-t">Appearance</p>
+      <div class="card" style="padding:15px">
+        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+          <div style="flex:1;min-width:180px">
+            <b style="display:block;font-size:14.5px;font-weight:600">Theme</b>
+            <span style="font-size:12.5px;color:var(--muted)">Auto follows your device setting</span>
+          </div>
+          <div class="seg" id="themeSeg">
+            ${[['auto','Auto'],['light','Light'],['dark','Dark']].map(([v,t]) =>
+              `<button data-theme-set="${v}" class="${themePref()===v?'on':''}">${t}</button>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
       <p class="sec-t">App</p>
       <div class="sgroup">
         ${!installed && !isIOS ? `
@@ -1914,6 +2087,12 @@ function renderSettings() {
     try { await saveSettings(); toast('Settings saved'); }
     catch (e) { toast('Could not save settings'); }
   };
+
+  $('vSettings').querySelectorAll('[data-theme-set]').forEach(b => b.onclick = () => {
+    setTheme(b.dataset.themeSet);
+    $('vSettings').querySelectorAll('[data-theme-set]').forEach(x =>
+      x.classList.toggle('on', x.dataset.themeSet === themePref()));
+  });
 
   const ib = $('stInstall');
   if (ib) ib.onclick = async () => {
@@ -2027,16 +2206,19 @@ document.querySelectorAll('[data-nav]').forEach(b => b.onclick = () => {
   const v = b.dataset.nav;
   if (v === 'home') goHome();
   if (v === 'costing') { renderCostList(); show('costing','Costing',{ fab:true }); }
-  if (v === 'quotes')  { renderQuoteList(); show('quotes','Quotations',{ fab:true }); }
   if (v === 'settings'){ renderSettings(); show('settings','Settings'); }
 });
 
 /* ─────────── NETWORK ─────────── */
 function netUpdate() {
-  const dot = $('netDot');
   const off = !navigator.onLine;
-  dot.classList.toggle('off', off);
-  dot.title = off ? 'Offline — changes sync when you reconnect' : 'Online';
+  [$('netDot'), $('netDotSb')].forEach(dot => {
+    if (!dot) return;
+    dot.classList.toggle('off', off);
+    dot.title = off ? 'Offline — changes sync when you reconnect' : 'Online';
+  });
+  const sv = $('sbVersion');
+  if (sv) sv.textContent = (off ? 'Offline · ' : '') + 'v' + APP_VERSION;
 }
 window.addEventListener('online', () => { netUpdate(); toast('Back online — changes are syncing'); });
 window.addEventListener('offline', () => { netUpdate(); toast('Offline — you can keep working, changes will sync'); });

@@ -61,3 +61,4 @@ history with older versions collapsed.
 | Version | Date | Summary |
 |---|---|---|
 | 1.0.0 | 26 Jul 2026 | First release — costing tool and quotation tool, offline PWA. |
+| 1.1.0 | 27 Jul 2026 | Dark mode, desktop-first layout, quotations moved to the home screen. |
