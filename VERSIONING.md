@@ -62,3 +62,4 @@ history with older versions collapsed.
 |---|---|---|
 | 1.0.0 | 26 Jul 2026 | First release — costing tool and quotation tool, offline PWA. |
 | 1.1.0 | 27 Jul 2026 | Dark mode, desktop-first layout, quotations moved to the home screen. |
+| 1.2.0 | 27 Jul 2026 | Compact item cards, L×B×H dimension inputs with unit selectors, polish/cushion checkboxes, compact totals. |

@@ -284,17 +284,53 @@ input[type=checkbox]{accent-color:var(--brand);width:16px;height:16px}
 .margin-pill.neg{background:var(--red-bg);color:var(--red)}
 
 /* ═══════════════ QUOTE ITEMS ═══════════════ */
-.qitem{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;
-  margin-bottom:10px;box-shadow:var(--shadow)}
-.qi-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.qi-no{width:24px;height:24px;border-radius:7px;background:var(--bg);display:grid;place-items:center;
-  font-size:12px;font-weight:700;color:var(--ink-2);flex:none}
-.qi-head b{flex:1;font-size:15px;font-weight:640}
-.qi-foot{display:flex;align-items:center;gap:12px;padding:10px 0 2px;
-  border-top:1px solid var(--line-2);flex-wrap:wrap}
-.subline{display:flex;gap:8px;margin-bottom:6px}
+.qitem{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  margin-bottom:8px;box-shadow:var(--shadow);overflow:hidden}
+.qi-title{display:flex;align-items:center;gap:8px;padding:10px 12px;
+  border-bottom:1px solid var(--line-2);background:var(--card-2)}
+.qi-no{width:22px;height:22px;border-radius:6px;background:var(--brand-bg);display:grid;
+  place-items:center;font-size:11px;font-weight:700;color:var(--brand-burnt);flex:none}
+.qi-title b{flex:1;font-size:14.5px;font-weight:640;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.qi-flags{display:flex;gap:10px;font-size:12px}
+.qi-flags label{display:flex;align-items:center;gap:4px;color:var(--ink-2);white-space:nowrap;cursor:pointer}
+.qi-body{padding:10px 12px}
+.qi-row{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap;margin-bottom:8px}
+.qi-row .qf{display:flex;flex-direction:column;gap:4px;min-width:0}
+.qi-row .qf label{font-size:10.5px;font-weight:600;color:var(--muted);letter-spacing:.04em;
+  text-transform:uppercase;white-space:nowrap}
+.qi-row .qf input,.qi-row .qf select{padding:7px 8px;border:1px solid var(--line);
+  border-radius:8px;background:var(--field);font-size:13.5px;width:100%;outline:none}
+.qi-row .qf input:focus,.qi-row .qf select:focus{border-color:var(--brand);
+  box-shadow:0 0 0 2px rgba(239,127,26,.14)}
+.qi-row .qf.dim{min-width:52px;flex:1}
+.qi-row .qf.unit-sel{min-width:52px;flex:0 0 60px}
+.qi-row .qf.grow{flex:2;min-width:90px}
+.qi-row .qf.num{min-width:60px;flex:1}
+.qi-area{font-size:11.5px;color:var(--muted);padding:2px 0 6px;font-variant-numeric:tabular-nums}
+.qi-amt{font-size:15px;font-weight:680;color:var(--ink);white-space:nowrap;padding-top:14px}
+.qi-spec-toggle{font-size:12px;color:var(--brand-deep);font-weight:600;padding:0;margin-bottom:6px}
+.qi-spec{width:100%;margin-bottom:8px}
+.qi-foot{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;
+  border-top:1px solid var(--line-2);background:var(--card-2);flex-wrap:wrap;gap:8px}
+.qi-foot-left{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.subline{display:flex;gap:6px;margin-bottom:5px;align-items:center}
 .subline input:first-child{flex:2}
-.subline input:nth-child(2){flex:1}
+.subline input:nth-child(2){flex:1;min-width:70px}
+/* totals compact */
+.tot-row{display:flex;justify-content:space-between;align-items:center;
+  padding:7px 0;font-size:13.5px;border-bottom:1px solid var(--line-2)}
+.tot-row:last-child{border-bottom:0}
+.tot-row span{color:var(--ink-2)}
+.tot-row b{font-weight:620}
+.tot-grand{font-size:17px;font-weight:720;padding:11px 0 4px;
+  display:flex;justify-content:space-between;align-items:baseline}
+.tot-words{font-size:11.5px;color:var(--muted);font-style:italic;margin-top:4px}
+.tot-inline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.tot-inline select,.tot-inline input{padding:6px 8px;border:1px solid var(--line);
+  border-radius:8px;background:var(--field);font-size:13px;outline:none}
+.tot-inline input[type=number]{width:88px}
+.tot-inline select{max-width:90px}
 
 /* ═══════════════ BOTTOM NAV (mobile only) ═══════════════ */
 .nav{display:none}
@@ -518,13 +554,23 @@ const firebaseConfig = {
   appId: "1:1084205045390:web:db770649eb7314c49c5bdf"
 };
 
-const APP_VERSION = '1.1.0';
+const APP_VERSION = '1.2.0';
 // ── CHANGELOG ────────────────────────────────────────────────
 // Newest first. CHANGELOG[0].v must always equal APP_VERSION.
 // Adding an entry here is the whole release process — the What's New
 // modal, the Settings screen and the version footer all read from it.
 // Write items as plain sentences about what changed for the user.
 const CHANGELOG = [{
+  v: '1.2.0',
+  date: '27 Jul 2026',
+  items: [
+    'Item cards are now compact. Name, rate mode, dimensions and rate sit on two tight lines instead of stacking into a long form.',
+    'L × B × H dimension inputs with per-field unit selectors (ft / in / cm). Area and rft auto-calculate so you never have to do the multiplication yourself.',
+    'Polish and Cushion checkboxes are now in the item title bar — quick to tick, always visible.',
+    'Specification is collapsed by default and opens when you need it.',
+    'Totals section is compact — discount, GST and round-off are all inline, no large input boxes.'
+  ]
+}, {
   v: '1.1.0',
   date: '27 Jul 2026',
   items: [
@@ -808,14 +854,28 @@ function hydrateSheet(d) {
    QUOTE MATH
    ══════════════════════════════════════════════════════════ */
 
+const UNIT_FACTOR = { ft: 1, 'in': 1/12, cm: 1/30.48 };
+function toft(val, unit) { return n(val) * (UNIT_FACTOR[unit] || 1); }
+
+// Auto-compute area from L×B dims when mode is sqft/rft/cft
 function itemMeasure(it) {
   if (it.rateMode === 'seating') return n(it.seats) * 2 + n(it.handles);
-  if (['rft','sqft','cft'].includes(it.rateMode)) return n(it.measure);
+  if (it.rateMode === 'rft')  { const lf = toft(it.l, it.lUnit); return lf || n(it.measure); }
+  if (it.rateMode === 'sqft') {
+    const lf = toft(it.l, it.lUnit), bf = toft(it.b, it.bUnit);
+    return (lf && bf) ? lf * bf * (n(it.qty) || 1) / (n(it.qty) || 1) : n(it.measure);
+  }
+  if (it.rateMode === 'cft')  {
+    const lf = toft(it.l, it.lUnit), bf = toft(it.b, it.bUnit), hf = toft(it.h, it.hUnit);
+    return (lf && bf && hf) ? lf * bf * hf : n(it.measure);
+  }
   return 1;
 }
 function itemAmount(it) {
   if (it.useSubLines) return (it.subLines || []).reduce((s, l) => s + n(l.amount), 0);
   if (it.manualAmount) return n(it.amount);
+  if (it.rateMode === 'piece' || it.rateMode === 'lumpsum')
+    return itemMeasure(it) * n(it.rate) * (n(it.qty) || 1);
   return itemMeasure(it) * n(it.rate) * (n(it.qty) || 1);
 }
 function quoteSubtotal(q) { return (q.items || []).reduce((s, it) => s + itemAmount(it), 0); }
@@ -832,7 +892,10 @@ function quoteFinal(q) {
 function roundOff(q) { return quoteFinal(q) - grandTotal(q); }
 
 function blankItem() {
-  return { id: uid(), name: '', size: '', spec: '', qty: 1, rateMode: 'piece',
+  return { id: uid(), name: '', size: '', spec: '', specOpen: false,
+           withPolish: false, withCushion: false,
+           qty: 1, rateMode: 'piece',
+           l: '', lUnit: 'ft', b: '', bUnit: 'ft', h: '', hUnit: 'in',
            measure: '', seats: 3, handles: 2, rate: '', amount: 0,
            manualAmount: false, useSubLines: false, subLines: [] };
 }
@@ -1626,77 +1689,116 @@ function renderQuote() {
   wireQuote();
 }
 
+function unitSel(di, dk, val) {
+  return `<select class="qf unit-sel" data-i="${di}" data-k="${dk}" style="font-size:12px;padding:5px 4px">
+    ${['ft','in','cm'].map(u => `<option value="${u}" ${val===u?'selected':''}>${u}</option>`).join('')}
+  </select>`;
+}
+
+function dimLabel(l, b, h, lu, bu, hu, mode) {
+  const lf = toft(l, lu), bf = toft(b, bu), hf = toft(h, hu);
+  if (mode === 'sqft' && lf && bf) return `${fmt(lf*bf,2)} sq ft`;
+  if (mode === 'rft'  && lf)       return `${fmt(lf,2)} rft`;
+  if (mode === 'cft'  && lf && bf && hf) return `${fmt(lf*bf*hf,3)} cft`;
+  return '';
+}
+
 function renderQItem(it, i) {
   const seating = it.rateMode === 'seating';
-  const measured = ['rft','sqft','cft'].includes(it.rateMode);
-  const mLabel = it.rateMode === 'rft' ? 'Running ft' : it.rateMode === 'sqft' ? 'Sq ft' : 'Cu ft';
-  return `
-  <div class="qitem" data-item="${i}">
-    <div class="qi-head">
-      <span class="qi-no num">${i + 1}</span>
+  const hasDims = ['rft','sqft','cft'].includes(it.rateMode);
+  const auto = dimLabel(it.l, it.b, it.h, it.lUnit||'ft', it.bUnit||'ft', it.hUnit||'in', it.rateMode);
+
+  const nameFlags = `
+    <div class="qi-title">
+      <span class="qi-no">${i + 1}</span>
       <b>${esc(it.name || 'New item')}</b>
-      <button class="del" data-idel="${i}" style="color:var(--muted);padding:4px">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-    </div>
-    <div class="fgrid">
-      <label class="f"><span>Item</span>
-        <input class="inp" data-i="${i}" data-k="name" value="${esc(it.name)}" placeholder="Dining Table"></label>
-      <label class="f"><span>Size</span>
-        <input class="inp" data-i="${i}" data-k="size" value="${esc(it.size)}" placeholder="5ft x 3ft"></label>
-      <label class="f"><span>Rate mode</span>
-        <select class="inp" data-i="${i}" data-k="rateMode">
-          ${RATE_MODES.map(m => `<option value="${m.v}" ${it.rateMode===m.v?'selected':''}>${m.t}</option>`).join('')}
-        </select></label>
-    </div>
-    <label class="f"><span>Specification</span>
-      <textarea class="inp" data-i="${i}" data-k="spec" rows="2" placeholder="Teak wood, w/o cushion, melamine polish">${esc(it.spec)}</textarea></label>
-
-    ${seating ? `
-      <div class="row">
-        <label class="f"><span>Seats</span>
-          <input class="inp num" data-i="${i}" data-k="seats" inputmode="numeric" value="${esc(it.seats)}"></label>
-        <label class="f"><span>Handles</span>
-          <select class="inp" data-i="${i}" data-k="handles">
-            ${[0,1,2].map(h => `<option value="${h}" ${n(it.handles)===h?'selected':''}>${h}</option>`).join('')}
-          </select></label>
+      <div class="qi-flags">
+        <label title="With polish"><input type="checkbox" data-i="${i}" data-k="withPolish" ${it.withPolish?'checked':''}> Polish</label>
+        <label title="With cushion"><input type="checkbox" data-i="${i}" data-k="withCushion" ${it.withCushion?'checked':''}> Cushion</label>
       </div>
-      <div class="tl muted" style="padding-top:0">
-        <span>${n(it.seats)} × 2 ft + ${n(it.handles)} handle${n(it.handles)===1?'':'s'}</span>
-        <b class="num" data-ft="${i}">${fmt(itemMeasure(it),1)} ft billed</b>
-      </div>` : ''}
+      <button data-idel="${i}" style="color:var(--muted);padding:4px;background:none;border:0;cursor:pointer;display:grid;place-items:center">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>`;
 
-    ${measured ? `
-      <label class="f"><span>${mLabel}</span>
-        <input class="inp num" data-i="${i}" data-k="measure" inputmode="decimal" value="${esc(it.measure)}"></label>` : ''}
+  // Row 1: Item name · Rate mode
+  const row1 = `<div class="qi-row">
+    <div class="qf grow"><label>ITEM</label><input data-i="${i}" data-k="name" value="${esc(it.name)}" placeholder="Dining Table"></div>
+    <div class="qf" style="flex:0 0 130px"><label>RATE MODE</label>
+      <select data-i="${i}" data-k="rateMode">
+        ${RATE_MODES.map(m=>`<option value="${m.v}" ${it.rateMode===m.v?'selected':''}>${m.t}</option>`).join('')}
+      </select></div>
+  </div>`;
 
-    <div class="fgrid">
-      <label class="f"><span>Qty (nos)</span>
-        <input class="inp num" data-i="${i}" data-k="qty" inputmode="decimal" value="${esc(it.qty)}"></label>
-      <label class="f"><span>Rate</span>
-        <input class="inp num" data-i="${i}" data-k="rate" inputmode="decimal" value="${esc(it.rate)}"></label>
+  // Row 2: dimensions (context-aware)
+  let row2 = '';
+  if (seating) {
+    row2 = `<div class="qi-row">
+      <div class="qf num"><label>SEATS</label><input data-i="${i}" data-k="seats" inputmode="numeric" value="${esc(it.seats)}"></div>
+      <div class="qf" style="flex:0 0 80px"><label>HANDLES</label>
+        <select data-i="${i}" data-k="handles">
+          ${[0,1,2].map(hv=>`<option value="${hv}" ${n(it.handles)===hv?'selected':''}>${hv}</option>`).join('')}
+        </select></div>
+      <div class="qf num"><label>QTY</label><input data-i="${i}" data-k="qty" inputmode="decimal" value="${esc(it.qty)}"></div>
+      <div class="qf num"><label>RATE / FT</label><input data-i="${i}" data-k="rate" inputmode="decimal" value="${esc(it.rate)}"></div>
+      <div class="qi-amt num" data-amt="${i}">${money(itemAmount(it))}</div>
     </div>
+    <div class="qi-area num" data-ft="${i}">${n(it.seats)} × 2 + ${n(it.handles)} hdl = ${fmt(itemMeasure(it),1)} ft billed</div>`;
+  } else if (hasDims) {
+    const showB = it.rateMode === 'sqft' || it.rateMode === 'cft';
+    const showH = it.rateMode === 'cft';
+    row2 = `<div class="qi-row">
+      <div class="qf dim"><label>L</label><input data-i="${i}" data-k="l" inputmode="decimal" value="${esc(it.l)}" placeholder="0"></div>
+      ${unitSel(i,'lUnit',it.lUnit||'ft')}
+      ${showB ? `<div class="qf dim"><label>B</label><input data-i="${i}" data-k="b" inputmode="decimal" value="${esc(it.b)}" placeholder="0"></div>${unitSel(i,'bUnit',it.bUnit||'ft')}` : ''}
+      ${showH ? `<div class="qf dim"><label>H</label><input data-i="${i}" data-k="h" inputmode="decimal" value="${esc(it.h)}" placeholder="0"></div>${unitSel(i,'hUnit',it.hUnit||'in')}` : ''}
+      <div class="qf num"><label>QTY</label><input data-i="${i}" data-k="qty" inputmode="decimal" value="${esc(it.qty)}"></div>
+      <div class="qf num"><label>RATE</label><input data-i="${i}" data-k="rate" inputmode="decimal" value="${esc(it.rate)}"></div>
+      <div class="qi-amt num" data-amt="${i}">${money(itemAmount(it))}</div>
+    </div>
+    ${auto ? `<div class="qi-area num">${auto}</div>` : ''}`;
+  } else {
+    // piece / lumpsum
+    row2 = `<div class="qi-row">
+      <div class="qf dim"><label>QTY</label><input data-i="${i}" data-k="qty" inputmode="decimal" value="${esc(it.qty)}"></div>
+      <div class="qf grow"><label>RATE</label><input data-i="${i}" data-k="rate" inputmode="decimal" value="${esc(it.rate)}"></div>
+      <div class="qi-amt num" data-amt="${i}">${money(itemAmount(it))}</div>
+    </div>`;
+  }
 
+  // Spec (collapsible)
+  const specBlock = `
+    <button class="qi-spec-toggle" data-i="${i}" data-k="specOpen">${it.specOpen ? '▾ Specification' : '▸ Specification'}</button>
+    ${it.specOpen ? `<textarea class="inp qi-spec" data-i="${i}" data-k="spec" rows="2" placeholder="Teak wood, wood species, shade, other notes">${esc(it.spec)}</textarea>` : ''}`;
+
+  // Sub-lines
+  const subBlock = it.useSubLines ? `
+    <div style="padding:8px 12px 6px">
+      ${(it.subLines || []).map((l, j) => `
+        <div class="subline">
+          <input class="inp" data-sl="${i}" data-j="${j}" data-k="label" value="${esc(l.label)}" placeholder="Wood">
+          <input class="inp num" data-sl="${i}" data-j="${j}" data-k="amount" inputmode="decimal" value="${esc(l.amount)}">
+          <button class="del" data-sldel="${i}" data-j="${j}" style="color:var(--muted)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>`).join('')}
+      <button class="btn btn-s btn-sm" data-sladd="${i}">+ Sub-line</button>
+    </div>` : '';
+
+  return `<div class="qitem" data-item="${i}">
+    ${nameFlags}
+    <div class="qi-body">
+      ${row1}${row2}
+      ${specBlock}
+    </div>
+    ${subBlock}
     <div class="qi-foot">
-      <label style="flex:1;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-2)">
-        <input type="checkbox" data-i="${i}" data-k="useSubLines" ${it.useSubLines?'checked':''}>
-        Show buildup to customer
-      </label>
-      <b class="num" data-amt="${i}" style="font-size:16px">${money(itemAmount(it))}</b>
+      <div class="qi-foot-left">
+        <label style="display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-2);cursor:pointer">
+          <input type="checkbox" data-i="${i}" data-k="useSubLines" ${it.useSubLines?'checked':''}> Show buildup
+        </label>
+      </div>
     </div>
-
-    ${it.useSubLines ? `
-      <div style="margin-top:8px">
-        ${(it.subLines || []).map((l, j) => `
-          <div class="subline">
-            <input class="inp" data-sl="${i}" data-j="${j}" data-k="label" value="${esc(l.label)}" placeholder="Wood">
-            <input class="inp num" data-sl="${i}" data-j="${j}" data-k="amount" inputmode="decimal" value="${esc(l.amount)}">
-            <button class="del" data-sldel="${i}" data-j="${j}" style="color:var(--muted)">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-            </button>
-          </div>`).join('')}
-        <button class="btn btn-s btn-sm" data-sladd="${i}">+ Sub-line</button>
-      </div>` : ''}
   </div>`;
 }
 
@@ -1710,31 +1812,37 @@ function renderQuoteTotals(q) {
   return `
     <div class="sec" id="qTotals">
       <p class="sec-t">Totals</p>
-      <div class="tot">
-        <div class="tl"><span>Subtotal</span><b class="num">${money(sub)}</b></div>
-        <div class="row" style="margin:11px 0 3px">
-          <label class="f" style="margin-bottom:0"><span>Discount</span>
-            <select class="inp" id="dMode">
-              <option value="flat" ${q.discountMode==='flat'?'selected':''}>Flat ₹</option>
-              <option value="pct" ${q.discountMode==='pct'?'selected':''}>Percent</option>
-            </select></label>
-          <label class="f" style="margin-bottom:0"><span>${q.discountMode==='pct'?'%':'Amount'}</span>
-            <input class="inp num" id="dVal" inputmode="decimal" value="${esc(q.discountValue)}"></label>
+      <div class="card" style="padding:14px 16px">
+        <div class="tot-row"><span>Subtotal</span><b class="num">${money(sub)}</b></div>
+        <div class="tot-row" style="border-bottom:0;padding-bottom:4px">
+          <span>Discount</span>
+          <div class="tot-inline">
+            <select id="dMode">
+              <option value="flat" ${q.discountMode==='flat'?'selected':''}>₹ Flat</option>
+              <option value="pct" ${q.discountMode==='pct'?'selected':''}>% Pct</option>
+            </select>
+            <input type="number" id="dVal" inputmode="decimal" placeholder="0" value="${esc(q.discountValue)}">
+            ${disc ? `<b class="num" style="color:var(--muted)">− ${money(disc)}</b>` : ''}
+          </div>
         </div>
-        ${disc ? `<div class="tl muted"><span>Discount</span><b class="num">− ${money(disc)}</b></div>` : ''}
-        <div class="tl" style="align-items:center;padding-top:11px">
-          <span style="display:flex;align-items:center;gap:8px">
+        <div class="tot-row" style="padding-top:4px">
+          <label style="display:flex;align-items:center;gap:7px;font-size:13.5px;cursor:pointer">
             <input type="checkbox" id="gstOn" ${q.gstEnabled?'checked':''}> GST
-            ${q.gstEnabled ? `<input class="inp num" id="gstPct" style="width:62px;padding:6px 8px" inputmode="decimal" value="${esc(q.gstPct)}">%` : ''}
-          </span>
+            ${q.gstEnabled ? `<input type="number" id="gstPct" inputmode="decimal" value="${esc(q.gstPct)}" style="width:52px;padding:5px 7px;border:1px solid var(--line);border-radius:7px;background:var(--field);font-size:13px">%` : ''}
+          </label>
           <b class="num">${money(gst)}</b>
         </div>
-        <div class="tl"><span>Grand total</span><b class="num">${money(gt)}</b></div>
-        <label class="f" style="margin:13px 0 3px"><span>Final amount (round off)</span>
-          <input class="inp num" id="qFinal" inputmode="decimal" placeholder="${Math.round(gt)}" value="${esc(q.finalOverride)}"></label>
-        ${Math.abs(ro) > 0.5 ? `<div class="tl muted"><span>Round off</span><b class="num">${ro > 0 ? '+' : '−'} ${money(Math.abs(ro))}</b></div>` : ''}
-        <div class="tl big"><span>Payable</span><b class="num">${money(fin)}</b></div>
-        <p style="font-size:12px;color:var(--muted);margin:8px 0 0;font-style:italic">${esc(words(fin))}</p>
+        <div class="tot-row"><span>Grand total</span><b class="num">${money(gt)}</b></div>
+        <div class="tot-row" style="border-bottom:0;padding-bottom:2px">
+          <span style="font-size:13px">Round off to</span>
+          <div class="tot-inline">
+            <input type="number" id="qFinal" inputmode="decimal" placeholder="${Math.round(gt)}" value="${esc(q.finalOverride)}"
+              style="width:108px">
+            ${Math.abs(ro) > 0.5 ? `<span class="num" style="font-size:12px;color:var(--muted)">${ro > 0 ? '+' : '−'}${money(Math.abs(ro))}</span>` : ''}
+          </div>
+        </div>
+        <div class="tot-grand"><span>Payable</span><b class="num">${money(fin)}</b></div>
+        <div class="tot-words">${esc(words(fin))}</div>
       </div>
     </div>`;
 }
@@ -1760,7 +1868,7 @@ function wireQuote() {
         it.subLines = [{ label:'', amount:'' }];
       }
       mark();
-      if (['rateMode','useSubLines','seats','handles'].includes(k)) renderQuote();
+      if (['rateMode','useSubLines','seats','handles','specOpen'].includes(k)) renderQuote();
       else { refreshItemAmt(i); refreshQuoteTotals(); if (k === 'name') refreshItemTitle(i); }
     };
     if (el.tagName === 'SELECT' || el.type === 'checkbox') el.onchange = handler;
@@ -1850,13 +1958,19 @@ function refreshQuoteTotals() {
 function refreshItemAmt(i) {
   const box = $('vQuoteEdit').querySelector(`[data-item="${i}"]`);
   if (!box) return;
+  const it = S.quote.items[i];
   const b = box.querySelector(`[data-amt="${i}"]`);
-  if (b) b.textContent = money(itemAmount(S.quote.items[i]));
+  if (b) b.textContent = money(itemAmount(it));
   const ft = box.querySelector('[data-ft]');
-  if (ft) ft.textContent = fmt(itemMeasure(S.quote.items[i]), 1) + ' ft billed';
+  if (ft) ft.textContent = `${n(it.seats)} × 2 + ${n(it.handles)} hdl = ${fmt(itemMeasure(it),1)} ft billed`;
+  const ar = box.querySelector('.qi-area');
+  if (ar && !ft) {
+    const au = dimLabel(it.l, it.b, it.h, it.lUnit||'ft', it.bUnit||'ft', it.hUnit||'in', it.rateMode);
+    ar.textContent = au;
+  }
 }
 function refreshItemTitle(i) {
-  const box = $('vQuoteEdit').querySelector(`[data-item="${i}"] .qi-head b`);
+  const box = $('vQuoteEdit').querySelector(`[data-item="${i}"] .qi-title b`);
   if (box) box.textContent = S.quote.items[i].name || 'New item';
 }
 
