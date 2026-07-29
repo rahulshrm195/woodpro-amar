@@ -397,6 +397,168 @@ input[type=checkbox]{accent-color:var(--brand);width:16px;height:16px}
 .seg button{padding:7px 15px;border-radius:8px;font-size:13.5px;font-weight:580;color:var(--ink-2)}
 .seg button.on{background:var(--card);color:var(--ink);box-shadow:var(--shadow)}
 
+
+/* ══ QUOTE FORM v2 (TimberCraft-style) ══════════════════ */
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+input[type=number]{-moz-appearance:textfield}
+
+/* Hero band */
+.q-hero{
+  background:var(--brand-burnt);color:#fff;
+  padding:16px 22px;display:flex;justify-content:space-between;align-items:center;
+  border-radius:var(--r) var(--r) 0 0;position:relative;
+  margin-top:18px;
+}
+.q-hero-left span,.q-hero-right span{
+  font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  opacity:.72;display:block;margin-bottom:3px;
+}
+.q-hero-left b{font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1;font-family:Manrope,Inter,sans-serif}
+.q-hero-right{text-align:right;cursor:pointer;position:relative}
+.q-hero-right b{font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1;font-family:Manrope,Inter,sans-serif}
+.q-hero-date-input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;z-index:2}
+.q-hero-client{
+  flex:1;text-align:center;
+  opacity:0;transform:translateY(-6px);
+  transition:opacity .22s ease,transform .22s ease;pointer-events:none;
+}
+.q-hero-client span{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.72;display:block;margin-bottom:3px}
+.q-hero-client b{font-size:16px;font-weight:700;letter-spacing:-.01em;line-height:1;font-family:Manrope,Inter,sans-serif}
+
+/* Quote layout — two-col on desktop */
+.q-shell{display:grid;grid-template-columns:1fr 268px;gap:14px;align-items:start;
+  background:var(--card);border:1px solid var(--line);border-radius:0 0 var(--r) var(--r);
+  box-shadow:var(--shadow);padding:14px 16px;}
+.q-left{display:flex;flex-direction:column;gap:12px;min-width:0}
+.q-right{position:sticky;top:calc(64px + var(--nav-w, 0px));display:flex;flex-direction:column;gap:9px}
+@media(max-width:860px){.q-shell{grid-template-columns:1fr}.q-right{position:static}}
+
+/* Detail grid */
+.q-details{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:640px){.q-details{grid-template-columns:1fr}}
+
+/* Section heading inside quote */
+.q-sec{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);display:flex;align-items:center;gap:7px;margin-bottom:10px}
+.q-sec::before{content:'';width:3px;height:14px;background:var(--brand);border-radius:2px;flex:none}
+.q-sec::after{content:'';flex:1;height:1px;background:var(--line)}
+
+/* Item card */
+.qi2{background:var(--card);border:1px solid var(--line);border-radius:11px;
+  overflow:hidden;box-shadow:var(--shadow);margin-bottom:8px}
+.qi2-head{display:flex;align-items:center;justify-content:space-between;
+  padding:7px 13px;background:var(--card-2, var(--bg));border-bottom:1px solid var(--line)}
+.qi2-num{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.qi2-del{background:none;border:none;cursor:pointer;color:var(--muted);
+  display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:5px}
+.qi2-del:hover{background:var(--red-bg,#FEF2F2);color:var(--red,#DC2626)}
+.qi2-body{padding:11px 13px;display:flex;flex-direction:column;gap:9px}
+
+/* Dim row: Item | L | B | H | Qty | Unit | Area | Rate  */
+.qi2-row{display:grid;grid-template-columns:1fr 62px 62px 62px 50px 68px 66px 88px;
+  gap:5px;align-items:end}
+@media(max-width:760px){.qi2-row{grid-template-columns:1fr 54px 54px 48px 68px 60px;grid-template-rows:auto auto}}
+.qi2-f{display:flex;flex-direction:column}
+.qi2-lbl{font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--muted);display:block;margin-bottom:3px;text-align:center}
+.qi2-lbl.left{text-align:left}
+.qi2-inp{padding:6px 5px;text-align:center;border:1px solid var(--line);
+  border-radius:8px;background:var(--field,var(--card));font-size:12.5px;width:100%;
+  outline:none;transition:border-color .12s;color:var(--ink)}
+.qi2-inp:focus{border-color:var(--brand);box-shadow:0 0 0 2px rgba(239,127,26,.12)}
+.qi2-inp.left{text-align:left;padding-left:8px}
+.qi2-ro{padding:6px 5px;text-align:center;border:1px solid var(--line);
+  border-radius:8px;background:var(--bg);font-size:12.5px;width:100%;color:var(--muted);
+  font-variant-numeric:tabular-nums}
+.qi2-rate-wrap{position:relative}
+.qi2-rate-sym{position:absolute;left:7px;top:50%;transform:translateY(-50%);
+  font-size:10px;color:var(--muted);pointer-events:none}
+.qi2-rate-inp{padding:6px 6px 6px 17px;text-align:right;border:1px solid var(--line);
+  border-radius:8px;background:var(--field,var(--card));font-size:12.5px;width:100%;
+  outline:none;transition:border-color .12s;color:var(--ink)}
+.qi2-rate-inp:focus{border-color:var(--brand)}
+
+/* Polish / Cushion / Amount row */
+.qi2-foot{padding:9px 13px;border-top:1px solid var(--line);
+  display:flex;align-items:center;gap:14px;background:var(--bg)}
+.qi2-chk{display:flex;align-items:center;gap:5px;cursor:pointer;
+  font-size:10.5px;font-weight:600;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+.qi2-amt-wrap{margin-left:auto;text-align:right}
+.qi2-amt-lbl{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:1px}
+.qi2-amt{font-family:Manrope,Inter,sans-serif;font-size:19px;font-weight:700;
+  color:var(--brand-burnt);letter-spacing:-.02em}
+
+/* attach row */
+.qi2-attach{padding:7px 13px;border-top:1px solid var(--line);
+  display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--brand);cursor:pointer;background:var(--card)}
+.qi2-attach:hover{background:var(--brand-bg,#FEF3E8)}
+
+/* Add item */
+.qi2-add{width:100%;padding:10px;border:1.5px dashed var(--line);
+  border-radius:11px;background:none;cursor:pointer;color:var(--muted);
+  font-size:12.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+  transition:all .13s;display:flex;align-items:center;justify-content:center;gap:7px}
+.qi2-add:hover{border-color:var(--brand);color:var(--brand);background:var(--brand-bg,#FEF3E8)}
+
+/* Summary card (right panel) */
+.qs-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:13px 14px;box-shadow:var(--shadow)}
+.qs-row{display:flex;justify-content:space-between;align-items:center;
+  padding:5px 0;border-bottom:1px dashed var(--line);font-size:12px;gap:6px}
+.qs-row:last-child{border:none}
+.qs-lbl{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.qs-seg{display:flex;border:1px solid var(--line);border-radius:7px;overflow:hidden;height:25px}
+.qs-seg button{padding:0 8px;font-size:10.5px;font-weight:700;background:var(--bg);
+  border:none;cursor:pointer;color:var(--muted);transition:all .12s}
+.qs-seg button.on{background:var(--brand);color:#fff}
+.qs-mini{width:64px;height:25px;text-align:right;font-size:12px;padding:0 6px;
+  border:1px solid var(--line);border-radius:7px;background:var(--card);outline:none;color:var(--ink)}
+.qs-mini:focus{border-color:var(--brand)}
+.qs-total{padding:9px 0 3px;border-top:2px solid var(--ink);margin-top:6px;
+  display:flex;justify-content:space-between;align-items:flex-end}
+.qs-total-lbl span{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block}
+.qs-total-lbl small{font-size:9px;color:var(--muted);font-weight:600;letter-spacing:.06em}
+.qs-total-val{font-family:Manrope,Inter,sans-serif;font-size:22px;font-weight:800;
+  letter-spacing:-.03em;color:var(--brand)}
+.qs-words{font-size:10px;color:var(--muted);font-style:italic;margin-top:4px;line-height:1.45}
+
+/* Action buttons in sidebar */
+.qs-btn{width:100%;padding:9px;border-radius:9px;font-size:12px;font-weight:700;
+  letter-spacing:.05em;text-transform:uppercase;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:6px;transition:all .12s}
+.qs-btn-prim{background:var(--brand);color:#fff;border:0;
+  box-shadow:0 2px 8px rgba(239,127,26,.28);margin-bottom:5px}
+.qs-btn-prim:hover{background:var(--brand-mid)}
+.qs-btn-out{background:none;border:1px solid var(--brand);color:var(--brand);margin-bottom:5px}
+.qs-btn-ghost{background:none;border:1px solid var(--line);color:var(--ink-2)}
+
+/* TC in sidebar */
+.qs-tc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  overflow:hidden;box-shadow:var(--shadow)}
+.qs-tc-sec{padding:8px 12px;border-bottom:1px solid var(--line)}
+.qs-tc-sec:last-child{border-bottom:0}
+.qs-tc-lbl{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--brand);margin-bottom:5px;display:block}
+.qs-tc-sec textarea{font-size:11.5px;line-height:1.65;background:var(--bg)}
+
+/* Net buttons */
+.net-btn{padding:5px 9px;border-radius:7px;border:1px solid var(--line);background:var(--bg);
+  color:var(--brand);font-size:10px;font-weight:700;letter-spacing:.04em;
+  cursor:pointer;white-space:nowrap;transition:all .12s}
+.net-btn:hover{background:var(--brand-bg,#FEF3E8);border-color:var(--brand)}
+
+/* hint line */
+.qi2-hint{font-size:11px;color:var(--muted);padding-top:2px;font-variant-numeric:tabular-nums;min-height:16px}
+
+/* Status chips in sidebar */
+.qs-status{display:flex;gap:4px}
+.qs-st{flex:1;padding:6px 4px;font-size:9.5px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;border-radius:7px;border:1px solid var(--line);
+  background:var(--bg);color:var(--muted);cursor:pointer;text-align:center;transition:all .12s}
+.qs-st.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.qs-st:not(.on):hover{border-color:var(--brand);color:var(--brand)}
+
 /* ═══════════════ PRINT ═══════════════ */
 #printArea{display:none}
 @media print{
@@ -554,13 +716,25 @@ const firebaseConfig = {
   appId: "1:1084205045390:web:db770649eb7314c49c5bdf"
 };
 
-const APP_VERSION = '1.2.0';
+const APP_VERSION = '1.3.0';
 // ── CHANGELOG ────────────────────────────────────────────────
 // Newest first. CHANGELOG[0].v must always equal APP_VERSION.
 // Adding an entry here is the whole release process — the What's New
 // modal, the Settings screen and the version footer all read from it.
 // Write items as plain sentences about what changed for the user.
 const CHANGELOG = [{
+  v: '1.3.0',
+  date: '28 Jul 2026',
+  items: [
+    'Quotation form completely redesigned — TimberCraft-style layout with a sticky orange header band.',
+    'Client Details and Project Details side by side above the items list.',
+    'Items now follow L | B | H | Qty | Unit | Area | Rate in one row, matching QuotePro style.',
+    'With Polish and With Cushion checkboxes per item, plus a description field.',
+    'Sticky Quotation Summary sidebar on the right — visible as you scroll through items.',
+    'Terms and Conditions split into six editable sections inside the sidebar.',
+    'Quote number auto-generated in AF-Wood-YY-YY-NNN format. Date editable by clicking the header band.'
+  ]
+}, {
   v: '1.2.0',
   date: '27 Jul 2026',
   items: [
@@ -1626,353 +1800,428 @@ function openQuote(id) {
    QUOTES — EDITOR
    ══════════════════════════════════════════════════════════ */
 
-function renderQuote() {
-  const q = S.quote;
-  const revs = S.quotes.filter(x => x.quoteNo === q.quoteNo).sort((a,b) => n(a.revision) - n(b.revision));
-
-  $('vQuoteEdit').innerHTML = `
-    <div class="sec" style="margin-top:14px">
-      <div class="card" style="padding:15px">
-        <div class="row">
-          <label class="f"><span>Quote no.</span>
-            <input class="inp" id="qNo" value="${esc(q.quoteNo)}"></label>
-          <label class="f"><span>Date</span>
-            <input class="inp" id="qDate" type="date" value="${esc(q.date)}"></label>
-        </div>
-        ${n(q.revision) > 1 ? `<div class="badge b-amber" style="margin-bottom:11px;display:inline-block">Revision ${q.revision}</div>` : ''}
-        <label class="f"><span>Customer name</span>
-          <input class="inp" id="qName" placeholder="e.g. Sandip Borkar" value="${esc(q.customer.name)}"></label>
-        <div class="fgrid">
-          <label class="f"><span>Phone</span>
-            <input class="inp num" id="qPhone" inputmode="tel" value="${esc(q.customer.phone)}"></label>
-          <label class="f"><span>Valid for (days)</span>
-            <input class="inp num" id="qValid" inputmode="numeric" value="${esc(q.validityDays)}"></label>
-        </div>
-        <label class="f" style="margin-bottom:0"><span>Address</span>
-          <textarea class="inp" id="qAddr" rows="2" placeholder="Site / delivery address">${esc(q.customer.address)}</textarea></label>
-      </div>
-    </div>
-
-    <div class="sec">
-      <p class="sec-t">Items</p>
-      ${q.items.map((it, i) => renderQItem(it, i)).join('')}
-      <button class="btn btn-s btn-full" id="qAddItem" style="margin-top:4px">+ Add item</button>
-    </div>
-
-    ${renderQuoteTotals(q)}
-
-    <div class="sec">
-      <p class="sec-t">Terms &amp; conditions</p>
-      <textarea class="inp" id="qTerms" rows="5">${esc(q.terms)}</textarea>
-    </div>
-
-    <div class="sec">
-      <p class="sec-t">Status</p>
-      <div class="chips">
-        ${['Draft','Sent','Accepted','Rejected'].map(st =>
-          `<button class="chip ${q.status===st?'on':''}" data-st="${st}">${st}</button>`).join('')}
-      </div>
-    </div>
-
-    <div class="sec" style="display:flex;gap:9px;flex-wrap:wrap">
-      <button class="btn btn-p" id="qPdf" style="flex:1;min-width:140px">Save as PDF</button>
-      <button class="btn btn-s" id="qWa" style="flex:1;min-width:140px">Send on WhatsApp</button>
-    </div>
-    <div class="sec" style="display:flex;gap:9px;margin-bottom:30px">
-      <button class="btn btn-s" id="qRev" style="flex:1">New revision</button>
-      <button class="btn btn-s" id="qDup" style="flex:1">Duplicate</button>
-      <button class="btn btn-d" id="qDel" style="flex:1">Delete</button>
-    </div>
-    ${revs.length > 1 ? `<p style="text-align:center;color:var(--muted);font-size:12.5px;margin-bottom:26px">
-      ${revs.length} revisions of ${esc(q.quoteNo)}</p>` : ''}`;
-
-  wireQuote();
+function genWoodQuoteNo(settings) {
+  const now = new Date();
+  const yr  = now.getMonth() >= 3 ? now.getFullYear() : now.getFullYear() - 1;
+  const fy  = String(yr).slice(-2) + '-' + String(yr+1).slice(-2);
+  const seq = String(n(settings.nextQuoteNo)).padStart(3,'0');
+  return `AF-Wood-${fy}-${seq}`;
 }
 
-function unitSel(di, dk, val) {
-  return `<select class="qf unit-sel" data-i="${di}" data-k="${dk}" style="font-size:12px;padding:5px 4px">
-    ${['ft','in','cm'].map(u => `<option value="${u}" ${val===u?'selected':''}>${u}</option>`).join('')}
-  </select>`;
+function calcQArea(it) {
+  const l=n(it.l||0), b=n(it.b||0), q=n(it.qty)||1;
+  if (it.unit==='Rf') return l;
+  if (it.unit==='Nos'||it.unit==='Pc') return 0;
+  if (it.unit==='Sqf') return l*b;
+  if (it.unit==='Cft') return l*b*(n(it.h||0)||1);
+  return l*b;
 }
-
-function dimLabel(l, b, h, lu, bu, hu, mode) {
-  const lf = toft(l, lu), bf = toft(b, bu), hf = toft(h, hu);
-  if (mode === 'sqft' && lf && bf) return `${fmt(lf*bf,2)} sq ft`;
-  if (mode === 'rft'  && lf)       return `${fmt(lf,2)} rft`;
-  if (mode === 'cft'  && lf && bf && hf) return `${fmt(lf*bf*hf,3)} cft`;
+function calcQAmt(it) {
+  const q=n(it.qty)||1, r=n(it.rate||0), area=calcQArea(it);
+  if (it.unit==='Nos'||it.unit==='Pc') return q*r;
+  return area*q*r;
+}
+function getQHint(it) {
+  const area=calcQArea(it);
+  if (!area) return '';
+  const f=(v,d)=>v.toFixed(d);
+  if (it.unit==='Rf')  return `L = ${f(n(it.l),2)} ft`;
+  if (it.unit==='Sqf') return `${f(n(it.l),2)} × ${f(n(it.b),2)} ft = ${f(area,2)} sq ft`;
+  if (it.unit==='Cft') return `${f(n(it.l),2)} × ${f(n(it.b),2)} × ${f(n(it.h),2)} ft = ${f(area,3)} cu ft`;
   return '';
 }
 
-function renderQItem(it, i) {
-  const seating = it.rateMode === 'seating';
-  const hasDims = ['rft','sqft','cft'].includes(it.rateMode);
-  const auto = dimLabel(it.l, it.b, it.h, it.lUnit||'ft', it.bUnit||'ft', it.hUnit||'in', it.rateMode);
+function blankQItem2() {
+  return { id: uid(), name:'', type:'Other', unit:'Nos',
+           l:'', b:'', h:'', qty:1, rate:'', desc:'', withPolish:false, withCushion:false };
+}
 
-  const nameFlags = `
-    <div class="qi-title">
-      <span class="qi-no">${i + 1}</span>
-      <b>${esc(it.name || 'New item')}</b>
-      <div class="qi-flags">
-        <label title="With polish"><input type="checkbox" data-i="${i}" data-k="withPolish" ${it.withPolish?'checked':''}> Polish</label>
-        <label title="With cushion"><input type="checkbox" data-i="${i}" data-k="withCushion" ${it.withCushion?'checked':''}> Cushion</label>
+function renderQuote() {
+  const q = S.quote;
+  const revs = S.quotes.filter(x => x.quoteNo === q.quoteNo).sort((a,b) => n(a.revision)-n(b.revision));
+  const qNo  = q.quoteNo || genWoodQuoteNo(S.settings);
+  const qDate= q.date ? new Date(q.date).toLocaleDateString('en-IN',{day:'2-digit',month:'2-digit',year:'numeric'}) : todayISO();
+  const sub  = q.items.reduce((s,it)=>s+calcQAmt(it),0);
+  const discV= n(q.discountValue||0);
+  const disc = q.discountMode==='pct' ? sub*discV/100 : discV;
+  const ad   = Math.max(0,sub-disc);
+  const gst  = q.gstEnabled ? ad*n(q.gstPct||18)/100 : 0;
+  const grand= ad+gst;
+  const ro   = n(q.finalOverride||grand);
+  const STATUS=['Draft','Sent','Accepted','Rejected'];
+  const TC=[
+    ['1. Payment Terms','• 50% advance at order confirmation.\n• Balance before dispatch / delivery.\n• GST @18% extra if a formal bill is required.'],
+    ['2. Delivery & Timeline','• Estimated delivery: 3–4 weeks from order confirmation and final measurements.\n• Timeline subject to material availability and design finalization.'],
+    ['3. Finish & Material','• Wood shade and grain vary naturally — exact replication not guaranteed.\n• Polish / finish type as agreed; any change will be charged extra.'],
+    ['4. Transport & Installation','• Transportation from workshop to site is included.\n• Site should be ready and accessible at the agreed time.'],
+    ['5. Estimate & Changes','• This is a tentative estimate, not a final bill.\n• Design or size changes after confirmation will be re-quoted.'],
+    ['6. What Is Not Included','• Civil, electrical or plumbing work.\n• Mattresses, cushions or fabric unless explicitly quoted.'],
+  ];
+  const TYPES=['Dining Table','Chair','Sofa','Bed','Wardrobe','Coffee Table','Other'];
+  const UNITS2=['Nos','Sqf','Cft','Rf','Pc'];
+
+  function qItem(it, idx) {
+    const area=calcQArea(it), amt=calcQAmt(it), hint=getQHint(it);
+    const aDisp=area>0?area.toFixed(2):'—';
+    const showH=it.unit==='Cft';
+    const uOpts=UNITS2.map(u=>`<option value="${u}"${it.unit===u?' selected':''}>${u}</option>`).join('');
+    const tOpts=TYPES.map(t=>`<option value="${t}"${it.type===t?' selected':''}>${t}</option>`).join('');
+    return `<div class="qi2" data-qitem="${idx}">
+      <div class="qi2-head">
+        <span class="qi2-num">Item #${idx+1}</span>
+        <button class="qi2-del" data-qdel="${idx}" title="Remove">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+        </button>
       </div>
-      <button data-idel="${i}" style="color:var(--muted);padding:4px;background:none;border:0;cursor:pointer;display:grid;place-items:center">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-    </div>`;
-
-  // Row 1: Item name · Rate mode
-  const row1 = `<div class="qi-row">
-    <div class="qf grow"><label>ITEM</label><input data-i="${i}" data-k="name" value="${esc(it.name)}" placeholder="Dining Table"></div>
-    <div class="qf" style="flex:0 0 130px"><label>RATE MODE</label>
-      <select data-i="${i}" data-k="rateMode">
-        ${RATE_MODES.map(m=>`<option value="${m.v}" ${it.rateMode===m.v?'selected':''}>${m.t}</option>`).join('')}
-      </select></div>
-  </div>`;
-
-  // Row 2: dimensions (context-aware)
-  let row2 = '';
-  if (seating) {
-    row2 = `<div class="qi-row">
-      <div class="qf num"><label>SEATS</label><input data-i="${i}" data-k="seats" inputmode="numeric" value="${esc(it.seats)}"></div>
-      <div class="qf" style="flex:0 0 80px"><label>HANDLES</label>
-        <select data-i="${i}" data-k="handles">
-          ${[0,1,2].map(hv=>`<option value="${hv}" ${n(it.handles)===hv?'selected':''}>${hv}</option>`).join('')}
-        </select></div>
-      <div class="qf num"><label>QTY</label><input data-i="${i}" data-k="qty" inputmode="decimal" value="${esc(it.qty)}"></div>
-      <div class="qf num"><label>RATE / FT</label><input data-i="${i}" data-k="rate" inputmode="decimal" value="${esc(it.rate)}"></div>
-      <div class="qi-amt num" data-amt="${i}">${money(itemAmount(it))}</div>
-    </div>
-    <div class="qi-area num" data-ft="${i}">${n(it.seats)} × 2 + ${n(it.handles)} hdl = ${fmt(itemMeasure(it),1)} ft billed</div>`;
-  } else if (hasDims) {
-    const showB = it.rateMode === 'sqft' || it.rateMode === 'cft';
-    const showH = it.rateMode === 'cft';
-    row2 = `<div class="qi-row">
-      <div class="qf dim"><label>L</label><input data-i="${i}" data-k="l" inputmode="decimal" value="${esc(it.l)}" placeholder="0"></div>
-      ${unitSel(i,'lUnit',it.lUnit||'ft')}
-      ${showB ? `<div class="qf dim"><label>B</label><input data-i="${i}" data-k="b" inputmode="decimal" value="${esc(it.b)}" placeholder="0"></div>${unitSel(i,'bUnit',it.bUnit||'ft')}` : ''}
-      ${showH ? `<div class="qf dim"><label>H</label><input data-i="${i}" data-k="h" inputmode="decimal" value="${esc(it.h)}" placeholder="0"></div>${unitSel(i,'hUnit',it.hUnit||'in')}` : ''}
-      <div class="qf num"><label>QTY</label><input data-i="${i}" data-k="qty" inputmode="decimal" value="${esc(it.qty)}"></div>
-      <div class="qf num"><label>RATE</label><input data-i="${i}" data-k="rate" inputmode="decimal" value="${esc(it.rate)}"></div>
-      <div class="qi-amt num" data-amt="${i}">${money(itemAmount(it))}</div>
-    </div>
-    ${auto ? `<div class="qi-area num">${auto}</div>` : ''}`;
-  } else {
-    // piece / lumpsum
-    row2 = `<div class="qi-row">
-      <div class="qf dim"><label>QTY</label><input data-i="${i}" data-k="qty" inputmode="decimal" value="${esc(it.qty)}"></div>
-      <div class="qf grow"><label>RATE</label><input data-i="${i}" data-k="rate" inputmode="decimal" value="${esc(it.rate)}"></div>
-      <div class="qi-amt num" data-amt="${i}">${money(itemAmount(it))}</div>
+      <div class="qi2-body">
+        <div style="display:grid;grid-template-columns:1fr 120px;gap:9px">
+          <div class="qi2-f"><label class="qi2-lbl left">Item name</label>
+            <input class="qi2-inp left" data-qi="${idx}" data-k="name" value="${esc(it.name)}" placeholder="Dining Table"></div>
+          <div class="qi2-f"><label class="qi2-lbl left">Item type</label>
+            <select class="qi2-inp left" data-qi="${idx}" data-k="type">${tOpts}</select></div>
+        </div>
+        <div class="qi2-row">
+          <div class="qi2-f"><label class="qi2-lbl left">L (ft)</label>
+            <input class="qi2-inp" data-qi="${idx}" data-k="l" type="number" value="${esc(it.l)}" placeholder="-" inputmode="decimal"></div>
+          <div class="qi2-f"><label class="qi2-lbl">B (ft)</label>
+            <input class="qi2-inp" data-qi="${idx}" data-k="b" type="number" value="${esc(it.b)}" placeholder="-" inputmode="decimal"></div>
+          <div class="qi2-f"><label class="qi2-lbl">H (ft)</label>
+            <input class="qi2-inp" data-qi="${idx}" data-k="h" type="number" value="${esc(it.h)}" placeholder="-" inputmode="decimal" ${!showH?'style="opacity:.35"':''}></div>
+          <div class="qi2-f"><label class="qi2-lbl">Qty</label>
+            <input class="qi2-inp" data-qi="${idx}" data-k="qty" type="number" value="${esc(it.qty)}" min="1" inputmode="decimal"></div>
+          <div class="qi2-f"><label class="qi2-lbl">Unit</label>
+            <select class="qi2-inp" data-qi="${idx}" data-k="unit">${uOpts}</select></div>
+          <div class="qi2-f"><label class="qi2-lbl">Area</label>
+            <input class="qi2-ro" value="${aDisp}" readonly data-qarea="${idx}"></div>
+          <div class="qi2-f"><label class="qi2-lbl">Unit Rate (₹)</label>
+            <div class="qi2-rate-wrap">
+              <span class="qi2-rate-sym">₹</span>
+              <input class="qi2-rate-inp" data-qi="${idx}" data-k="rate" type="number" value="${esc(it.rate)}" placeholder="0" inputmode="decimal">
+            </div></div>
+        </div>
+        <div class="qi2-hint" data-qhint="${idx}">${hint}</div>
+        <div class="qi2-f">
+          <label class="qi2-lbl left">Description</label>
+          <textarea class="inp" rows="2" data-qi="${idx}" data-k="desc" placeholder="Wood species, shade, finish, any notes" style="font-size:12px;line-height:1.6">${esc(it.desc||'')}</textarea>
+        </div>
+      </div>
+      <div class="qi2-foot">
+        <label class="qi2-chk"><input type="checkbox" data-qi="${idx}" data-k="withPolish" ${it.withPolish?'checked':''}> With Polish</label>
+        <label class="qi2-chk"><input type="checkbox" data-qi="${idx}" data-k="withCushion" ${it.withCushion?'checked':''}> With Cushion</label>
+        <div class="qi2-amt-wrap">
+          <span class="qi2-amt-lbl">Amount</span>
+          <span class="qi2-amt" data-qamt="${idx}">${money(amt)}</span>
+        </div>
+      </div>
+      <div class="qi2-attach">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        Attach image / sketch
+      </div>
     </div>`;
   }
 
-  // Spec (collapsible)
-  const specBlock = `
-    <button class="qi-spec-toggle" data-i="${i}" data-k="specOpen">${it.specOpen ? '▾ Specification' : '▸ Specification'}</button>
-    ${it.specOpen ? `<textarea class="inp qi-spec" data-i="${i}" data-k="spec" rows="2" placeholder="Teak wood, wood species, shade, other notes">${esc(it.spec)}</textarea>` : ''}`;
-
-  // Sub-lines
-  const subBlock = it.useSubLines ? `
-    <div style="padding:8px 12px 6px">
-      ${(it.subLines || []).map((l, j) => `
-        <div class="subline">
-          <input class="inp" data-sl="${i}" data-j="${j}" data-k="label" value="${esc(l.label)}" placeholder="Wood">
-          <input class="inp num" data-sl="${i}" data-j="${j}" data-k="amount" inputmode="decimal" value="${esc(l.amount)}">
-          <button class="del" data-sldel="${i}" data-j="${j}" style="color:var(--muted)">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-          </button>
-        </div>`).join('')}
-      <button class="btn btn-s btn-sm" data-sladd="${i}">+ Sub-line</button>
-    </div>` : '';
-
-  return `<div class="qitem" data-item="${i}">
-    ${nameFlags}
-    <div class="qi-body">
-      ${row1}${row2}
-      ${specBlock}
-    </div>
-    ${subBlock}
-    <div class="qi-foot">
-      <div class="qi-foot-left">
-        <label style="display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-2);cursor:pointer">
-          <input type="checkbox" data-i="${i}" data-k="useSubLines" ${it.useSubLines?'checked':''}> Show buildup
-        </label>
+  $('vQuoteEdit').innerHTML = `
+    <!-- HERO BAND -->
+    <div class="q-hero" id="qHeroBand">
+      <div class="q-hero-left">
+        <span>Quotation No</span>
+        <b id="qHeroNo">${esc(qNo)}</b>
+      </div>
+      <div class="q-hero-client" id="qHeroClient">
+        <span>For</span>
+        <b id="qHeroClientName">${esc(q.customer.name||'')}</b>
+      </div>
+      <div class="q-hero-right" title="Click to change date">
+        <span>Quote date <span style="opacity:.55;font-size:8px">✎</span></span>
+        <b id="qHeroDate">${qDate}</b>
+        <input type="date" id="qDate" value="${esc(q.date)}" class="q-hero-date-input" oninput="updateQHeroDate()">
       </div>
     </div>
-  </div>`;
+
+    <!-- SHELL -->
+    <div class="q-shell">
+
+      <!-- LEFT -->
+      <div class="q-left">
+
+        <!-- Client + Project details -->
+        <div class="q-details">
+          <div>
+            <p class="q-sec">Client Details</p>
+            <label class="f" style="margin-bottom:9px"><span>Full name *</span>
+              <input class="inp" id="qName" placeholder="Sandip Borkar" value="${esc(q.customer.name)}"></label>
+            <label class="f" style="margin-bottom:9px"><span>Phone</span>
+              <input class="inp num" id="qPhone" inputmode="tel" value="${esc(q.customer.phone)}"></label>
+            <label class="f"><span>Site address</span>
+              <textarea class="inp" id="qAddr" rows="3" placeholder="Site / delivery address">${esc(q.customer.address)}</textarea></label>
+          </div>
+          <div>
+            <p class="q-sec">Project Details</p>
+            <label class="f" style="margin-bottom:9px"><span>Project title</span>
+              <input class="inp" id="qProjTitle" placeholder="e.g. Bespoke Dining Suite" value="${esc(q.projectTitle||'')}"></label>
+            <label class="f" style="margin-bottom:9px"><span>Quote validity</span>
+              <div style="display:flex;gap:6px;align-items:center">
+                <input class="inp" id="qValidity" type="date" value="${esc(q.validityDate||'')}" style="flex:1">
+                <button class="net-btn" id="net15">Net 15</button>
+                <button class="net-btn" id="net30">Net 30</button>
+              </div></label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px">
+              <label class="f"><span>Est. start date</span>
+                <input class="inp" id="qEstStart" type="date" value="${esc(q.estStart||'')}"></label>
+              <label class="f"><span>Est. duration</span>
+                <input class="inp" id="qEstDur" placeholder="e.g. 4 weeks" value="${esc(q.estDuration||'')}"></label>
+            </div>
+            <label class="f"><span>Est. end date</span>
+              <input class="inp" id="qEstEnd" type="date" value="${esc(q.estEnd||'')}" readonly style="background:var(--bg);color:var(--muted)"></label>
+            ${n(q.revision)>1?`<div class="badge b-amber" style="margin-top:10px;display:inline-block">Revision ${q.revision}</div>`:''}
+          </div>
+        </div>
+
+        <!-- Items -->
+        <div>
+          <p class="q-sec">Items list</p>
+          <div id="qItems2">${q.items.map((it,i)=>qItem(it,i)).join('')}</div>
+          <button class="qi2-add" id="qAdd2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
+            Add new item
+          </button>
+        </div>
+
+      </div><!-- end left -->
+
+      <!-- RIGHT SIDEBAR -->
+      <div class="q-right">
+
+        <!-- Summary -->
+        <div class="qs-card" id="qSummary2">
+          <p class="q-sec" style="margin-bottom:10px">Quotation Summary</p>
+          <div class="qs-row"><span class="qs-lbl">Subtotal</span><b id="qs2Sub" style="font-weight:600">${money(sub)}</b></div>
+          <div class="qs-row" style="border:none;padding-bottom:3px">
+            <span class="qs-lbl">Discount</span>
+            <div style="display:flex;align-items:center;gap:5px">
+              <div class="qs-seg">
+                <button id="qsFlat" class="${q.discountMode!=='pct'?'on':''}">₹</button>
+                <button id="qsPct"  class="${q.discountMode==='pct'?'on':''}">%</button>
+              </div>
+              <input type="number" class="qs-mini" id="qs2Disc" value="${esc(q.discountValue||0)}" min="0">
+            </div>
+          </div>
+          <div class="qs-row">
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">
+              <input type="checkbox" id="qs2GstOn" ${q.gstEnabled?'checked':''}>GST
+              <input type="number" id="qs2GstPct" value="${esc(q.gstPct||18)}" class="qs-mini" style="width:40px">%
+            </label>
+            <b id="qs2Gst" style="font-weight:600">${q.gstEnabled?money(gst):'—'}</b>
+          </div>
+          <div class="qs-row"><span class="qs-lbl">Round off</span>
+            <input type="number" class="qs-mini" id="qs2Round" placeholder="${Math.round(grand)}" value="${esc(q.finalOverride||'')}" style="width:80px"></div>
+          <div class="qs-total">
+            <div class="qs-total-lbl"><span>Total Amount</span><small>INR</small></div>
+            <b class="qs-total-val" id="qs2Total">${money(ro)}</b>
+          </div>
+          <div class="qs-words" id="qs2Words">${esc(words(ro))}</div>
+        </div>
+
+        <!-- Action buttons -->
+        <button class="qs-btn qs-btn-prim" id="qPdf">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+          Save as PDF
+        </button>
+        <button class="qs-btn qs-btn-out" id="qWa">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          WhatsApp
+        </button>
+
+        <!-- Status -->
+        <div class="qs-card" style="padding:11px 13px">
+          <p class="q-sec" style="margin-bottom:9px">Status</p>
+          <div class="qs-status">
+            ${['Draft','Sent','Accepted','Rejected'].map(st=>
+              `<button class="qs-st ${q.status===st?'on':''}" data-qst="${st}">${st}</button>`).join('')}
+          </div>
+        </div>
+
+        <!-- T&C -->
+        <div class="qs-tc">
+          <div style="padding:10px 13px 6px">
+            <p class="q-sec" style="margin-bottom:10px">Terms &amp; Conditions</p>
+          </div>
+          ${TC.map(([h2,d])=>`
+            <div class="qs-tc-sec">
+              <span class="qs-tc-lbl">${esc(h2)}</span>
+              <textarea class="inp qs-tc-ta" rows="3" style="font-size:11.5px;line-height:1.65;background:var(--bg)">${esc(q.terms?.(h2)||d)}</textarea>
+            </div>`).join('')}
+        </div>
+
+        <!-- Other actions -->
+        <div style="display:flex;gap:7px;flex-wrap:wrap">
+          <button class="btn btn-s btn-sm" id="qRev" style="flex:1">New revision</button>
+          <button class="btn btn-s btn-sm" id="qDup" style="flex:1">Duplicate</button>
+          <button class="btn btn-d btn-sm" id="qDel" style="flex:1">Delete</button>
+        </div>
+        ${revs.length>1?`<p style="text-align:center;color:var(--muted);font-size:12px">${revs.length} revisions of ${esc(q.quoteNo)}</p>`:''}
+
+      </div><!-- end right -->
+    </div><!-- end shell -->
+  `;
+
+  wireQuote();
+  // scroll observer for client name
+  (function(){
+    var grid = $('vQuoteEdit').querySelector('.q-details');
+    var hc   = document.getElementById('qHeroClient');
+    var hn   = document.getElementById('qHeroClientName');
+    var ni   = document.getElementById('qName');
+    if(ni && hn){ ni.addEventListener('input', function(){ hn.textContent = ni.value.trim(); }); }
+    function chk(){
+      if(!grid||!hc)return;
+      var show = grid.getBoundingClientRect().bottom < 120;
+      hc.style.opacity   = show?'1':'0';
+      hc.style.transform = show?'translateY(0)':'translateY(-6px)';
+    }
+    window.onscroll = chk; chk();
+  })();
 }
 
-function renderQuoteTotals(q) {
-  const sub = quoteSubtotal(q);
-  const disc = discountAmount(q);
-  const gst = gstAmount(q);
-  const gt = grandTotal(q);
-  const fin = quoteFinal(q);
-  const ro = roundOff(q);
-  return `
-    <div class="sec" id="qTotals">
-      <p class="sec-t">Totals</p>
-      <div class="card" style="padding:14px 16px">
-        <div class="tot-row"><span>Subtotal</span><b class="num">${money(sub)}</b></div>
-        <div class="tot-row" style="border-bottom:0;padding-bottom:4px">
-          <span>Discount</span>
-          <div class="tot-inline">
-            <select id="dMode">
-              <option value="flat" ${q.discountMode==='flat'?'selected':''}>₹ Flat</option>
-              <option value="pct" ${q.discountMode==='pct'?'selected':''}>% Pct</option>
-            </select>
-            <input type="number" id="dVal" inputmode="decimal" placeholder="0" value="${esc(q.discountValue)}">
-            ${disc ? `<b class="num" style="color:var(--muted)">− ${money(disc)}</b>` : ''}
-          </div>
-        </div>
-        <div class="tot-row" style="padding-top:4px">
-          <label style="display:flex;align-items:center;gap:7px;font-size:13.5px;cursor:pointer">
-            <input type="checkbox" id="gstOn" ${q.gstEnabled?'checked':''}> GST
-            ${q.gstEnabled ? `<input type="number" id="gstPct" inputmode="decimal" value="${esc(q.gstPct)}" style="width:52px;padding:5px 7px;border:1px solid var(--line);border-radius:7px;background:var(--field);font-size:13px">%` : ''}
-          </label>
-          <b class="num">${money(gst)}</b>
-        </div>
-        <div class="tot-row"><span>Grand total</span><b class="num">${money(gt)}</b></div>
-        <div class="tot-row" style="border-bottom:0;padding-bottom:2px">
-          <span style="font-size:13px">Round off to</span>
-          <div class="tot-inline">
-            <input type="number" id="qFinal" inputmode="decimal" placeholder="${Math.round(gt)}" value="${esc(q.finalOverride)}"
-              style="width:108px">
-            ${Math.abs(ro) > 0.5 ? `<span class="num" style="font-size:12px;color:var(--muted)">${ro > 0 ? '+' : '−'}${money(Math.abs(ro))}</span>` : ''}
-          </div>
-        </div>
-        <div class="tot-grand"><span>Payable</span><b class="num">${money(fin)}</b></div>
-        <div class="tot-words">${esc(words(fin))}</div>
-      </div>
-    </div>`;
+window.updateQHeroDate = function(){
+  var el = document.getElementById('qDate');
+  var hd = document.getElementById('qHeroDate');
+  if(!el||!hd)return;
+  S.quote.date = el.value; S.dirty = true;
+  var d = new Date(el.value);
+  hd.textContent = isNaN(d)?el.value:d.toLocaleDateString('en-IN',{day:'2-digit',month:'2-digit',year:'numeric'});
+};
+
+function refreshQ2Totals(){
+  const q=S.quote;
+  const sub=q.items.reduce((s,it)=>s+calcQAmt(it),0);
+  const dv=n(q.discountValue||0);
+  const disc=q.discountMode==='pct'?sub*dv/100:dv;
+  const ad=Math.max(0,sub-disc);
+  const gst=q.gstEnabled?ad*n(q.gstPct||18)/100:0;
+  const grand=ad+gst;
+  const ro=n(q.finalOverride||grand)||grand;
+  const sub2=$('qs2Sub'),tot=$('qs2Total'),wds=$('qs2Words'),gstEl=$('qs2Gst');
+  if(sub2)sub2.textContent=money(sub);
+  if(tot)tot.textContent=money(ro);
+  if(wds)wds.textContent=words(ro);
+  if(gstEl)gstEl.textContent=q.gstEnabled?money(gst):'—';
+}
+
+function refreshQ2Item(idx){
+  const it=S.quote.items[idx];
+  const ae=$('vQuoteEdit').querySelector(`[data-qarea="${idx}"]`);
+  const amtEl=$('vQuoteEdit').querySelector(`[data-qamt="${idx}"]`);
+  const hintEl=$('vQuoteEdit').querySelector(`[data-qhint="${idx}"]`);
+  const area=calcQArea(it),amt=calcQAmt(it);
+  if(ae)ae.value=area>0?area.toFixed(2):'—';
+  if(amtEl)amtEl.textContent=money(amt);
+  if(hintEl)hintEl.textContent=getQHint(it);
 }
 
 function wireQuote() {
   const q = S.quote;
   const mark = () => { S.dirty = true; };
 
-  $('qNo').oninput    = e => { q.quoteNo = e.target.value; mark(); };
-  $('qDate').oninput  = e => { q.date = e.target.value; mark(); };
-  $('qName').oninput  = e => { q.customer.name = e.target.value; mark(); };
-  $('qPhone').oninput = e => { q.customer.phone = e.target.value; mark(); };
-  $('qAddr').oninput  = e => { q.customer.address = e.target.value; mark(); };
-  $('qValid').oninput = e => { q.validityDays = e.target.value; mark(); };
-  $('qTerms').oninput = e => { q.terms = e.target.value; mark(); };
+  // Header fields
+  const bind=(id,setter)=>{const el=$(id);if(el)el.oninput=e=>{setter(e.target.value);mark();};};
+  bind('qName',  v=>{q.customer.name=v; const hn=document.getElementById('qHeroClientName');if(hn)hn.textContent=v;});
+  bind('qPhone', v=>q.customer.phone=v);
+  bind('qAddr',  v=>q.customer.address=v);
+  bind('qProjTitle', v=>q.projectTitle=v);
+  bind('qEstDur',v=>{q.estDuration=v;calcQEndDate();});
+  const es=$('qEstStart'); if(es)es.oninput=e=>{q.estStart=e.target.value;mark();calcQEndDate();};
+  const vd=$('qValidity'); if(vd)vd.oninput=e=>{q.validityDate=e.target.value;mark();};
+  const n15=$('net15'); if(n15)n15.onclick=()=>setQNet(15);
+  const n30=$('net30'); if(n30)n30.onclick=()=>setQNet(30);
 
-  $('vQuoteEdit').querySelectorAll('[data-i]').forEach(el => {
-    const handler = e => {
-      const i = +e.target.dataset.i, k = e.target.dataset.k;
-      const it = q.items[i];
-      it[k] = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-      if (k === 'useSubLines' && it.useSubLines && !it.subLines.length) {
-        it.subLines = [{ label:'', amount:'' }];
+  function calcQEndDate(){
+    const s=$('qEstStart'),d=$('qEstDur'),e=$('qEstEnd');
+    if(!s||!d||!e||!s.value||!d.value)return;
+    const m=d.value.match(/(\d+)/);if(!m)return;
+    const dt=new Date(s.value);dt.setDate(dt.getDate()+parseInt(m[0])*7);
+    e.value=dt.toISOString().slice(0,10);q.estEnd=e.value;mark();
+  }
+  function setQNet(days){
+    const base=new Date($('qDate').value||Date.now());base.setDate(base.getDate()+days);
+    const val=base.toISOString().slice(0,10);
+    const vd2=$('qValidity');if(vd2){vd2.value=val;q.validityDate=val;mark();}
+  }
+
+  // Item fields
+  $('vQuoteEdit').querySelectorAll('[data-qi]').forEach(el=>{
+    const go=e=>{
+      const idx=+e.target.dataset.qi,k=e.target.dataset.k;
+      const it=q.items[idx];if(!it)return;
+      it[k]=e.target.type==='checkbox'?e.target.checked:e.target.value;
+      if(k==='type'){const RATES={'Dining Table':2200,'Chair':1800,'Sofa':3500,'Bed':2400,'Wardrobe':1600,'Coffee Table':2000};
+        if(RATES[it.type]&&!n(it.rate))it.rate=RATES[it.type];}
+      mark();refreshQ2Item(idx);refreshQ2Totals();
+      if(k==='name'){const title=$('vQuoteEdit').querySelector(`[data-qitem="${idx}"] .qi2-num`);
+        // title doesn't need update but mark dirty}
       }
-      mark();
-      if (['rateMode','useSubLines','seats','handles','specOpen'].includes(k)) renderQuote();
-      else { refreshItemAmt(i); refreshQuoteTotals(); if (k === 'name') refreshItemTitle(i); }
     };
-    if (el.tagName === 'SELECT' || el.type === 'checkbox') el.onchange = handler;
-    else el.oninput = handler;
+    if(el.tagName==='SELECT'||el.type==='checkbox')el.addEventListener('change',go);
+    else el.addEventListener('input',go);
   });
 
-  $('vQuoteEdit').querySelectorAll('[data-sl]').forEach(el => el.oninput = e => {
-    const i = +e.target.dataset.sl, j = +e.target.dataset.j, k = e.target.dataset.k;
-    q.items[i].subLines[j][k] = e.target.value;
-    mark(); refreshItemAmt(i); refreshQuoteTotals();
+  $('vQuoteEdit').querySelectorAll('[data-qdel]').forEach(b=>b.onclick=()=>{
+    if(q.items.length===1){toast('A quote needs at least one item');return;}
+    q.items.splice(+b.dataset.qdel,1);mark();renderQuote();
   });
-  $('vQuoteEdit').querySelectorAll('[data-sladd]').forEach(b => b.onclick = () => {
-    q.items[+b.dataset.sladd].subLines.push({ label:'', amount:'' }); mark(); renderQuote();
-  });
-  $('vQuoteEdit').querySelectorAll('[data-sldel]').forEach(b => b.onclick = () => {
-    q.items[+b.dataset.sldel].subLines.splice(+b.dataset.j, 1); mark(); renderQuote();
-  });
-  $('vQuoteEdit').querySelectorAll('[data-idel]').forEach(b => b.onclick = () => {
-    if (q.items.length === 1) { toast('A quote needs at least one item'); return; }
-    q.items.splice(+b.dataset.idel, 1); mark(); renderQuote();
-  });
-  $('qAddItem').onclick = () => { q.items.push(blankItem()); mark(); renderQuote(); };
+  const qa=$('qAdd2');if(qa)qa.onclick=()=>{q.items.push(blankQItem2());mark();renderQuote();};
 
-  $('vQuoteEdit').querySelectorAll('[data-st]').forEach(b => b.onclick = () => {
-    q.status = b.dataset.st; mark(); renderQuote();
+  // Status
+  $('vQuoteEdit').querySelectorAll('[data-qst]').forEach(b=>b.onclick=()=>{
+    q.status=b.dataset.qst;mark();renderQuote();
   });
 
-  wireQuoteTotals();
+  // Summary inputs
+  const qsFlat=$('qsFlat'),qsPct=$('qsPct');
+  if(qsFlat)qsFlat.onclick=()=>{q.discountMode='flat';mark();qsFlat.classList.add('on');qsPct.classList.remove('on');refreshQ2Totals();};
+  if(qsPct)qsPct.onclick= ()=>{q.discountMode='pct'; mark();qsPct.classList.add('on');qsFlat.classList.remove('on');refreshQ2Totals();};
+  const qd2=$('qs2Disc');if(qd2)qd2.oninput=e=>{q.discountValue=e.target.value;mark();refreshQ2Totals();};
+  const qg=$('qs2GstOn');if(qg)qg.onchange=e=>{q.gstEnabled=e.target.checked;mark();refreshQ2Totals();};
+  const qgp=$('qs2GstPct');if(qgp)qgp.oninput=e=>{q.gstPct=e.target.value;mark();refreshQ2Totals();};
+  const qr2=$('qs2Round');if(qr2)qr2.oninput=e=>{q.finalOverride=e.target.value;mark();refreshQ2Totals();};
 
+  // PDF / WhatsApp / revision
   $('qPdf').onclick = () => printQuote(q);
   $('qWa').onclick  = () => shareWhatsApp(q);
 
   $('qRev').onclick = async () => {
     if (!q.id) { toast('Save this quote first'); return; }
     const copy = hydrateQuote(JSON.parse(JSON.stringify(q)));
-    copy.id = null;
-    copy.revision = n(q.revision) + 1;
-    copy.date = todayISO();
-    copy.status = 'Draft';
+    copy.id = null; copy.revision = n(q.revision)+1; copy.date = todayISO(); copy.status = 'Draft';
     S.quote = copy; S.dirty = true;
     renderQuote();
-    show('quoteEdit','Quotation',{ back:true, navKey:'home', action:'Save', onAction:() => saveQuote() });
+    show('quoteEdit','Quotation',{back:true,navKey:'home',action:'Save',onAction:()=>saveQuote()});
     toast(`Revision ${copy.revision} started — save to keep it`);
   };
   $('qDup').onclick = () => {
     const copy = hydrateQuote(JSON.parse(JSON.stringify(q)));
-    copy.id = null; copy.revision = 1;
-    copy.quoteNo = `${S.settings.quotePrefix}-${String(n(S.settings.nextQuoteNo)).padStart(3,'0')}`;
-    copy.date = todayISO(); copy.status = 'Draft';
-    S.quote = copy; S.dirty = true;
+    copy.id=null;copy.revision=1;
+    copy.quoteNo=genWoodQuoteNo(S.settings);
+    copy.date=todayISO();copy.status='Draft';
+    S.quote=copy;S.dirty=true;
     renderQuote();
-    show('quoteEdit','New quotation',{ back:true, navKey:'home', action:'Save', onAction:() => saveQuote() });
+    show('quoteEdit','New quotation',{back:true,navKey:'home',action:'Save',onAction:()=>saveQuote()});
     toast('Duplicated — save to keep it');
   };
   $('qDel').onclick = () => {
     if (!q.id) { goBack(); return; }
-    confirmBox('Delete this quotation?', 'This revision will be removed. Other revisions stay.', 'Delete',
-      async () => {
-        await deleteDoc(doc(db, C_QUOTES, q.id));
-        S.dirty = false; S.quote = null;
-        goHome();
-        toast('Quotation deleted');
-      });
+    confirmBox('Delete this quotation?','This revision will be removed. Other revisions stay.','Delete',async()=>{
+      await deleteDoc(doc(db, C_QUOTES, q.id));
+      S.dirty=false;S.quote=null;goHome();toast('Quotation deleted');
+    });
   };
 }
 
-function wireQuoteTotals() {
-  const q = S.quote;
-  const dm = $('dMode');   if (dm) dm.onchange = e => { q.discountMode = e.target.value; S.dirty = true; refreshQuoteTotals(); };
-  const dv = $('dVal');    if (dv) dv.oninput  = e => { q.discountValue = e.target.value; S.dirty = true; refreshQuoteTotals(); };
-  const go = $('gstOn');   if (go) go.onchange = e => { q.gstEnabled = e.target.checked; S.dirty = true; refreshQuoteTotals(); };
-  const gp = $('gstPct');  if (gp) gp.oninput  = e => { q.gstPct = e.target.value; S.dirty = true; refreshQuoteTotals(); };
-  const qf = $('qFinal');  if (qf) qf.oninput  = e => { q.finalOverride = e.target.value; S.dirty = true; refreshQuoteTotals(); };
-}
-function refreshQuoteTotals() {
-  const cur = $('qTotals');
-  if (!cur) return;
-  const focused = document.activeElement ? document.activeElement.id : null;
-  const pos = document.activeElement && document.activeElement.selectionStart;
-  cur.outerHTML = renderQuoteTotals(S.quote);
-  wireQuoteTotals();
-  if (focused && $(focused)) {
-    const el = $(focused); el.focus();
-    try { el.setSelectionRange(pos, pos); } catch (e) {}
-  }
-}
-function refreshItemAmt(i) {
-  const box = $('vQuoteEdit').querySelector(`[data-item="${i}"]`);
-  if (!box) return;
-  const it = S.quote.items[i];
-  const b = box.querySelector(`[data-amt="${i}"]`);
-  if (b) b.textContent = money(itemAmount(it));
-  const ft = box.querySelector('[data-ft]');
-  if (ft) ft.textContent = `${n(it.seats)} × 2 + ${n(it.handles)} hdl = ${fmt(itemMeasure(it),1)} ft billed`;
-  const ar = box.querySelector('.qi-area');
-  if (ar && !ft) {
-    const au = dimLabel(it.l, it.b, it.h, it.lUnit||'ft', it.bUnit||'ft', it.hUnit||'in', it.rateMode);
-    ar.textContent = au;
-  }
-}
-function refreshItemTitle(i) {
-  const box = $('vQuoteEdit').querySelector(`[data-item="${i}"] .qi-title b`);
-  if (box) box.textContent = S.quote.items[i].name || 'New item';
-}
+// Keep these stubs so the app doesn't crash on old references
+function renderQItem(){} function renderQuoteTotals(){return'';}
+function wireQuoteTotals(){} function refreshQuoteTotals(){}
+function refreshItemAmt(i){ refreshQ2Item(i); }
+function refreshItemTitle(){}
 
 /* ══════════════════════════════════════════════════════════
    PDF / SHARE
