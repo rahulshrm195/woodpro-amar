@@ -2049,7 +2049,7 @@ function renderQuote() {
           ${TC.map(([h2,d])=>`
             <div class="qs-tc-sec">
               <span class="qs-tc-lbl">${esc(h2)}</span>
-              <textarea class="inp qs-tc-ta" rows="3" style="font-size:11.5px;line-height:1.65;background:var(--bg)">${esc(q.terms?.(h2)||d)}</textarea>
+              <textarea class="inp qs-tc-ta" rows="3" style="font-size:11.5px;line-height:1.65;background:var(--bg)">${esc(d)}</textarea>
             </div>`).join('')}
         </div>
 
